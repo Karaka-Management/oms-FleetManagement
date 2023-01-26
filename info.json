@@ -1,0 +1,49 @@
+{
+    "name": {
+        "id": 1003500000,
+        "internal": "FleetManagement",
+        "external": "Fleet Management"
+    },
+    "category": "Fleet",
+    "version": "1.0.0",
+    "requirements": {
+        "phpOMS": "1.0.0",
+        "phpOMS-db": "1.0.0"
+    },
+    "creator": {
+        "name": "Karaka",
+        "website": "jingga.app"
+    },
+    "description": "The buisness module.",
+    "directory": "FleetManagement",
+    "dependencies": {
+        "Admin": "1.0.0",
+        "Profile": "1.0.0",
+        "Media": "1.0.0",
+        "Editor": "1.0.0"
+    },
+    "providing": {
+        "Navigation": "*",
+        "Media": "*"
+    },
+    "load": [
+        {
+            "pid": [
+                "/fleet"
+            ],
+            "type": 4,
+            "for": 0,
+            "from": "FleetManagement",
+            "file": "FleetManagement"
+        },
+        {
+            "pid": [
+                "/"
+            ],
+            "type": 5,
+            "from": "FleetManagement",
+            "for": "Navigation",
+            "file": "Navigation"
+        }
+    ]
+}

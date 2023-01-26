@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1003501001,
+        "pid": "/",
+        "type": 2,
+        "subtype": 0,
+        "name": "FleetManagement",
+        "uri": null,
+        "target": "self",
+        "icon": "fa fa-car",
+        "order": 80,
+        "from": "FleetManagement",
+        "permission": { "permission": 2, "category": null, "element": null },
+        "parent": 0,
+        "children": [
+            {
+                "id": 1003502001,
+                "pid": "/",
+                "type": 2,
+                "subtype": 1,
+                "name": "Vehicles",
+                "uri": "{/lang}/{/app}/fleet/client/list",
+                "target": "self",
+                "icon": null,
+                "order": 1,
+                "from": "FleetManagement",
+                "permission": { "permission": 2, "category": null, "element": null },
+                "parent": 1003501001,
+                "children": [
+                    {
+                        "id": 1003502101,
+                        "pid": "/fleet/vehicle",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "List",
+                        "uri": "{/lang}/{/app}/fleet/vehicle/list",
+                        "target": "self",
+                        "icon": null,
+                        "order": 1,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 2, "category": null, "element": null },
+                        "parent": 1003502001,
+                        "children": []
+                    },
+                    {
+                        "id": 1003502201,
+                        "pid": "/fleet/vehicle",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Create",
+                        "uri": "{/lang}/{/app}/fleet/vehicle/create?{?}",
+                        "target": "self",
+                        "icon": null,
+                        "order": 1,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 4, "category": null, "element": null },
+                        "parent": 1003502001,
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": 1003503001,
+                "pid": "/",
+                "type": 2,
+                "subtype": 1,
+                "name": "Attributes",
+                "uri": "{/lang}/{/app}/fleet/vehicle/attribute/type/list?{?}",
+                "target": "self",
+                "icon": null,
+                "order": 5,
+                "from": "FleetManagement",
+                "permission": { "permission": 2, "category": null, "element": null },
+                "parent": 1003501001,
+                "children": [
+                    {
+                        "id": 1003503101,
+                        "pid": "/sales",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Types",
+                        "uri": "{/lang}/{/app}/fleet/vehicle/attribute/type/list?{?}",
+                        "target": "self",
+                        "icon": null,
+                        "order": 15,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 2, "category": null, "element": null },
+                        "parent": 1003503001,
+                        "children": []
+                    },
+                    {
+                        "id": 1003503201,
+                        "pid": "/sales",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Values",
+                        "uri": "{/lang}/{/app}/fleet/vehicle/attribute/value/list?{?}",
+                        "target": "self",
+                        "icon": null,
+                        "order": 15,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 2, "category": null, "element": null },
+                        "parent": 1003503001,
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]
