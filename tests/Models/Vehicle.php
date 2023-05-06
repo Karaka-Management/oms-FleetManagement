@@ -16,5 +16,5 @@ namespace Modules\FleetManagement\Models;
 
 class Vehicle
 {
-    protected int $id = 0;
+    public int $id = 0;
 }
