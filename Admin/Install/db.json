@@ -1,4 +1,100 @@
 {
+    "fleetmgmt_fuel_type": {
+        "name": "fleetmgmt_fuel_type",
+        "fields": {
+            "fleetmgmt_fuel_type_id": {
+                "name": "fleetmgmt_fuel_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_fuel_type_name": {
+                "name": "fleetmgmt_fuel_type_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "fleetmgmt_fuel_type_l11n": {
+        "name": "fleetmgmt_fuel_type_l11n",
+        "fields": {
+            "fleetmgmt_fuel_type_l11n_id": {
+                "name": "fleetmgmt_fuel_type_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_fuel_type_l11n_title": {
+                "name": "fleetmgmt_fuel_type_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_fuel_type_l11n_type": {
+                "name": "fleetmgmt_fuel_type_l11n_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_fuel_type",
+                "foreignKey": "fleetmgmt_fuel_type_id"
+            },
+            "fleetmgmt_fuel_type_l11n_lang": {
+                "name": "fleetmgmt_fuel_type_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
+    "fleetmgmt_vehicle_type": {
+        "name": "fleetmgmt_vehicle_type",
+        "fields": {
+            "fleetmgmt_vehicle_type_id": {
+                "name": "fleetmgmt_vehicle_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_vehicle_type_name": {
+                "name": "fleetmgmt_vehicle_type_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "fleetmgmt_vehicle_type_l11n": {
+        "name": "fleetmgmt_vehicle_type_l11n",
+        "fields": {
+            "fleetmgmt_vehicle_type_l11n_id": {
+                "name": "fleetmgmt_vehicle_type_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_vehicle_type_l11n_title": {
+                "name": "fleetmgmt_vehicle_type_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_vehicle_type_l11n_type": {
+                "name": "fleetmgmt_vehicle_type_l11n_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_vehicle_type",
+                "foreignKey": "fleetmgmt_vehicle_type_id"
+            },
+            "fleetmgmt_vehicle_type_l11n_lang": {
+                "name": "fleetmgmt_vehicle_type_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
     "fleetmgmt_vehicle": {
         "name": "fleetmgmt_vehicle",
         "fields": {
@@ -9,6 +105,11 @@
                 "primary": true,
                 "autoincrement": true
             },
+            "fleetmgmt_vehicle_name": {
+                "name": "fleetmgmt_vehicle_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
             "fleetmgmt_vehicle_status": {
                 "name": "fleetmgmt_vehicle_status",
                 "type": "TINYINT",
@@ -16,8 +117,15 @@
             },
             "fleetmgmt_vehicle_type": {
                 "name": "fleetmgmt_vehicle_type",
-                "type": "TINYINT",
-                "null": false
+                "type": "INT",
+                "foreignTable": "fleetmgmt_vehicle_type",
+                "foreignKey": "fleetmgmt_vehicle_type_id"
+            },
+            "fleetmgmt_vehicle_fuel": {
+                "name": "fleetmgmt_vehicle_fuel",
+                "type": "INT",
+                "foreignTable": "fleetmgmt_fuel_type",
+                "foreignKey": "fleetmgmt_fuel_type_id"
             },
             "fleetmgmt_vehicle_info": {
                 "name": "fleetmgmt_vehicle_info",
@@ -32,7 +140,8 @@
             "fleetmgmt_vehicle_responsible": {
                 "name": "fleetmgmt_vehicle_responsible",
                 "type": "INT",
-                "null": false,
+                "null": true,
+                "default": true,
                 "foreignTable": "account",
                 "foreignKey": "account_id"
             },
@@ -43,41 +152,6 @@
                 "null": true,
                 "foreignTable": "unit",
                 "foreignKey": "unit_id"
-            }
-        }
-    },
-    "fleetmgmt_vehicle_responsible": {
-        "name": "fleetmgmt_vehicle_responsible",
-        "fields": {
-            "fleetmgmt_vehicle_responsible_id": {
-                "name": "fleetmgmt_vehicle_responsible_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
-            },
-            "fleetmgmt_vehicle_responsible_description": {
-                "name": "fleetmgmt_vehicle_responsible_description",
-                "type": "TEXT",
-                "null": false
-            },
-            "fleetmgmt_vehicle_responsible_account": {
-                "name": "fleetmgmt_vehicle_responsible_account",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "account",
-                "foreignKey": "account_id"
-            },
-            "fleetmgmt_vehicle_responsible_start": {
-                "name": "fleetmgmt_vehicle_responsible_start",
-                "type": "DATETIME",
-                "null": false
-            },
-            "fleetmgmt_vehicle_responsible_end": {
-                "name": "fleetmgmt_vehicle_responsible_end",
-                "type": "DATETIME",
-                "null": true,
-                "default": null
             }
         }
     },
@@ -326,8 +400,8 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_vehicle_attr_vehicle": {
-                "name": "fleetmgmt_vehicle_attr_vehicle",
+            "fleetmgmt_vehicle_attr_item": {
+                "name": "fleetmgmt_vehicle_attr_item",
                 "type": "INT(11)",
                 "null": false,
                 "foreignTable": "fleetmgmt_vehicle",
@@ -360,19 +434,19 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_vehicle_media_dst": {
-                "name": "fleetmgmt_vehicle_media_dst",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "media",
-                "foreignKey": "media_id"
-            },
-            "fleetmgmt_vehicle_media_src": {
-                "name": "fleetmgmt_vehicle_media_src",
+            "fleetmgmt_vehicle_media_vehicle": {
+                "name": "fleetmgmt_vehicle_media_vehicle",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "fleetmgmt_vehicle",
                 "foreignKey": "fleetmgmt_vehicle_id"
+            },
+            "fleetmgmt_vehicle_media_media": {
+                "name": "fleetmgmt_vehicle_media_media",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
             }
         }
     },
@@ -386,19 +460,19 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_vehicle_note_dst": {
-                "name": "fleetmgmt_vehicle_note_dst",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "editor_doc",
-                "foreignKey": "editor_doc_id"
-            },
-            "fleetmgmt_vehicle_note_src": {
-                "name": "fleetmgmt_vehicle_note_src",
+            "fleetmgmt_vehicle_note_item": {
+                "name": "fleetmgmt_vehicle_note_item",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "fleetmgmt_vehicle",
                 "foreignKey": "fleetmgmt_vehicle_id"
+            },
+            "fleetmgmt_vehicle_note_doc": {
+                "name": "fleetmgmt_vehicle_note_doc",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "editor_doc",
+                "foreignKey": "editor_doc_id"
             }
         }
     }

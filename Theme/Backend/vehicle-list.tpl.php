@@ -17,13 +17,13 @@ use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
-$clients = $this->getData('client');
+$vehicles = $this->getData('vehicles') ?? [];
 
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <section class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Clients'); ?><i class="fa fa-download floatRight download btn"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Vehicles'); ?><i class="fa fa-download floatRight download btn"></i></div>
             <div class="slider">
             <table id="iSalesClientList" class="default sticky">
                 <thead>
@@ -41,7 +41,7 @@ echo $this->getData('nav')->render(); ?>
                         <label>
                             <i class="filter fa fa-filter"></i>
                         </label>
-                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                    <td><?= $this->getHtml('Status'); ?>
                         <label for="iSalesClientList-sort-3">
                             <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-3">
                             <i class="sort-asc fa fa-chevron-up"></i>
@@ -53,7 +53,7 @@ echo $this->getData('nav')->render(); ?>
                         <label>
                             <i class="filter fa fa-filter"></i>
                         </label>
-                    <td><?= $this->getHtml('City'); ?>
+                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
                         <label for="iSalesClientList-sort-5">
                             <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-5">
                             <i class="sort-asc fa fa-chevron-up"></i>
@@ -65,7 +65,7 @@ echo $this->getData('nav')->render(); ?>
                         <label>
                             <i class="filter fa fa-filter"></i>
                         </label>
-                    <td><?= $this->getHtml('Zip'); ?>
+                    <td><?= $this->getHtml('Type'); ?>
                         <label for="iSalesClientList-sort-7">
                             <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-7">
                             <i class="sort-asc fa fa-chevron-up"></i>
@@ -77,37 +77,13 @@ echo $this->getData('nav')->render(); ?>
                         <label>
                             <i class="filter fa fa-filter"></i>
                         </label>
-                    <td><?= $this->getHtml('Address'); ?>
-                        <label for="iSalesClientList-sort-9">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-9">
-                            <i class="sort-asc fa fa-chevron-up"></i>
-                        </label>
-                        <label for="iSalesClientList-sort-10">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-10">
-                            <i class="sort-desc fa fa-chevron-down"></i>
-                        </label>
-                        <label>
-                            <i class="filter fa fa-filter"></i>
-                        </label>
-                    <td><?= $this->getHtml('Country'); ?>
-                        <label for="iSalesClientList-sort-11">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-11">
-                            <i class="sort-asc fa fa-chevron-up"></i>
-                        </label>
-                        <label for="iSalesClientList-sort-12">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-12">
-                            <i class="sort-desc fa fa-chevron-down"></i>
-                        </label>
-                        <label>
-                            <i class="filter fa fa-filter"></i>
-                        </label>
                 <tbody>
-                <?php $count = 0; foreach ($clients as $key => $value) : ++$count;
-                 $url        = UriFactory::build('{/base}/sales/client/profile?{?}&id=' . $value->id);
-                 $image      = $value->getFileByTypeName('client_profile_image');
+                <?php $count = 0; foreach ($vehicles as $key => $value) : ++$count;
+                 $url        = UriFactory::build('{/base}/sales/vehicle/profile?{?}&id=' . $value->id);
+                 $image      = $value->getFileByTypeName('vehicle_profile_image');
                  ?>
                 <tr data-href="<?= $url; ?>">
-                    <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_client'); ?>" width="30" loading="lazy" class="item-image"
+                    <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_vehicle'); ?>" width="30" loading="lazy" class="item-image"
                             src="<?= $image->id === 0 ?
                                 UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
                                 UriFactory::build('{/base}/' . $image->getPath()); ?>"></a>

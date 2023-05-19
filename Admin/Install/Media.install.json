@@ -5,5 +5,12 @@
         "name": "FleetManagement",
         "virtualPath": "/Modules",
         "user": 1
+    },
+    {
+        "type": "collection",
+        "create_directory": true,
+        "name": "Vehicle",
+        "virtualPath": "/Modules/FleetManagement",
+        "user": 1
     }
 ]

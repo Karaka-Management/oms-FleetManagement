@@ -19,7 +19,7 @@
                 "type": 2,
                 "subtype": 1,
                 "name": "Vehicles",
-                "uri": "{/base}/fleet/client/list",
+                "uri": "{/base}/fleet/vehicle/list",
                 "target": "self",
                 "icon": null,
                 "order": 1,

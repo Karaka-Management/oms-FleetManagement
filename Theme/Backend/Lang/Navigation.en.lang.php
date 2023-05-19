@@ -13,7 +13,6 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Client'   => 'Client',
-    'Region'   => 'Region',
-    'SalesRep' => 'SalesRep',
+    'FleetManagement'   => 'Fleet Management',
+    'Vehicles'   => 'Vehicles',
 ]];

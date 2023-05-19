@@ -1,0 +1,135 @@
+[
+    {
+        "name": "car",
+        "l11n": {
+            "en": "Car",
+            "de": "Auto"
+        }
+    },
+    {
+        "name": "truck",
+        "l11n": {
+            "en": "Truck",
+            "de": "LKW"
+        }
+    },
+    {
+        "name": "motorcycle",
+        "l11n": {
+            "en": "Motorcycle",
+            "de": "Motorrad"
+        }
+    },
+    {
+        "name": "bicycle",
+        "l11n": {
+            "en": "Bicycle",
+            "de": "Fahrrad"
+        }
+    },
+    {
+        "name": "bus",
+        "l11n": {
+            "en": "Bus",
+            "de": "Bus"
+        }
+    },
+    {
+        "name": "boat",
+        "l11n": {
+            "en": "Boat",
+            "de": "Boot"
+        }
+    },
+    {
+        "name": "airplane",
+        "l11n": {
+            "en": "Airplane",
+            "de": "Flugzeug"
+        }
+    },
+    {
+        "name": "helicopter",
+        "l11n": {
+            "en": "Helicopter",
+            "de": "Hubschrauber"
+        }
+    },
+    {
+        "name": "train",
+        "l11n": {
+            "en": "Train",
+            "de": "Zug"
+        }
+    },
+    {
+        "name": "scooter",
+        "l11n": {
+            "en": "Scooter",
+            "de": "Roller"
+        }
+    },
+    {
+        "name": "moped",
+        "l11n": {
+            "en": "Moped",
+            "de": "Moped"
+        }
+    },
+    {
+        "name": "RV",
+        "l11n": {
+            "en": "Recreational Vehicle",
+            "de": "Wohnmobil"
+        }
+    },
+    {
+        "name": "tractor",
+        "l11n": {
+            "en": "Tractor",
+            "de": "Traktor"
+        }
+    },
+    {
+        "name": "forklift",
+        "l11n": {
+            "en": "Forklift",
+            "de": "Gabelstapler"
+        }
+    },
+    {
+        "name": "skateboard",
+        "l11n": {
+            "en": "Skateboard",
+            "de": "Skateboard"
+        }
+    },
+    {
+        "name": "snowmobile",
+        "l11n": {
+            "en": "Snowmobile",
+            "de": "Schneemobil"
+        }
+    },
+    {
+        "name": "jet_ski",
+        "l11n": {
+            "en": "Jet Ski",
+            "de": "Jet Ski"
+        }
+    },
+    {
+        "name": "quad_bike",
+        "l11n": {
+            "en": "Quad Bike",
+            "de": "Quad Bike"
+        }
+    },
+    {
+        "name": "golf_cart",
+        "l11n": {
+            "en": "Golf Cart",
+            "de": "Golf Cart"
+        }
+    }
+]
