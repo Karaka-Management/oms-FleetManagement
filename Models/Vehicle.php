@@ -40,11 +40,7 @@ class Vehicle implements \JsonSerializable
 
     public array $inspections = [];
 
-    public array $attributes = [];
-
     public array $milage = [];
-
-    public array $media = [];
 
     public array $notes = [];
 
@@ -78,4 +74,7 @@ class Vehicle implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    use \Modules\Media\Models\MediaListTrait;
+    use \Modules\Attribute\Models\AttributeHolderTrait;
 }

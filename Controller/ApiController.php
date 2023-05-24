@@ -536,7 +536,9 @@ final class ApiController extends Controller
     private function validateVehicleCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['name'] = !$request->hasData('name'))) {
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['type'] = !$request->hasData('type'))
+        ) {
             return $val;
         }
 
@@ -1080,7 +1082,7 @@ final class ApiController extends Controller
                     $vehicle->id,
                     $media->id,
                     VehicleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -1128,14 +1130,14 @@ final class ApiController extends Controller
                     $vehicle->id,
                     (int) $media,
                     VehicleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
             }
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Media', 'Media added to bill.', [
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Media', 'Media added to vehicle.', [
             'upload' => $uploaded,
             'media'  => $mediaFiles,
         ]);
@@ -1154,7 +1156,6 @@ final class ApiController extends Controller
     {
         return '/Modules/FleetManagement/Vehicle/'
             . $this->app->unitId . '/'
-            . $vehicle->createdAt->format('Y/m/d') . '/'
             . $vehicle->id;
     }
 

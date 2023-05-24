@@ -13,7 +13,6 @@
  */
 declare(strict_types=1);
 
-use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
@@ -78,21 +77,18 @@ echo $this->getData('nav')->render(); ?>
                             <i class="filter fa fa-filter"></i>
                         </label>
                 <tbody>
-                <?php $count = 0; foreach ($vehicles as $key => $value) : ++$count;
-                 $url        = UriFactory::build('{/base}/sales/vehicle/profile?{?}&id=' . $value->id);
-                 $image      = $value->getFileByTypeName('vehicle_profile_image');
-                 ?>
+                <?php
+                    $count = 0;
+                    foreach ($vehicles as $key => $value) :
+                        ++$count;
+                        $url = UriFactory::build('{/base}/fleet/vehicle/profile?{?}&id=' . $value->id);
+                ?>
                 <tr data-href="<?= $url; ?>">
-                    <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_vehicle'); ?>" width="30" loading="lazy" class="item-image"
-                            src="<?= $image->id === 0 ?
-                                UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                UriFactory::build('{/base}/' . $image->getPath()); ?>"></a>
-                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->number); ?></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->profile->account->name1); ?> <?= $this->printHtml($value->profile->account->name2); ?></a>
-                    <td data-label="<?= $this->getHtml('City'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->mainAddress->city); ?></a>
-                    <td data-label="<?= $this->getHtml('Zip'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->mainAddress->postal); ?></a>
-                    <td data-label="<?= $this->getHtml('Address'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->mainAddress->address); ?></a>
-                    <td data-label="<?= $this->getHtml('Country'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->mainAddress->getCountry()); ?></a>
+                    <td>
+                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml((string) $value->id); ?></a>
+                    <td data-label="<?= $this->getHtml('Status'); ?>"><a href="<?= $url; ?>"><?= $this->getHtml(':status' . $value->status); ?></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
+                    <td data-label="<?= $this->getHtml('Type'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->type->getL11n()); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                     <tr><td colspan="8" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

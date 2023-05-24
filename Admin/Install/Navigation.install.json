@@ -75,7 +75,7 @@
                 "children": [
                     {
                         "id": 1003503101,
-                        "pid": "/sales",
+                        "pid": "/fleet/vehicle/attribute",
                         "type": 3,
                         "subtype": 1,
                         "name": "Types",
@@ -90,7 +90,7 @@
                     },
                     {
                         "id": 1003503201,
-                        "pid": "/sales",
+                        "pid": "/fleet/vehicle/attribute",
                         "type": 3,
                         "subtype": 1,
                         "name": "Values",

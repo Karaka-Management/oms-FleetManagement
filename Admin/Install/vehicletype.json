@@ -77,13 +77,6 @@
         }
     },
     {
-        "name": "RV",
-        "l11n": {
-            "en": "Recreational Vehicle",
-            "de": "Wohnmobil"
-        }
-    },
-    {
         "name": "tractor",
         "l11n": {
             "en": "Tractor",
@@ -95,41 +88,6 @@
         "l11n": {
             "en": "Forklift",
             "de": "Gabelstapler"
-        }
-    },
-    {
-        "name": "skateboard",
-        "l11n": {
-            "en": "Skateboard",
-            "de": "Skateboard"
-        }
-    },
-    {
-        "name": "snowmobile",
-        "l11n": {
-            "en": "Snowmobile",
-            "de": "Schneemobil"
-        }
-    },
-    {
-        "name": "jet_ski",
-        "l11n": {
-            "en": "Jet Ski",
-            "de": "Jet Ski"
-        }
-    },
-    {
-        "name": "quad_bike",
-        "l11n": {
-            "en": "Quad Bike",
-            "de": "Quad Bike"
-        }
-    },
-    {
-        "name": "golf_cart",
-        "l11n": {
-            "en": "Golf Cart",
-            "de": "Golf Cart"
         }
     }
 ]

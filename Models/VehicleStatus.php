@@ -33,4 +33,6 @@ abstract class VehicleStatus extends Enum
     public const DAMAGED = 3;
 
     public const OUT_OF_ORDER = 4;
+
+    public const MAINTENANCE = 5;
 }
