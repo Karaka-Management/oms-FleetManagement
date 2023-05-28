@@ -65,7 +65,7 @@ final class Installer extends InstallerAbstract
         }
 
         /** @var array $types */
-        $types = \json_decode($fileContent, true);
+        $types      = \json_decode($fileContent, true);
         $fuelTypes  = self::createFuelTypes($app, $types);
 
         /* Fuel types */
@@ -75,7 +75,7 @@ final class Installer extends InstallerAbstract
         }
 
         /** @var array $types */
-        $types = \json_decode($fileContent, true);
+        $types         = \json_decode($fileContent, true);
         $vehicleTypes  = self::createVehicleTypes($app, $types);
     }
 

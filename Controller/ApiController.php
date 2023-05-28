@@ -400,13 +400,13 @@ final class ApiController extends Controller
      */
     public function createVehicleFromRequest(RequestAbstract $request) : Vehicle
     {
-        $vehicle       = new Vehicle();
-        $vehicle->name = $request->getDataString('name') ?? '';
-        $vehicle->info = $request->getDataString('info') ?? '';
-        $vehicle->type = new NullVehicleType((int) ($request->getDataInt('type') ?? 0));
+        $vehicle           = new Vehicle();
+        $vehicle->name     = $request->getDataString('name') ?? '';
+        $vehicle->info     = $request->getDataString('info') ?? '';
+        $vehicle->type     = new NullVehicleType((int) ($request->getDataInt('type') ?? 0));
         $vehicle->fuelType = new NullFuelType((int) ($request->getDataInt('fuel') ?? 0));
-        $vehicle->status = (int) ($request->getDataInt('status') ?? VehicleStatus::INACTIVE);
-        $vehicle->unit = $request->getDataInt('unit') ?? $this->app->unitId;
+        $vehicle->status   = (int) ($request->getDataInt('status') ?? VehicleStatus::INACTIVE);
+        $vehicle->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $vehicle;
     }
@@ -414,7 +414,7 @@ final class ApiController extends Controller
     /**
      * Create media files for vehicle
      *
-     * @param Vehicle            $vehicle    Vehicle
+     * @param Vehicle         $vehicle Vehicle
      * @param RequestAbstract $request Request incl. media do upload
      *
      * @return void
@@ -1059,7 +1059,7 @@ final class ApiController extends Controller
 
         /** @var \Modules\FleetManagement\Models\Vehicle $vehicle */
         $vehicle = VehicleMapper::get()->where('id', (int) $request->getData('vehicle'))->execute();
-        $path = $this->createVehicleDir($vehicle);
+        $path    = $this->createVehicleDir($vehicle);
 
         $uploaded = [];
         if (!empty($uploadedFiles = $request->getFiles())) {

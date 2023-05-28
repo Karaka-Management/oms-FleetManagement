@@ -17,15 +17,15 @@ use Modules\FleetManagement\Models\VehicleStatus;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
-$countryCodes = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
-$countries    = \phpOMS\Localization\ISO3166NameEnum::getConstants();
+$countryCodes  = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
+$countries     = \phpOMS\Localization\ISO3166NameEnum::getConstants();
 $vehicleStatus = VehicleStatus::getConstants();
 
 /**
  * @var \Modules\FleetManagement\Models\Vehicle $vehicle
  */
-$vehicle = $this->getData('vehicle') ?? new NullVehicle();
-$files  = $vehicle->getFiles();
+$vehicle      = $this->getData('vehicle') ?? new NullVehicle();
+$files        = $vehicle->getFiles();
 $vehicleImage = $this->getData('vehicleImage') ?? new NullMedia();
 $vehicleTypes = $this->getData('types') ?? [];
 

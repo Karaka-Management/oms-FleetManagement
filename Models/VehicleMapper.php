@@ -37,15 +37,15 @@ final class VehicleMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_vehicle_id'                => ['name' => 'fleetmgmt_vehicle_id',         'type' => 'int',      'internal' => 'id'],
-        'fleetmgmt_vehicle_name'             => ['name' => 'fleetmgmt_vehicle_name',      'type' => 'string',   'internal' => 'name'],
-        'fleetmgmt_vehicle_status'             => ['name' => 'fleetmgmt_vehicle_status',      'type' => 'int',   'internal' => 'status'],
-        'fleetmgmt_vehicle_info'             => ['name' => 'fleetmgmt_vehicle_info',      'type' => 'string',   'internal' => 'info'],
-        'fleetmgmt_vehicle_unit'             => ['name' => 'fleetmgmt_vehicle_unit',      'type' => 'int',   'internal' => 'unit'],
-        'fleetmgmt_vehicle_type'             => ['name' => 'fleetmgmt_vehicle_type',      'type' => 'int',   'internal' => 'type'],
-        'fleetmgmt_vehicle_fuel'             => ['name' => 'fleetmgmt_vehicle_fuel',      'type' => 'int',   'internal' => 'fuelType'],
+        'fleetmgmt_vehicle_id'                      => ['name' => 'fleetmgmt_vehicle_id',         'type' => 'int',      'internal' => 'id'],
+        'fleetmgmt_vehicle_name'                    => ['name' => 'fleetmgmt_vehicle_name',      'type' => 'string',   'internal' => 'name'],
+        'fleetmgmt_vehicle_status'                  => ['name' => 'fleetmgmt_vehicle_status',      'type' => 'int',   'internal' => 'status'],
+        'fleetmgmt_vehicle_info'                    => ['name' => 'fleetmgmt_vehicle_info',      'type' => 'string',   'internal' => 'info'],
+        'fleetmgmt_vehicle_unit'                    => ['name' => 'fleetmgmt_vehicle_unit',      'type' => 'int',   'internal' => 'unit'],
+        'fleetmgmt_vehicle_type'                    => ['name' => 'fleetmgmt_vehicle_type',      'type' => 'int',   'internal' => 'type'],
+        'fleetmgmt_vehicle_fuel'                    => ['name' => 'fleetmgmt_vehicle_fuel',      'type' => 'int',   'internal' => 'fuelType'],
         'fleetmgmt_vehicle_responsible'             => ['name' => 'fleetmgmt_vehicle_responsible',      'type' => 'int',   'internal' => 'responsible'],
-        'fleetmgmt_vehicle_created_at'        => ['name' => 'fleetmgmt_vehicle_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'fleetmgmt_vehicle_created_at'              => ['name' => 'fleetmgmt_vehicle_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**

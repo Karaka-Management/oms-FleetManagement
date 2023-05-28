@@ -53,8 +53,8 @@ class Vehicle implements \JsonSerializable
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable('now');
-        $this->type = new VehicleType();
-        $this->fuelType = new FuelType();
+        $this->type      = new VehicleType();
+        $this->fuelType  = new FuelType();
     }
 
     /**
