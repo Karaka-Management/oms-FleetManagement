@@ -28,7 +28,7 @@ use phpOMS\Localization\BaseStringL11nType;
  * @template T of FuelType
  * @extends DataMapperFactory<T>
  */
-final class FuelTypeMapper extends DataMapperFactory
+final class InspectionTypeMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -37,8 +37,8 @@ final class FuelTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_fuel_type_id'   => ['name' => 'fleetmgmt_fuel_type_id',   'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_fuel_type_name' => ['name' => 'fleetmgmt_fuel_type_name', 'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+        'fleetmgmt_inspection_type_id'   => ['name' => 'fleetmgmt_inspection_type_id',   'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_inspection_type_name' => ['name' => 'fleetmgmt_inspection_type_name', 'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
     ];
 
     /**
@@ -50,8 +50,8 @@ final class FuelTypeMapper extends DataMapperFactory
     public const HAS_MANY = [
         'l11n' => [
             'mapper'   => FuelTypeL11nMapper::class,
-            'table'    => 'fleetmgmt_fuel_type_l11n',
-            'self'     => 'fleetmgmt_fuel_type_l11n_type',
+            'table'    => 'fleetmgmt_inspection_type_l11n',
+            'self'     => 'fleetmgmt_inspection_type_l11n_type',
             'column'   => 'content',
             'external' => null,
         ],
@@ -71,7 +71,7 @@ final class FuelTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_fuel_type';
+    public const TABLE = 'fleetmgmt_inspection_type';
 
     /**
      * Primary field name.
@@ -79,5 +79,5 @@ final class FuelTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_fuel_type_id';
+    public const PRIMARYFIELD = 'fleetmgmt_inspection_type_id';
 }

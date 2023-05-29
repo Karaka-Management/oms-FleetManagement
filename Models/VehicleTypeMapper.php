@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Models;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use phpOMS\Localization\BaseStringL11nType;
 
 /**
  * Item mapper class.
@@ -24,7 +25,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of VehicleType
+ * @template T of BaseStringL11nType
  * @extends DataMapperFactory<T>
  */
 final class VehicleTypeMapper extends DataMapperFactory
@@ -37,7 +38,8 @@ final class VehicleTypeMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'fleetmgmt_vehicle_type_id'         => ['name' => 'fleetmgmt_vehicle_type_id',       'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_vehicle_type_name'       => ['name' => 'fleetmgmt_vehicle_type_name',     'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
+        'fleetmgmt_vehicle_type_name'       => ['name' => 'fleetmgmt_vehicle_type_name',     'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+
     ];
 
     /**
@@ -62,7 +64,7 @@ final class VehicleTypeMapper extends DataMapperFactory
      * @var class-string<T>
      * @since 1.0.0
      */
-    public const MODEL = VehicleType::class;
+    public const MODEL = BaseStringL11nType::class;
 
     /**
      * Primary table.

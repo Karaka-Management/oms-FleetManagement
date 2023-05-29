@@ -20,11 +20,8 @@ use Modules\Attribute\Models\AttributeType;
 use Modules\Attribute\Models\AttributeValue;
 use Modules\Attribute\Models\NullAttributeType;
 use Modules\Attribute\Models\NullAttributeValue;
-use Modules\FleetManagement\Models\FuelType;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
-use Modules\FleetManagement\Models\NullFuelType;
-use Modules\FleetManagement\Models\NullVehicleType;
 use Modules\FleetManagement\Models\Vehicle;
 use Modules\FleetManagement\Models\VehicleAttributeMapper;
 use Modules\FleetManagement\Models\VehicleAttributeTypeL11nMapper;
@@ -33,7 +30,8 @@ use Modules\FleetManagement\Models\VehicleAttributeValueL11nMapper;
 use Modules\FleetManagement\Models\VehicleAttributeValueMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
-use Modules\FleetManagement\Models\VehicleType;
+use phpOMS\Localization\NullBaseStringL11nType;
+use phpOMS\Localization\BaseStringL11nType;
 use Modules\FleetManagement\Models\VehicleTypeL11nMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\CollectionMapper;
@@ -81,7 +79,7 @@ final class ApiController extends Controller
             return;
         }
 
-        /** @var VehicleType $vehicle */
+        /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createVehicleTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, VehicleTypeMapper::class, 'vehicle_type', $request->getOrigin());
 
@@ -100,14 +98,14 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return VehicleType Returns the created vehicle from the request
+     * @return BaseStringL11nType Returns the created vehicle from the request
      *
      * @since 1.0.0
      */
-    public function createVehicleTypeFromRequest(RequestAbstract $request) : VehicleType
+    public function createVehicleTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new VehicleType();
-        $type->name = $request->getDataString('name') ?? '';
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
         return $type;
@@ -225,7 +223,7 @@ final class ApiController extends Controller
             return;
         }
 
-        /** @var FuelType $vehicle */
+        /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createFuelTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, FuelTypeMapper::class, 'fuel_type', $request->getOrigin());
 
@@ -244,14 +242,14 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return FuelType Returns the created vehicle from the request
+     * @return BaseStringL11nType Returns the created vehicle from the request
      *
      * @since 1.0.0
      */
-    public function createFuelTypeFromRequest(RequestAbstract $request) : FuelType
+    public function createFuelTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new FuelType();
-        $type->name = $request->getDataString('name') ?? '';
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
         return $type;
@@ -403,8 +401,8 @@ final class ApiController extends Controller
         $vehicle           = new Vehicle();
         $vehicle->name     = $request->getDataString('name') ?? '';
         $vehicle->info     = $request->getDataString('info') ?? '';
-        $vehicle->type     = new NullVehicleType((int) ($request->getDataInt('type') ?? 0));
-        $vehicle->fuelType = new NullFuelType((int) ($request->getDataInt('fuel') ?? 0));
+        $vehicle->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
+        $vehicle->fuelType = new NullBaseStringL11nType((int) ($request->getDataInt('fuel') ?? 0));
         $vehicle->status   = (int) ($request->getDataInt('status') ?? VehicleStatus::INACTIVE);
         $vehicle->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
