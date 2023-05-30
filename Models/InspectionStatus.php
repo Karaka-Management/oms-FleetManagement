@@ -14,33 +14,23 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Models;
 
+use phpOMS\Stdlib\Base\Enum;
+
 /**
- * Null model
+ * Inspection status enum.
  *
  * @package Modules\FleetManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class NullFuelType extends FuelType
+abstract class InspectionStatus extends Enum
 {
-    /**
-     * Constructor
-     *
-     * @param int $id Model id
-     *
-     * @since 1.0.0
-     */
-    public function __construct(int $id = 0)
-    {
-        $this->id = $id;
-    }
+    public const DONE = 1;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize() : mixed
-    {
-        return ['id' => $this->id];
-    }
+    public const PASSED = 2;
+
+    public const ONGOING = 4;
+
+    public const TODO = 5;
 }

@@ -53,15 +53,15 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type-list');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
 
         /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
         $attributes = VehicleAttributeTypeMapper::getAll()
             ->with('l11n')
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->addData('attributes', $attributes);
+        $view->data['attributes'] = $attributes;
 
         return $view;
     }
@@ -83,16 +83,16 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-list');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         $list = VehicleMapper::getAll()
             ->with('type')
             ->with('type/l11n')
-            ->where('type/l11n/language', $response->getLanguage())
+            ->where('type/l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
             ->execute();
 
-        $view->setData('vehicles', $list);
+        $view->data['vehicles'] = $list;
 
         return $view;
     }
@@ -113,21 +113,21 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response);
 
         /** @var \Modules\Attribute\Models\AttributeType $attribute */
         $attribute = VehicleAttributeTypeMapper::get()
             ->with('l11n')
             ->where('id', (int) $request->getData('id'))
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
         $l11ns = VehicleAttributeTypeL11nMapper::getAll()
             ->where('ref', $attribute->id)
             ->execute();
 
-        $view->addData('attribute', $attribute);
-        $view->addData('l11ns', $l11ns);
+        $view->data['attribute'] = $attribute;
+        $view->data['l11ns'] = $l11ns;
 
         return $view;
     }
@@ -149,7 +149,7 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         $vehicle = VehicleMapper::get()
             ->with('attributes')
@@ -161,12 +161,12 @@ final class BackendController extends Controller
             ->with('fuelType')
             ->with('fuelType/l11n')
             ->where('id', (int) $request->getData('id'))
-            ->where('type/l11n/language', $response->getLanguage())
-            ->where('fuelType/l11n/language', $response->getLanguage())
-            ->where('attributes/type/l11n/language', $response->getLanguage())
+            ->where('type/l11n/language', $response->header->l11n->language)
+            ->where('fuelType/l11n/language', $response->header->l11n->language)
+            ->where('attributes/type/l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->setData('vehicle', $vehicle);
+        $view->data['vehicle'] = $vehicle;
 
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(VehicleMapper::HAS_MANY['files']['external'], 'file')
@@ -188,14 +188,14 @@ final class BackendController extends Controller
             ->limit(1)
             ->execute();
 
-        $view->addData('vehicleImage', $vehicleImage);
+        $view->data['vehicleImage'] = $vehicleImage;
 
         $vehicleTypes = VehicleTypeMapper::getAll()
             ->with('l11n')
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->addData('types', $vehicleTypes);
+        $view->data['types'] = $vehicleTypes;
 
         return $view;
     }

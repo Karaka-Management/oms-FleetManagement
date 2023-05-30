@@ -95,6 +95,54 @@
             }
         }
     },
+    "fleetmgmt_inspection_type": {
+        "name": "fleetmgmt_inspection_type",
+        "fields": {
+            "fleetmgmt_inspection_type_id": {
+                "name": "fleetmgmt_inspection_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_inspection_type_name": {
+                "name": "fleetmgmt_inspection_type_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "fleetmgmt_inspection_type_l11n": {
+        "name": "fleetmgmt_inspection_type_l11n",
+        "fields": {
+            "fleetmgmt_inspection_type_l11n_id": {
+                "name": "fleetmgmt_inspection_type_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_inspection_type_l11n_title": {
+                "name": "fleetmgmt_inspection_type_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_inspection_type_l11n_type": {
+                "name": "fleetmgmt_inspection_type_l11n_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_inspection_type",
+                "foreignKey": "fleetmgmt_inspection_type_id"
+            },
+            "fleetmgmt_inspection_type_l11n_lang": {
+                "name": "fleetmgmt_inspection_type_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
     "fleetmgmt_vehicle": {
         "name": "fleetmgmt_vehicle",
         "fields": {
@@ -152,6 +200,46 @@
                 "null": true,
                 "foreignTable": "unit",
                 "foreignKey": "unit_id"
+            }
+        }
+    },
+    "fleetmgmt_vehicle_inspection": {
+        "name": "fleetmgmt_vehicle_inspection",
+        "fields": {
+            "fleetmgmt_vehicle_inspection_id": {
+                "name": "fleetmgmt_vehicle_inspection_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_vehicle_inspection_description": {
+                "name": "fleetmgmt_vehicle_inspection_description",
+                "type": "TEXT",
+                "null": false
+            },
+            "fleetmgmt_vehicle_inspection_status": {
+                "name": "fleetmgmt_vehicle_inspection_status",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_vehicle_inspection_interval": {
+                "name": "fleetmgmt_vehicle_inspection_interval",
+                "type": "TINYINT(3)",
+                "null": false
+            },
+            "fleetmgmt_vehicle_inspection_next": {
+                "name": "fleetmgmt_vehicle_inspection_next",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_vehicle_inspection_type": {
+                "name": "fleetmgmt_vehicle_inspection_type",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_inspection_type",
+                "foreignKey": "fleetmgmt_inspection_type_id"
             }
         }
     },

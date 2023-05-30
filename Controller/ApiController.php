@@ -20,11 +20,10 @@ use Modules\Attribute\Models\AttributeType;
 use Modules\Attribute\Models\AttributeValue;
 use Modules\Attribute\Models\NullAttributeType;
 use Modules\Attribute\Models\NullAttributeValue;
-use Modules\FleetManagement\Models\FuelType;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
-use Modules\FleetManagement\Models\NullFuelType;
-use Modules\FleetManagement\Models\NullVehicleType;
+use Modules\FleetManagement\Models\InspectionTypeL11nMapper;
+use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\Vehicle;
 use Modules\FleetManagement\Models\VehicleAttributeMapper;
 use Modules\FleetManagement\Models\VehicleAttributeTypeL11nMapper;
@@ -33,7 +32,8 @@ use Modules\FleetManagement\Models\VehicleAttributeValueL11nMapper;
 use Modules\FleetManagement\Models\VehicleAttributeValueMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
-use Modules\FleetManagement\Models\VehicleType;
+use phpOMS\Localization\NullBaseStringL11nType;
+use phpOMS\Localization\BaseStringL11nType;
 use Modules\FleetManagement\Models\VehicleTypeL11nMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\CollectionMapper;
@@ -75,13 +75,13 @@ final class ApiController extends Controller
     public function apiVehicleTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
-        /** @var VehicleType $vehicle */
+        /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createVehicleTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, VehicleTypeMapper::class, 'vehicle_type', $request->getOrigin());
 
@@ -90,7 +90,7 @@ final class ApiController extends Controller
             $response,
             NotificationLevel::OK,
             '',
-            $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SucessfulCreate'),
+            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
             $vehicle
         );
     }
@@ -100,14 +100,14 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return VehicleType Returns the created vehicle from the request
+     * @return BaseStringL11nType Returns the created vehicle from the request
      *
      * @since 1.0.0
      */
-    public function createVehicleTypeFromRequest(RequestAbstract $request) : VehicleType
+    public function createVehicleTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new VehicleType();
-        $type->name = $request->getDataString('name') ?? '';
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
         return $type;
@@ -150,7 +150,7 @@ final class ApiController extends Controller
     public function apiVehicleTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeL11nCreate($request))) {
-            $response->set('vehicle_type_l11n_create', new FormValidation($val));
+            $response->data['vehicle_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -175,7 +175,7 @@ final class ApiController extends Controller
         $typeL11n      = new BaseStringL11n();
         $typeL11n->ref = $request->getDataInt('type') ?? 0;
         $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $typeL11n->content = $request->getDataString('title') ?? '';
 
@@ -219,13 +219,13 @@ final class ApiController extends Controller
     public function apiFuelTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
-        /** @var FuelType $vehicle */
+        /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createFuelTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, FuelTypeMapper::class, 'fuel_type', $request->getOrigin());
 
@@ -234,7 +234,7 @@ final class ApiController extends Controller
             $response,
             NotificationLevel::OK,
             '',
-            $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SucessfulCreate'),
+            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
             $vehicle
         );
     }
@@ -244,14 +244,14 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return FuelType Returns the created vehicle from the request
+     * @return BaseStringL11nType Returns the created vehicle from the request
      *
      * @since 1.0.0
      */
-    public function createFuelTypeFromRequest(RequestAbstract $request) : FuelType
+    public function createFuelTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new FuelType();
-        $type->name = $request->getDataString('name') ?? '';
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
         return $type;
@@ -294,7 +294,7 @@ final class ApiController extends Controller
     public function apiFuelTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeL11nCreate($request))) {
-            $response->set('fuel_type_l11n_create', new FormValidation($val));
+            $response->data['fuel_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -319,7 +319,7 @@ final class ApiController extends Controller
         $typeL11n      = new BaseStringL11n();
         $typeL11n->ref = $request->getDataInt('type') ?? 0;
         $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $typeL11n->content = $request->getDataString('title') ?? '';
 
@@ -363,7 +363,7 @@ final class ApiController extends Controller
     public function apiVehicleCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -373,7 +373,7 @@ final class ApiController extends Controller
         $vehicle = $this->createVehicleFromRequest($request);
         $this->createModel($request->header->account, $vehicle, VehicleMapper::class, 'vehicle', $request->getOrigin());
 
-        if (!empty($request->getFiles())
+        if (!empty($request->files)
             || !empty($request->getDataJson('media'))
         ) {
             $this->createVehicleMedia($vehicle, $request);
@@ -384,7 +384,7 @@ final class ApiController extends Controller
             $response,
             NotificationLevel::OK,
             '',
-            $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SucessfulCreate'),
+            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
             $vehicle
         );
     }
@@ -403,8 +403,8 @@ final class ApiController extends Controller
         $vehicle           = new Vehicle();
         $vehicle->name     = $request->getDataString('name') ?? '';
         $vehicle->info     = $request->getDataString('info') ?? '';
-        $vehicle->type     = new NullVehicleType((int) ($request->getDataInt('type') ?? 0));
-        $vehicle->fuelType = new NullFuelType((int) ($request->getDataInt('fuel') ?? 0));
+        $vehicle->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
+        $vehicle->fuelType = new NullBaseStringL11nType((int) ($request->getDataInt('fuel') ?? 0));
         $vehicle->status   = (int) ($request->getDataInt('status') ?? VehicleStatus::INACTIVE);
         $vehicle->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
@@ -425,7 +425,7 @@ final class ApiController extends Controller
     {
         $path = $this->createVehicleDir($vehicle);
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 names: [],
                 fileNames: [],
@@ -561,7 +561,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeCreate($request))) {
-            $response->set('attribute_create', new FormValidation($val));
+            $response->data['attribute_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -640,7 +640,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeUpdate($request))) {
-            $response->set('attribute_update', new FormValidation($val));
+            $response->data['attribute_update'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -730,7 +730,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeTypeL11nCreate($request))) {
-            $response->set('attr_type_l11n_create', new FormValidation($val));
+            $response->data['attr_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -755,7 +755,7 @@ final class ApiController extends Controller
         $attrL11n      = new BaseStringL11n();
         $attrL11n->ref = $request->getDataInt('type') ?? 0;
         $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $attrL11n->content = $request->getDataString('title') ?? '';
 
@@ -799,7 +799,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeTypeCreate($request))) {
-            $response->set('attr_type_create', new FormValidation($val));
+            $response->data['attr_type_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -870,7 +870,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueCreate($request))) {
-            $response->set('attr_value_create', new FormValidation($val));
+            $response->data['attr_value_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -955,7 +955,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
-            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -980,7 +980,7 @@ final class ApiController extends Controller
         $attrL11n      = new BaseStringL11n();
         $attrL11n->ref = $request->getDataInt('value') ?? 0;
         $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->getLanguage()
+            $request->getDataString('language') ?? $request->header->l11n->language
         );
         $attrL11n->content = $request->getDataString('title') ?? '';
 
@@ -1024,7 +1024,7 @@ final class ApiController extends Controller
     public function apiVehicleAttribute(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
-            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1051,7 +1051,7 @@ final class ApiController extends Controller
     public function apiMediaAddToVehicle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateMediaAddToVehicle($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1062,7 +1062,7 @@ final class ApiController extends Controller
         $path    = $this->createVehicleDir($vehicle);
 
         $uploaded = [];
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 names: [],
                 fileNames: [],
@@ -1171,8 +1171,152 @@ final class ApiController extends Controller
     private function validateMediaAddToVehicle(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['media'] = (!$request->hasData('media') && empty($request->getFiles())))
+        if (($val['media'] = (!$request->hasData('media') && empty($request->files)))
             || ($val['vehicle'] = !$request->hasData('vehicle'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionTypeCreate($request))) {
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        /** @var BaseStringL11nType $vehicle */
+        $vehicle = $this->createInspectionTypeFromRequest($request);
+        $this->createModel($request->header->account, $vehicle, InspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
+
+        $this->fillJsonResponse(
+            $request,
+            $response,
+            NotificationLevel::OK,
+            '',
+            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
+            $vehicle
+        );
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11nType Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
+    {
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
+        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+
+        return $type;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionTypeCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['title'] = !$request->hasData('title'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create vehicle attribute l11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
+            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $typeL11n = $this->createInspectionTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $typeL11n, InspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+    }
+
+    /**
+     * Method to create vehicle attribute l11n from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11n
+     *
+     * @since 1.0.0
+     */
+    private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    {
+        $typeL11n      = new BaseStringL11n();
+        $typeL11n->ref = $request->getDataInt('type') ?? 0;
+        $typeL11n->setLanguage(
+            $request->getDataString('language') ?? $request->header->l11n->language
+        );
+        $typeL11n->content = $request->getDataString('title') ?? '';
+
+        return $typeL11n;
+    }
+
+    /**
+     * Validate vehicle attribute l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionTypeL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['type'] = !$request->hasData('type'))
         ) {
             return $val;
         }
