@@ -25,7 +25,7 @@ use phpOMS\Localization\BaseStringL11nType;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of FuelType
+ * @template T of BaseStringL11nType
  * @extends DataMapperFactory<T>
  */
 final class InspectionTypeMapper extends DataMapperFactory
@@ -49,7 +49,7 @@ final class InspectionTypeMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'l11n' => [
-            'mapper'   => FuelTypeL11nMapper::class,
+            'mapper'   => InspectionTypeL11nMapper::class,
             'table'    => 'fleetmgmt_inspection_type_l11n',
             'self'     => 'fleetmgmt_inspection_type_l11n_type',
             'column'   => 'content',

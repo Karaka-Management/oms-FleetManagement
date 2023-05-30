@@ -25,7 +25,7 @@ use phpOMS\Localization\BaseStringL11nType;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of FuelType
+ * @template T of BaseStringL11nType
  * @extends DataMapperFactory<T>
  */
 final class FuelTypeMapper extends DataMapperFactory

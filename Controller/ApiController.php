@@ -22,6 +22,8 @@ use Modules\Attribute\Models\NullAttributeType;
 use Modules\Attribute\Models\NullAttributeValue;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
+use Modules\FleetManagement\Models\InspectionTypeL11nMapper;
+use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\Vehicle;
 use Modules\FleetManagement\Models\VehicleAttributeMapper;
 use Modules\FleetManagement\Models\VehicleAttributeTypeL11nMapper;
@@ -1171,6 +1173,150 @@ final class ApiController extends Controller
         $val = [];
         if (($val['media'] = (!$request->hasData('media') && empty($request->getFiles())))
             || ($val['vehicle'] = !$request->hasData('vehicle'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionTypeCreate($request))) {
+            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        /** @var BaseStringL11nType $vehicle */
+        $vehicle = $this->createInspectionTypeFromRequest($request);
+        $this->createModel($request->header->account, $vehicle, InspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
+
+        $this->fillJsonResponse(
+            $request,
+            $response,
+            NotificationLevel::OK,
+            '',
+            $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SucessfulCreate'),
+            $vehicle
+        );
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11nType Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
+    {
+        $type       = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
+        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+
+        return $type;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionTypeCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['title'] = !$request->hasData('title'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create vehicle attribute l11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
+            $response->set('inspection_type_l11n_create', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $typeL11n = $this->createInspectionTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $typeL11n, InspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+    }
+
+    /**
+     * Method to create vehicle attribute l11n from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11n
+     *
+     * @since 1.0.0
+     */
+    private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    {
+        $typeL11n      = new BaseStringL11n();
+        $typeL11n->ref = $request->getDataInt('type') ?? 0;
+        $typeL11n->setLanguage(
+            $request->getDataString('language') ?? $request->getLanguage()
+        );
+        $typeL11n->content = $request->getDataString('title') ?? '';
+
+        return $typeL11n;
+    }
+
+    /**
+     * Validate vehicle attribute l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionTypeL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['type'] = !$request->hasData('type'))
         ) {
             return $val;
         }

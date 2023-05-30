@@ -27,4 +27,14 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class PermissionCategory extends Enum
 {
     public const VEHICLE = 1;
+
+    public const FUEL_TYPE = 2;
+
+    public const VEHICLE_TYPE = 3;
+
+    public const INSPECTION_TYPE = 4;
+
+    public const INSPECTION = 5;
+
+    public const ATTRIBUTE_TYPE = 6;
 }
