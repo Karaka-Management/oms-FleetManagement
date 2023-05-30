@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Models;
 
-use phpOMS\Localization\BaseStringL11n;
+use phpOMS\Localization\BaseStringL11nType;
 
 /**
  * Vehicle class.
@@ -32,9 +32,9 @@ class Vehicle implements \JsonSerializable
 
     public int $status = VehicleStatus::ACTIVE;
 
-    public BaseStringL11n $type;
+    public BaseStringL11nType $type;
 
-    public FuelType $fuelType;
+    public BaseStringL11nType $fuelType;
 
     public string $info = '';
 
@@ -55,8 +55,8 @@ class Vehicle implements \JsonSerializable
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable('now');
-        $this->type      = new BaseStringL11n();
-        $this->fuelType  = new FuelType();
+        $this->type      = new BaseStringL11nType();
+        $this->fuelType  = new BaseStringL11nType();
     }
 
     /**
