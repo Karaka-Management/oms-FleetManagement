@@ -58,7 +58,7 @@ final class BackendController extends Controller
         /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
         $attributes = VehicleAttributeTypeMapper::getAll()
             ->with('l11n')
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->addData('attributes', $attributes);
@@ -88,7 +88,7 @@ final class BackendController extends Controller
         $list = VehicleMapper::getAll()
             ->with('type')
             ->with('type/l11n')
-            ->where('type/l11n/language', $response->getLanguage())
+            ->where('type/l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
             ->execute();
 
@@ -119,7 +119,7 @@ final class BackendController extends Controller
         $attribute = VehicleAttributeTypeMapper::get()
             ->with('l11n')
             ->where('id', (int) $request->getData('id'))
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
         $l11ns = VehicleAttributeTypeL11nMapper::getAll()
@@ -161,9 +161,9 @@ final class BackendController extends Controller
             ->with('fuelType')
             ->with('fuelType/l11n')
             ->where('id', (int) $request->getData('id'))
-            ->where('type/l11n/language', $response->getLanguage())
-            ->where('fuelType/l11n/language', $response->getLanguage())
-            ->where('attributes/type/l11n/language', $response->getLanguage())
+            ->where('type/l11n/language', $response->header->l11n->language)
+            ->where('fuelType/l11n/language', $response->header->l11n->language)
+            ->where('attributes/type/l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->setData('vehicle', $vehicle);
@@ -192,7 +192,7 @@ final class BackendController extends Controller
 
         $vehicleTypes = VehicleTypeMapper::getAll()
             ->with('l11n')
-            ->where('l11n/language', $response->getLanguage())
+            ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->addData('types', $vehicleTypes);
