@@ -75,7 +75,7 @@ final class ApiController extends Controller
     public function apiVehicleTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -150,7 +150,7 @@ final class ApiController extends Controller
     public function apiVehicleTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeL11nCreate($request))) {
-            $response->set('vehicle_type_l11n_create', new FormValidation($val));
+            $response->data['vehicle_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -219,7 +219,7 @@ final class ApiController extends Controller
     public function apiFuelTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -294,7 +294,7 @@ final class ApiController extends Controller
     public function apiFuelTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeL11nCreate($request))) {
-            $response->set('fuel_type_l11n_create', new FormValidation($val));
+            $response->data['fuel_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -363,7 +363,7 @@ final class ApiController extends Controller
     public function apiVehicleCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -373,7 +373,7 @@ final class ApiController extends Controller
         $vehicle = $this->createVehicleFromRequest($request);
         $this->createModel($request->header->account, $vehicle, VehicleMapper::class, 'vehicle', $request->getOrigin());
 
-        if (!empty($request->getFiles())
+        if (!empty($request->files)
             || !empty($request->getDataJson('media'))
         ) {
             $this->createVehicleMedia($vehicle, $request);
@@ -425,7 +425,7 @@ final class ApiController extends Controller
     {
         $path = $this->createVehicleDir($vehicle);
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 names: [],
                 fileNames: [],
@@ -561,7 +561,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeCreate($request))) {
-            $response->set('attribute_create', new FormValidation($val));
+            $response->data['attribute_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -640,7 +640,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeUpdate($request))) {
-            $response->set('attribute_update', new FormValidation($val));
+            $response->data['attribute_update'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -730,7 +730,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeTypeL11nCreate($request))) {
-            $response->set('attr_type_l11n_create', new FormValidation($val));
+            $response->data['attr_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -799,7 +799,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeTypeCreate($request))) {
-            $response->set('attr_type_create', new FormValidation($val));
+            $response->data['attr_type_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -870,7 +870,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueCreate($request))) {
-            $response->set('attr_value_create', new FormValidation($val));
+            $response->data['attr_value_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -955,7 +955,7 @@ final class ApiController extends Controller
     public function apiVehicleAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
-            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1024,7 +1024,7 @@ final class ApiController extends Controller
     public function apiVehicleAttribute(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
-            $response->set('attr_value_l11n_create', new FormValidation($val));
+            $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1051,7 +1051,7 @@ final class ApiController extends Controller
     public function apiMediaAddToVehicle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateMediaAddToVehicle($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1062,7 +1062,7 @@ final class ApiController extends Controller
         $path    = $this->createVehicleDir($vehicle);
 
         $uploaded = [];
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 names: [],
                 fileNames: [],
@@ -1171,7 +1171,7 @@ final class ApiController extends Controller
     private function validateMediaAddToVehicle(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['media'] = (!$request->hasData('media') && empty($request->getFiles())))
+        if (($val['media'] = (!$request->hasData('media') && empty($request->files)))
             || ($val['vehicle'] = !$request->hasData('vehicle'))
         ) {
             return $val;
@@ -1196,7 +1196,7 @@ final class ApiController extends Controller
     public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateInspectionTypeCreate($request))) {
-            $response->set($request->uri->__toString(), new FormValidation($val));
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -1271,7 +1271,7 @@ final class ApiController extends Controller
     public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
-            $response->set('inspection_type_l11n_create', new FormValidation($val));
+            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;

@@ -25,7 +25,7 @@ $vehicleStatus = VehicleStatus::getConstants();
  * @var \Modules\FleetManagement\Models\Vehicle $vehicle
  */
 $vehicle      = $this->getData('vehicle') ?? new NullVehicle();
-$files        = $vehicle->getFiles();
+$files        = $vehicle->files;
 $vehicleImage = $this->getData('vehicleImage') ?? new NullMedia();
 $vehicleTypes = $this->getData('types') ?? [];
 
