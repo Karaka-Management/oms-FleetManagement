@@ -27,12 +27,12 @@ $vehicleStatus = VehicleStatus::getConstants();
 $vehicle      = $this->getData('vehicle') ?? new NullVehicle();
 $files        = $vehicle->files;
 $vehicleImage = $this->getData('vehicleImage') ?? new NullMedia();
-$vehicleTypes = $this->getData('types') ?? [];
+$vehicleTypes = $this->data['types'] ?? [];
 
 /**
  * @var \phpOMS\Views\View $this
  */
-echo $this->getData('nav')->render();
+echo $this->data['nav']->render();
 ?>
 <div class="tabview tab-2">
     <div class="box">
