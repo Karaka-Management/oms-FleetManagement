@@ -32,8 +32,6 @@ use Modules\FleetManagement\Models\VehicleAttributeValueL11nMapper;
 use Modules\FleetManagement\Models\VehicleAttributeValueMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
-use phpOMS\Localization\NullBaseStringL11nType;
-use phpOMS\Localization\BaseStringL11nType;
 use Modules\FleetManagement\Models\VehicleTypeL11nMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\CollectionMapper;
@@ -42,7 +40,9 @@ use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use phpOMS\Localization\BaseStringL11n;
+use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -76,7 +76,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleTypeCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
@@ -106,7 +106,7 @@ final class ApiController extends Controller
      */
     public function createVehicleTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new BaseStringL11nType();
+        $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
@@ -151,7 +151,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleTypeL11nCreate($request))) {
             $response->data['vehicle_type_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                   = RequestStatusCode::R_400;
 
             return;
         }
@@ -220,7 +220,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateFuelTypeCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
@@ -250,7 +250,7 @@ final class ApiController extends Controller
      */
     public function createFuelTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new BaseStringL11nType();
+        $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
@@ -295,7 +295,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateFuelTypeL11nCreate($request))) {
             $response->data['fuel_type_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                = RequestStatusCode::R_400;
 
             return;
         }
@@ -364,7 +364,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
@@ -562,7 +562,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeCreate($request))) {
             $response->data['attribute_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -641,7 +641,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeUpdate($request))) {
             $response->data['attribute_update'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -731,7 +731,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeTypeL11nCreate($request))) {
             $response->data['attr_type_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                = RequestStatusCode::R_400;
 
             return;
         }
@@ -800,7 +800,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeTypeCreate($request))) {
             $response->data['attr_type_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -871,7 +871,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeValueCreate($request))) {
             $response->data['attr_value_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status            = RequestStatusCode::R_400;
 
             return;
         }
@@ -956,7 +956,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
             $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                 = RequestStatusCode::R_400;
 
             return;
         }
@@ -1025,7 +1025,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
             $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                 = RequestStatusCode::R_400;
 
             return;
         }
@@ -1052,7 +1052,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateMediaAddToVehicle($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
@@ -1197,7 +1197,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateInspectionTypeCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
@@ -1227,7 +1227,7 @@ final class ApiController extends Controller
      */
     public function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
-        $type       = new BaseStringL11nType();
+        $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
         $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 
@@ -1272,7 +1272,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
             $response->data['inspection_type_l11n_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                      = RequestStatusCode::R_400;
 
             return;
         }

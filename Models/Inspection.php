@@ -44,7 +44,6 @@ class Inspection implements \JsonSerializable
      */
     public int $interval = 0;
 
-
     public function __construct()
     {
         $this->type = new BaseStringL11nType();

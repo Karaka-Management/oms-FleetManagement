@@ -127,7 +127,7 @@ final class BackendController extends Controller
             ->execute();
 
         $view->data['attribute'] = $attribute;
-        $view->data['l11ns'] = $l11ns;
+        $view->data['l11ns']     = $l11ns;
 
         return $view;
     }

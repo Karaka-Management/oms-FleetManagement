@@ -37,12 +37,12 @@ final class InspectionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_vehicle_inspection_id'    => ['name' => 'fleetmgmt_vehicle_inspection_id',    'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_vehicle_inspection_id'          => ['name' => 'fleetmgmt_vehicle_inspection_id',    'type' => 'int',    'internal' => 'id'],
         'fleetmgmt_vehicle_inspection_description' => ['name' => 'fleetmgmt_vehicle_inspection_description', 'type' => 'string', 'internal' => 'description'],
-        'fleetmgmt_vehicle_inspection_status'  => ['name' => 'fleetmgmt_vehicle_inspection_status',  'type' => 'int',    'internal' => 'status'],
-        'fleetmgmt_vehicle_inspection_interval'  => ['name' => 'fleetmgmt_vehicle_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
-        'fleetmgmt_vehicle_inspection_next'  => ['name' => 'fleetmgmt_vehicle_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
-        'fleetmgmt_vehicle_inspection_type'  => ['name' => 'fleetmgmt_vehicle_inspection_type',  'type' => 'int', 'internal' => 'type'],
+        'fleetmgmt_vehicle_inspection_status'      => ['name' => 'fleetmgmt_vehicle_inspection_status',  'type' => 'int',    'internal' => 'status'],
+        'fleetmgmt_vehicle_inspection_interval'    => ['name' => 'fleetmgmt_vehicle_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
+        'fleetmgmt_vehicle_inspection_next'        => ['name' => 'fleetmgmt_vehicle_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
+        'fleetmgmt_vehicle_inspection_type'        => ['name' => 'fleetmgmt_vehicle_inspection_type',  'type' => 'int', 'internal' => 'type'],
     ];
 
     /**
