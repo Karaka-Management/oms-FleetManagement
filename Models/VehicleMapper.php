@@ -16,6 +16,7 @@ namespace Modules\FleetManagement\Models;
 
 use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use Modules\Editor\Models\EditorDocMapper;
 
 /**
  * Mapper class.
@@ -66,6 +67,12 @@ final class VehicleMapper extends DataMapperFactory
             'table'    => 'fleetmgmt_vehicle_attr',
             'self'     => 'fleetmgmt_vehicle_attr_item',
             'external' => null,
+        ],
+        'notes' => [
+            'mapper'   => EditorDocMapper::class,       /* mapper of the related object */
+            'table'    => 'bizexpenses_expense_note',         /* table of the related object, null if no relation table is used (many->1) */
+            'external' => 'bizexpenses_expense_note_doc',
+            'self'     => 'bizexpenses_expense_note_expense',
         ],
     ];
 

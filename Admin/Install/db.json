@@ -548,8 +548,8 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_vehicle_note_item": {
-                "name": "fleetmgmt_vehicle_note_item",
+            "fleetmgmt_vehicle_note_vehicle": {
+                "name": "fleetmgmt_vehicle_note_vehicle",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "fleetmgmt_vehicle",
