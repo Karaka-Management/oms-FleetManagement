@@ -1323,4 +1323,62 @@ final class ApiController extends Controller
 
         return [];
     }
+
+    /**
+     * Api method to create item files
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateNoteCreate($request))) {
+            $response->data['vehicle_note_create'] = new FormValidation($val);
+            $response->header->status           = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $request->setData('virtualpath', '/Modules/FleetManagement/Items/' . $request->getData('id'), true);
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorCreate($request, $response, $data);
+
+        if ($response->header->status !== RequestStatusCode::R_200) {
+            return;
+        }
+
+        $responseData = $response->get($request->uri->__toString());
+        if (!\is_array($responseData)) {
+            return;
+        }
+
+        $model = $responseData['response'];
+        $this->createModelRelation($request->header->account, (int) $request->getData('id'), $model->id, VehicleMapper::class, 'notes', '', $request->getOrigin());
+    }
+
+    /**
+     * Validate item note create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateNoteCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
 }
