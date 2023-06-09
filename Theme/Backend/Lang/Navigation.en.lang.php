@@ -15,4 +15,5 @@ declare(strict_types=1);
 return ['Navigation' => [
     'FleetManagement'   => 'Fleet Management',
     'Vehicles'          => 'Vehicles',
+    'Drivers'          => 'Drivers',
 ]];

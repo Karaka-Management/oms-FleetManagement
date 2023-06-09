@@ -1,0 +1,37 @@
+[
+    {
+        "name": "tire_change",
+        "l11n": {
+            "en": "Tire change",
+            "de": "Reifenwechsel"
+        }
+    },
+    {
+        "name": "oil_change",
+        "l11n": {
+            "en": "Oil change",
+            "de": "Ölwechsel"
+        }
+    },
+    {
+        "name": "mot",
+        "l11n": {
+            "en": "MOT test",
+            "de": "TÜV"
+        }
+    },
+    {
+        "name": "emissions_test",
+        "l11n": {
+            "en": "Emissions test",
+            "de": "Abgasuntersuchung"
+        }
+    },
+    {
+        "name": "general",
+        "l11n": {
+            "en": "General",
+            "de": "Allgemein"
+        }
+    }
+]

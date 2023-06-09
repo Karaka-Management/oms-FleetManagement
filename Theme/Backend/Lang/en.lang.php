@@ -26,6 +26,7 @@ return ['FleetManagement' => [
     'Attributes'    => 'Attributes',
     'Files'         => 'Files',
     'Notes'         => 'Notes',
+    'Costs'         => 'Costs',
     'Inspections'   => 'Inspections',
     'Drivers'       => 'Drivers',
     'Milage'        => 'Milage',

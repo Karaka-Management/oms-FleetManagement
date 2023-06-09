@@ -40,6 +40,7 @@ final class VehicleTypeL11nMapper extends DataMapperFactory
         'fleetmgmt_vehicle_type_l11n_id'    => ['name' => 'fleetmgmt_vehicle_type_l11n_id',    'type' => 'int',    'internal' => 'id'],
         'fleetmgmt_vehicle_type_l11n_title' => ['name' => 'fleetmgmt_vehicle_type_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
         'fleetmgmt_vehicle_type_l11n_type'  => ['name' => 'fleetmgmt_vehicle_type_l11n_type',  'type' => 'int',    'internal' => 'ref'],
+        'fleetmgmt_vehicle_type_l11n_lang'  => ['name' => 'fleetmgmt_vehicle_type_l11n_lang',  'type' => 'string',    'internal' => 'language'],
     ];
 
     /**

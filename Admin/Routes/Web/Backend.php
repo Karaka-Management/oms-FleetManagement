@@ -40,6 +40,7 @@ return [
             ],
         ],
     ],
+
     '^.*/fleet/vehicle/list.*$' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
@@ -63,6 +64,74 @@ return [
         ],
     ],
     '^.*/fleet/vehicle/profile.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+
+    '^.*/fleet/driver/list.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/driver/create.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverCreate',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/driver/profile.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverProfile',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+
+    '^.*/fleet/inspection/list.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/inspection/create.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/inspection/profile.*$' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
             'verb'       => RouteVerb::GET,
