@@ -151,6 +151,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
+        // @todo: This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $vehicle = VehicleMapper::get()
             ->with('attributes')
             ->with('attributes/type')
