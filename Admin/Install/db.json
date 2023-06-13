@@ -243,6 +243,119 @@
             }
         }
     },
+    "fleetmgmt_driver_inspection_type": {
+        "name": "fleetmgmt_driver_inspection_type",
+        "fields": {
+            "fleetmgmt_driver_inspection_type_id": {
+                "name": "fleetmgmt_driver_inspection_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_inspection_type_name": {
+                "name": "fleetmgmt_driver_inspection_type_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "fleetmgmt_driver_inspection_type_l11n": {
+        "name": "fleetmgmt_driver_inspection_type_l11n",
+        "fields": {
+            "fleetmgmt_driver_inspection_type_l11n_id": {
+                "name": "fleetmgmt_driver_inspection_type_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_inspection_type_l11n_title": {
+                "name": "fleetmgmt_driver_inspection_type_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_driver_inspection_type_l11n_type": {
+                "name": "fleetmgmt_driver_inspection_type_l11n_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver_inspection_type",
+                "foreignKey": "fleetmgmt_driver_inspection_type_id"
+            },
+            "fleetmgmt_driver_inspection_type_l11n_lang": {
+                "name": "fleetmgmt_driver_inspection_type_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
+    "fleetmgmt_driver": {
+        "name": "fleetmgmt_driver",
+        "fields": {
+            "fleetmgmt_driver_id": {
+                "name": "fleetmgmt_driver_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_status": {
+                "name": "fleetmgmt_driver_status",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_driver_account": {
+                "name": "fleetmgmt_driver_account",
+                "type": "INT",
+                "null": true,
+                "default": true,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_inspection": {
+        "name": "fleetmgmt_driver_inspection",
+        "fields": {
+            "fleetmgmt_driver_inspection_id": {
+                "name": "fleetmgmt_driver_inspection_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_inspection_description": {
+                "name": "fleetmgmt_driver_inspection_description",
+                "type": "TEXT",
+                "null": false
+            },
+            "fleetmgmt_driver_inspection_status": {
+                "name": "fleetmgmt_driver_inspection_status",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_driver_inspection_interval": {
+                "name": "fleetmgmt_driver_inspection_interval",
+                "type": "TINYINT(3)",
+                "null": false
+            },
+            "fleetmgmt_driver_inspection_next": {
+                "name": "fleetmgmt_driver_inspection_next",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_inspection_type": {
+                "name": "fleetmgmt_driver_inspection_type",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver_inspection_type",
+                "foreignKey": "fleetmgmt_driver_inspection_type_id"
+            }
+        }
+    },
     "fleetmgmt_vehicle_usage": {
         "name": "fleetmgmt_vehicle_usage",
         "fields": {
@@ -557,6 +670,287 @@
             },
             "fleetmgmt_vehicle_note_doc": {
                 "name": "fleetmgmt_vehicle_note_doc",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "editor_doc",
+                "foreignKey": "editor_doc_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_attr_type": {
+        "name": "fleetmgmt_driver_attr_type",
+        "fields": {
+            "fleetmgmt_driver_attr_type_id": {
+                "name": "fleetmgmt_driver_attr_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_type_name": {
+                "name": "fleetmgmt_driver_attr_type_name",
+                "type": "VARCHAR(255)",
+                "null": false,
+                "unique": true
+            },
+            "fleetmgmt_driver_attr_type_datatype": {
+                "name": "fleetmgmt_driver_attr_type_datatype",
+                "type": "INT(11)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_type_fields": {
+                "name": "fleetmgmt_driver_attr_type_fields",
+                "type": "INT(11)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_type_custom": {
+                "name": "fleetmgmt_driver_attr_type_custom",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_type_required": {
+                "description": "Every item must have this attribute type if set to true.",
+                "name": "fleetmgmt_driver_attr_type_required",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_type_pattern": {
+                "description": "This is a regex validation pattern.",
+                "name": "fleetmgmt_driver_attr_type_pattern",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "fleetmgmt_driver_attr_type_l11n": {
+        "name": "fleetmgmt_driver_attr_type_l11n",
+        "fields": {
+            "fleetmgmt_driver_attr_type_l11n_id": {
+                "name": "fleetmgmt_driver_attr_type_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_type_l11n_title": {
+                "name": "fleetmgmt_driver_attr_type_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_type_l11n_type": {
+                "name": "fleetmgmt_driver_attr_type_l11n_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver_attr_type",
+                "foreignKey": "fleetmgmt_driver_attr_type_id"
+            },
+            "fleetmgmt_driver_attr_type_l11n_lang": {
+                "name": "fleetmgmt_driver_attr_type_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
+    "fleetmgmt_driver_attr_value": {
+        "name": "fleetmgmt_driver_attr_value",
+        "fields": {
+            "fleetmgmt_driver_attr_value_id": {
+                "name": "fleetmgmt_driver_attr_value_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_value_default": {
+                "name": "fleetmgmt_driver_attr_value_default",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_value_valueStr": {
+                "name": "fleetmgmt_driver_attr_value_valueStr",
+                "type": "VARCHAR(255)",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_attr_value_valueInt": {
+                "name": "fleetmgmt_driver_attr_value_valueInt",
+                "type": "INT(11)",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_attr_value_valueDec": {
+                "name": "fleetmgmt_driver_attr_value_valueDec",
+                "type": "DECIMAL(19,5)",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_attr_value_valueDat": {
+                "name": "fleetmgmt_driver_attr_value_valueDat",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_attr_value_unit": {
+                "name": "fleetmgmt_driver_attr_value_unit",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_value_deptype": {
+                "name": "fleetmgmt_driver_attr_value_deptype",
+                "type": "INT(11)",
+                "null": true,
+                "default": null,
+                "foreignTable": "fleetmgmt_driver_attr_type",
+                "foreignKey": "fleetmgmt_driver_attr_type_id"
+            },
+            "fleetmgmt_driver_attr_value_depvalue": {
+                "name": "fleetmgmt_driver_attr_value_depvalue",
+                "type": "INT(11)",
+                "null": true,
+                "default": null,
+                "foreignTable": "fleetmgmt_driver_attr_value",
+                "foreignKey": "fleetmgmt_driver_attr_value_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_attr_value_l11n": {
+        "name": "fleetmgmt_driver_attr_value_l11n",
+        "fields": {
+            "fleetmgmt_driver_attr_value_l11n_id": {
+                "name": "fleetmgmt_driver_attr_value_l11n_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_value_l11n_title": {
+                "name": "fleetmgmt_driver_attr_value_l11n_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "fleetmgmt_driver_attr_value_l11n_value": {
+                "name": "fleetmgmt_driver_attr_value_l11n_value",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver_attr_value",
+                "foreignKey": "fleetmgmt_driver_attr_value_id"
+            },
+            "fleetmgmt_driver_attr_value_l11n_lang": {
+                "name": "fleetmgmt_driver_attr_value_l11n_lang",
+                "type": "VARCHAR(2)",
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
+            }
+        }
+    },
+    "fleetmgmt_driver_attr_default": {
+        "name": "fleetmgmt_driver_attr_default",
+        "fields": {
+            "fleetmgmt_driver_attr_default_id": {
+                "name": "fleetmgmt_driver_attr_default_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_default_type": {
+                "name": "fleetmgmt_driver_attr_default_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_attr_type",
+                "foreignKey": "fleetmgmt_attr_type_id"
+            },
+            "fleetmgmt_driver_attr_default_value": {
+                "name": "fleetmgmt_driver_attr_default_value",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_attr_value",
+                "foreignKey": "fleetmgmt_attr_value_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_attr": {
+        "name": "fleetmgmt_driver_attr",
+        "fields": {
+            "fleetmgmt_driver_attr_id": {
+                "name": "fleetmgmt_driver_attr_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_attr_item": {
+                "name": "fleetmgmt_driver_attr_item",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver",
+                "foreignKey": "fleetmgmt_driver_id"
+            },
+            "fleetmgmt_driver_attr_type": {
+                "name": "fleetmgmt_driver_attr_type",
+                "type": "INT(11)",
+                "null": false,
+                "foreignTable": "fleetmgmt_attr_type",
+                "foreignKey": "fleetmgmt_attr_type_id"
+            },
+            "fleetmgmt_driver_attr_value": {
+                "name": "fleetmgmt_driver_attr_value",
+                "type": "INT(11)",
+                "null": true,
+                "default": null,
+                "foreignTable": "fleetmgmt_attr_value",
+                "foreignKey": "fleetmgmt_attr_value_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_media": {
+        "name": "fleetmgmt_driver_media",
+        "fields": {
+            "fleetmgmt_driver_media_id": {
+                "name": "fleetmgmt_driver_media_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_media_vehicle": {
+                "name": "fleetmgmt_driver_media_vehicle",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver",
+                "foreignKey": "fleetmgmt_driver_id"
+            },
+            "fleetmgmt_driver_media_media": {
+                "name": "fleetmgmt_driver_media_media",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
+            }
+        }
+    },
+    "fleetmgmt_driver_note": {
+        "name": "fleetmgmt_driver_note",
+        "fields": {
+            "fleetmgmt_driver_note_id": {
+                "name": "fleetmgmt_driver_note_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_driver_note_driver": {
+                "name": "fleetmgmt_driver_note_driver",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver",
+                "foreignKey": "fleetmgmt_driver_id"
+            },
+            "fleetmgmt_driver_note_doc": {
+                "name": "fleetmgmt_driver_note_doc",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "editor_doc",

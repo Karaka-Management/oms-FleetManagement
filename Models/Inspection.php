@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Models;
 
+use phpOMS\Localization\BaseStringL11nType;
+
 /**
  * Inspection class.
  *
@@ -38,15 +40,38 @@ class Inspection implements \JsonSerializable
 
     /**
      * Inspectio interval in months
-     * 
+     *
      * @var int
      * @since 1.0.0
      */
     public int $interval = 0;
 
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     */
     public function __construct()
     {
         $this->type = new BaseStringL11nType();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray() : array
+    {
+        return [
+            'id'    => $this->id,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return $this->toArray();
     }
 
     use \Modules\Media\Models\MediaListTrait;

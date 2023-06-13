@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\FleetManagement\Models\Driver
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\FleetManagement\Models\Driver;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11nType;
@@ -20,7 +20,7 @@ use phpOMS\Localization\BaseStringL11nType;
 /**
  * Item mapper class.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\FleetManagement\Models\Driver
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -28,7 +28,7 @@ use phpOMS\Localization\BaseStringL11nType;
  * @template T of BaseStringL11nType
  * @extends DataMapperFactory<T>
  */
-final class InspectionTypeMapper extends DataMapperFactory
+final class DriverInspectionTypeMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -37,8 +37,8 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_inspection_type_id'   => ['name' => 'fleetmgmt_inspection_type_id',   'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_inspection_type_name' => ['name' => 'fleetmgmt_inspection_type_name', 'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+        'fleetmgmt_driver_inspection_type_id'   => ['name' => 'fleetmgmt_driver_inspection_type_id',   'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_driver_inspection_type_name' => ['name' => 'fleetmgmt_driver_inspection_type_name', 'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
     ];
 
     /**
@@ -49,9 +49,9 @@ final class InspectionTypeMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'l11n' => [
-            'mapper'   => InspectionTypeL11nMapper::class,
-            'table'    => 'fleetmgmt_inspection_type_l11n',
-            'self'     => 'fleetmgmt_inspection_type_l11n_type',
+            'mapper'   => DriverInspectionTypeL11nMapper::class,
+            'table'    => 'fleetmgmt_driver_inspection_type_l11n',
+            'self'     => 'fleetmgmt_driver_inspection_type_l11n_type',
             'column'   => 'content',
             'external' => null,
         ],
@@ -71,7 +71,7 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_inspection_type';
+    public const TABLE = 'fleetmgmt_driver_inspection_type';
 
     /**
      * Primary field name.
@@ -79,5 +79,5 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_inspection_type_id';
+    public const PRIMARYFIELD = 'fleetmgmt_driver_inspection_type_id';
 }

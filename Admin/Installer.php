@@ -68,7 +68,7 @@ final class Installer extends InstallerAbstract
         $types     = \json_decode($fileContent, true);
         $fuelTypes = self::createFuelTypes($app, $types);
 
-        /* Fuel types */
+        /* Vehicle types */
         $fileContent = \file_get_contents(__DIR__ . '/Install/vehicletype.json');
         if ($fileContent === false) {
             return;
@@ -77,15 +77,25 @@ final class Installer extends InstallerAbstract
         /** @var array $types */
         $types        = \json_decode($fileContent, true);
         $vehicleTypes = self::createVehicleTypes($app, $types);
+
+        /* Inspection types */
+        $fileContent = \file_get_contents(__DIR__ . '/Install/inspectiontype.json');
+        if ($fileContent === false) {
+            return;
+        }
+
+        /** @var array $types */
+        $types           = \json_decode($fileContent, true);
+        $inspectionTypes = self::createInspectionTypes($app, $types);
     }
 
     /**
      * Install fuel type
      *
-     * @param ApplicationAbstract                                                                                                                                                              $app        Application
-     * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes Attribute definition
+     * @param ApplicationAbstract $app   Application
+     * @param array               $types Attribute definition
      *
-     * @return array<string, array>
+     * @return array
      *
      * @since 1.0.0
      */
@@ -94,8 +104,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $fuelTypes */
         $fuelTypes = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement');
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -141,22 +151,22 @@ final class Installer extends InstallerAbstract
     }
 
     /**
-     * Install fuel type
+     * Install vehicle type
      *
-     * @param ApplicationAbstract                                                                                                                                                              $app        Application
-     * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes Attribute definition
+     * @param ApplicationAbstract $app   Application
+     * @param array               $types Attribute definition
      *
-     * @return array<string, array>
+     * @return array
      *
      * @since 1.0.0
      */
     private static function createVehicleTypes(ApplicationAbstract $app, array $types) : array
     {
-        /** @var array<string, array> $fuelTypes */
+        /** @var array<string, array> $vehicleTypes */
         $vehicleTypes = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement');
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -202,12 +212,73 @@ final class Installer extends InstallerAbstract
     }
 
     /**
+     * Install inspection type
+     *
+     * @param ApplicationAbstract $app   Application
+     * @param array               $types Attribute definition
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    private static function createInspectionTypes(ApplicationAbstract $app, array $types) : array
+    {
+        /** @var array<string, array> $inspectionTypes */
+        $inspectionTypes = [];
+
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+
+        /** @var array $type */
+        foreach ($types as $type) {
+            $response = new HttpResponse();
+            $request  = new HttpRequest(new HttpUri(''));
+
+            $request->header->account = 1;
+            $request->setData('name', $type['name'] ?? '');
+            $request->setData('title', \reset($type['l11n']));
+            $request->setData('language', \array_keys($type['l11n'])[0] ?? 'en');
+
+            $module->apiInspectionTypeCreate($request, $response);
+
+            $responseData = $response->get('');
+            if (!\is_array($responseData)) {
+                continue;
+            }
+
+            $inspectionTypes[$type['name']] = !\is_array($responseData['response'])
+                ? $responseData['response']->toArray()
+                : $responseData['response'];
+
+            $isFirst = true;
+            foreach ($type['l11n'] as $language => $l11n) {
+                if ($isFirst) {
+                    $isFirst = false;
+                    continue;
+                }
+
+                $response = new HttpResponse();
+                $request  = new HttpRequest(new HttpUri(''));
+
+                $request->header->account = 1;
+                $request->setData('title', $l11n);
+                $request->setData('language', $language);
+                $request->setData('type', $inspectionTypes[$type['name']]['id']);
+
+                $module->apiInspectionTypeL11nCreate($request, $response);
+            }
+        }
+
+        return $inspectionTypes;
+    }
+
+    /**
      * Install default attribute types
      *
-     * @param ApplicationAbstract                                                                                                                                                              $app        Application
-     * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes Attribute definition
+     * @param ApplicationAbstract $app        Application
+     * @param array               $attributes Attribute definition
      *
-     * @return array<string, array>
+     * @return array
      *
      * @since 1.0.0
      */
@@ -216,8 +287,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $itemAttrType */
         $itemAttrType = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement');
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -273,7 +344,7 @@ final class Installer extends InstallerAbstract
      * @param array                                                                                                                                                                            $itemAttrType Attribute types
      * @param array<array{name:string, l11n?:array<string, string>, is_required?:bool, is_custom_allowed?:bool, validation_pattern?:string, value_type?:string, values?:array<string, mixed>}> $attributes   Attribute definition
      *
-     * @return array<string, array>
+     * @return array
      *
      * @since 1.0.0
      */
@@ -282,8 +353,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $itemAttrValue */
         $itemAttrValue = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement');
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
 
         foreach ($attributes as $attribute) {
             $itemAttrValue[$attribute['name']] = [];

@@ -156,7 +156,7 @@
                 "pid": "/",
                 "type": 2,
                 "subtype": 1,
-                "name": "Attributes",
+                "name": "VehicleAttributes",
                 "uri": "{/base}/fleet/vehicle/attribute/type/list?{?}",
                 "target": "self",
                 "icon": null,
@@ -193,6 +193,52 @@
                         "from": "FleetManagement",
                         "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1003505001,
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": 1003506001,
+                "pid": "/",
+                "type": 2,
+                "subtype": 1,
+                "name": "DriverAttributes",
+                "uri": "{/base}/fleet/driver/attribute/type/list?{?}",
+                "target": "self",
+                "icon": null,
+                "order": 5,
+                "from": "FleetManagement",
+                "permission": { "permission": 2, "category": null, "element": null },
+                "parent": 1003501001,
+                "children": [
+                    {
+                        "id": 1003506101,
+                        "pid": "/fleet/driver/attribute",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Types",
+                        "uri": "{/base}/fleet/driver/attribute/type/list?{?}",
+                        "target": "self",
+                        "icon": null,
+                        "order": 15,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 2, "category": null, "element": null },
+                        "parent": 1003506001,
+                        "children": []
+                    },
+                    {
+                        "id": 1003506201,
+                        "pid": "/fleet/driver/attribute",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Values",
+                        "uri": "{/base}/fleet/driver/attribute/value/list?{?}",
+                        "target": "self",
+                        "icon": null,
+                        "order": 15,
+                        "from": "FleetManagement",
+                        "permission": { "permission": 2, "category": null, "element": null },
+                        "parent": 1003506001,
                         "children": []
                     }
                 ]

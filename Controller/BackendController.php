@@ -159,10 +159,10 @@ final class BackendController extends Controller
             SettingsEnum::DEFAULT_LOCALIZATION,
         ]);
 
-        $view->data['attributeView']       = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
         $view->data['attributeView']->data['defaultlocalization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
 
-        $view->data['media-upload'] = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
 
         return $view;
@@ -193,6 +193,8 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
+            ->with('files')
+            ->with('files/types')
             ->with('type')
             ->with('type/l11n')
             ->with('fuelType')
@@ -236,6 +238,7 @@ final class BackendController extends Controller
 
         $units = UnitMapper::getAll()
             ->execute();
+
         $view->data['units'] = $units;
 
         /** @var \Model\Setting $settings */
@@ -243,10 +246,10 @@ final class BackendController extends Controller
             SettingsEnum::DEFAULT_LOCALIZATION,
         ]);
 
-        $view->data['attributeView']       = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
         $view->data['attributeView']->data['defaultlocalization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
 
-        $view->data['media-upload'] = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
 
         return $view;

@@ -75,6 +75,29 @@ return [
         ],
     ],
 
+    '^.*/fleet/driver/attribute/type/list.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeTypeList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/driver/attribute/type\?.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeType',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+
     '^.*/fleet/driver/list.*$' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverList',

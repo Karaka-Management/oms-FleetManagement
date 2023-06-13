@@ -70,9 +70,9 @@ final class VehicleMapper extends DataMapperFactory
         ],
         'notes' => [
             'mapper'   => EditorDocMapper::class,       /* mapper of the related object */
-            'table'    => 'bizexpenses_expense_note',         /* table of the related object, null if no relation table is used (many->1) */
-            'external' => 'bizexpenses_expense_note_doc',
-            'self'     => 'bizexpenses_expense_note_expense',
+            'table'    => 'fleetmgmt_vehicle_note',         /* table of the related object, null if no relation table is used (many->1) */
+            'external' => 'fleetmgmt_vehicle_note_doc',
+            'self'     => 'fleetmgmt_vehicle_note_vehicle',
         ],
     ];
 
