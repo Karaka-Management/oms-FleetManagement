@@ -137,7 +137,7 @@ final class ApiDriverController extends Controller
                     $driver->id,
                     $media->id,
                     DriverMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -179,7 +179,7 @@ final class ApiDriverController extends Controller
                     $driver->id,
                     $media->id,
                     DriverMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -408,7 +408,7 @@ final class ApiDriverController extends Controller
 
         /** @var BaseStringL11nType $driver */
         $driver = $this->createDriverInspectionTypeFromRequest($request);
-        $this->createModel($request->header->account, $driver, DriverInspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
+        $this->createModel($request->header->account, $driver, DriverInspectionTypeMapper::class, 'driver_inspection_type', $request->getOrigin());
 
         $this->fillJsonResponse(
             $request,
@@ -475,14 +475,14 @@ final class ApiDriverController extends Controller
     public function apiDriverInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDriverInspectionTypeL11nCreate($request))) {
-            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
+            $response->data['driver_inspection_type_l11n_create'] = new FormValidation($val);
             $response->header->status                      = RequestStatusCode::R_400;
 
             return;
         }
 
         $typeL11n = $this->createDriverInspectionTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $typeL11n, DriverInspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
+        $this->createModel($request->header->account, $typeL11n, DriverInspectionTypeL11nMapper::class, 'driver_inspection_type_l11n', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
     }
 
@@ -529,7 +529,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Api method to create item files
+     * Api method to create notes
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -550,7 +550,7 @@ final class ApiDriverController extends Controller
             return;
         }
 
-        $request->setData('virtualpath', '/Modules/FleetManagement/Items/' . $request->getData('id'), true);
+        $request->setData('virtualpath', '/Modules/FleetManagement/Driver/' . $request->getData('id'), true);
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorCreate($request, $response, $data);
 
         if ($response->header->status !== RequestStatusCode::R_200) {
@@ -584,5 +584,32 @@ final class ApiDriverController extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * Api method to update note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
+
+        if ($response->header->status !== RequestStatusCode::R_200) {
+            return;
+        }
+
+        $responseData = $response->get($request->uri->__toString());
+        if (!\is_array($responseData)) {
+            return;
+        }
     }
 }

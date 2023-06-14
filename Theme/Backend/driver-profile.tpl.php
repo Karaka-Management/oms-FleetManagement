@@ -12,22 +12,21 @@
  */
 declare(strict_types=1);
 
-use Modules\FleetManagement\Models\NullVehicle;
-use Modules\FleetManagement\Models\VehicleStatus;
+use Modules\FleetManagement\Models\NullDriver;
+use Modules\FleetManagement\Models\DriverStatus;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
 $countryCodes  = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
 $countries     = \phpOMS\Localization\ISO3166NameEnum::getConstants();
-$vehicleStatus = VehicleStatus::getConstants();
+$driverStatus = DriverStatus::getConstants();
 
 /**
- * @var \Modules\FleetManagement\Models\Vehicle $vehicle
+ * @var \Modules\FleetManagement\Models\Driver $driver
  */
-$vehicle       = $this->data['vehicle'] ?? new NullVehicle();
-$files         = $vehicle->files;
-$vehicleImage  = $this->data['vehicleImage'] ?? new NullMedia();
-$vehicleTypes  = $this->data['types'] ?? [];
+$driver        = $this->data['driver'] ?? new NullDriver();
+$files         = $driver->files;
+$driverImage   = $this->data['driverImage'] ?? new NullMedia();
 $attributeView = $this->data['attributeView'];
 
 /**
@@ -56,70 +55,26 @@ echo $this->data['nav']->render();
                         <div class="portlet-head"><?= $this->getHtml('Profile'); ?></div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <label for="iFleetVehicleProfileName"><?= $this->getHtml('Name'); ?></label>
-                                <input type="text" id="iFleetVehicleProfileName" name="name" value="<?= $this->printHtml($vehicle->name); ?>">
+                                <label for="iFleetDriverProfileName"><?= $this->getHtml('Name'); ?></label>
+                                <input type="text" id="iFleetDriverProfileName" name="name" value="<?= $this->printHtml($driver->account->name1); ?>">
                             </div>
 
                             <div class="form-group">
-                                <label for="iVehicleDriver"><?= $this->getHtml('Driver'); ?></label>
-                                <input type="text" id="iVehicleDriver" name="driver" value="" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleVin"><?= $this->getHtml('Vin'); ?></label>
-                                <input type="text" id="iVehicleVin" name="vin" value="<?= $this->printHtml($vehicle->getAttribute('vin')->value->getValue()); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleStatus"><?= $this->getHtml('Status'); ?></label>
-                                <select id="iVehicleStatus" name="vehicle_status">
-                                    <?php foreach ($vehicleStatus as $status) : ?>
-                                        <option value="<?= $status; ?>"<?= $status === $vehicle->status ? ' selected' : ''; ?>><?= $this->getHtml(':status' . $status); ?>
+                                <label for="iDriverStatus"><?= $this->getHtml('Status'); ?></label>
+                                <select id="iDriverStatus" name="driver_status">
+                                    <?php foreach ($driverStatus as $status) : ?>
+                                        <option value="<?= $status; ?>"<?= $status === $driver->status ? ' selected' : ''; ?>><?= $this->getHtml(':status' . $status); ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="iVehicleEnd"><?= $this->getHtml('Type'); ?></label>
-                                <select id="iVehicleEnd" name="vehicle_type">
-                                    <?php foreach ($vehicleTypes as $type) : ?>
-                                        <option value="<?= $type->id; ?>"<?= $vehicle->type->id === $type->id ? ' selected' : ''; ?>><?= $this->printHtml($type->getL11n()); ?>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleMake"><?= $this->getHtml('Make'); ?></label>
-                                <input type="text" id="iVehicleMake" name="make" value="<?= $this->printHtml($vehicle->getAttribute('maker')->value->getValue()); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleModel"><?= $this->getHtml('Model'); ?></label>
-                                <input type="text" id="iVehicleModel" name="vehicle_model" value="<?= $this->printHtml($vehicle->getAttribute('vehicle_model')->value->getValue()); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleStart"><?= $this->getHtml('Start'); ?></label>
-                                <input type="datetime-local" id="iVehicleStart" name="ownership_start" value="<?= $vehicle->getAttribute('ownership_start')->value->getValue()?->format('Y-m-d\TH:i') ?? $vehicle->createdAt->format('Y-m-d\TH:i'); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehicleEnd"><?= $this->getHtml('End'); ?></label>
-                                <input type="datetime-local" id="iVehicleEnd" name="ownership_end" value="<?= $vehicle->getAttribute('ownership_end')->value->getValue()?->format('Y-m-d\TH:i'); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehiclePrice"><?= $this->getHtml('PurchasePrice'); ?></label>
-                                <input type="number" step="0.01" id="iVehiclePrice" name="purchase_price" value="<?= $this->printHtml($vehicle->getAttribute('purchase_price')->value->getValue()); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iVehiclePrice"><?= $this->getHtml('LeasingFee'); ?></label>
-                                <input type="number" step="0.01" id="iVehiclePrice" name="leasing_fee" value="<?= $this->printHtml($vehicle->getAttribute('leasing_fee')->value->getValue()); ?>">
+                                <label for="iDriverMake"><?= $this->getHtml('Make'); ?></label>
+                                <input type="text" id="iDriverMake" name="make" value="<?= $this->printHtml($driver->getAttribute('maker')->value->getValue()); ?>">
                             </div>
                         </div>
                         <div class="portlet-foot">
-                            <?php if ($vehicle->id === 0) : ?>
+                            <?php if ($driver->id === 0) : ?>
                                 <input id="iCreateSubmit" type="Submit" value="<?= $this->getHtml('Create', '0', '0'); ?>">
                             <?php else : ?>
                                 <input id="iSaveSubmit" type="Submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
@@ -131,9 +86,9 @@ echo $this->data['nav']->render();
                 <div class="md-hidden col-md-6">
                     <section class="portlet">
                         <div class="portlet-body">
-                            <img width="100%" src="<?= $vehicleImage->id === 0
+                            <img width="100%" src="<?= $driverImage->id === 0
                                 ? 'Web/Backend/img/logo_grey.png'
-                                : UriFactory::build($vehicleImage->getPath()); ?>"></a>
+                                : UriFactory::build($driverImage->getPath()); ?>"></a>
                         </div>
                     </section>
                 </div>
@@ -144,10 +99,10 @@ echo $this->data['nav']->render();
         <div class="tab">
             <div class="row">
                 <?= $attributeView->render(
-                    $vehicle->attributes,
+                    $driver->attributes,
                     $this->data['attributeTypes'] ?? [],
-                    $this->data['units'] ?? [],
-                    '{/api}fleet/vehicle/attribute'
+                    [],
+                    '{/api}fleet/driver/attribute'
                     );
                 ?>
             </div>
@@ -155,18 +110,18 @@ echo $this->data['nav']->render();
 
         <input type="radio" id="c-tab-3" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-3' ? ' checked' : ''; ?>>
         <div class="tab col-simple">
-            <?= $this->data['media-upload']->render('vehicle-file', 'files', '', $vehicle->files); ?>
+            <?= $this->data['media-upload']->render('driver-file', 'files', '', $driver->files); ?>
         </div>
 
         <input type="radio" id="c-tab-4" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-4' ? ' checked' : ''; ?>>
         <div class="tab">
-            <?= $this->data['vehicle-notes']->render('vehicle-notes', '', $vehicle->notes); ?>
+            <?= $this->data['driver-notes']->render('driver-notes', '', $driver->notes); ?>
         </div>
 
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?vehicle=' . $vehicle->id) ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?driver=' . $driver->id) ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">

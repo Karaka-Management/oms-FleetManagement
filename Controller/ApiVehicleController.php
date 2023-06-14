@@ -434,7 +434,7 @@ final class ApiVehicleController extends Controller
                     $vehicle->id,
                     $media->id,
                     VehicleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -476,7 +476,7 @@ final class ApiVehicleController extends Controller
                     $vehicle->id,
                     $media->id,
                     VehicleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -827,7 +827,7 @@ final class ApiVehicleController extends Controller
     }
 
     /**
-     * Api method to create item files
+     * Api method to create notes
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -848,7 +848,7 @@ final class ApiVehicleController extends Controller
             return;
         }
 
-        $request->setData('virtualpath', '/Modules/FleetManagement/Items/' . $request->getData('id'), true);
+        $request->setData('virtualpath', '/Modules/FleetManagement/Vehicle/' . $request->getData('id'), true);
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorCreate($request, $response, $data);
 
         if ($response->header->status !== RequestStatusCode::R_200) {
@@ -882,5 +882,32 @@ final class ApiVehicleController extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * Api method to update note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
+
+        if ($response->header->status !== RequestStatusCode::R_200) {
+            return;
+        }
+
+        $responseData = $response->get($request->uri->__toString());
+        if (!\is_array($responseData)) {
+            return;
+        }
     }
 }

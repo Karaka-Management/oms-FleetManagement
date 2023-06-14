@@ -38,7 +38,7 @@ final class DriverAttributeMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'fleetmgmt_driver_attr_id'    => ['name' => 'fleetmgmt_driver_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'fleetmgmt_driver_attr_item'  => ['name' => 'fleetmgmt_driver_attr_item',  'type' => 'int', 'internal' => 'ref'],
+        'fleetmgmt_driver_attr_driver'  => ['name' => 'fleetmgmt_driver_attr_driver',  'type' => 'int', 'internal' => 'ref'],
         'fleetmgmt_driver_attr_type'  => ['name' => 'fleetmgmt_driver_attr_type',  'type' => 'int', 'internal' => 'type'],
         'fleetmgmt_driver_attr_value' => ['name' => 'fleetmgmt_driver_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];

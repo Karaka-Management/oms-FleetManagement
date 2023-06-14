@@ -428,7 +428,7 @@
                 "null": false
             },
             "fleetmgmt_attr_type_required": {
-                "description": "Every item must have this attribute type if set to true.",
+                "description": "Every vehicle must have this attribute type if set to true.",
                 "name": "fleetmgmt_attr_type_required",
                 "type": "TINYINT(1)",
                 "null": false
@@ -601,8 +601,8 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_vehicle_attr_item": {
-                "name": "fleetmgmt_vehicle_attr_item",
+            "fleetmgmt_vehicle_attr_vehicle": {
+                "name": "fleetmgmt_vehicle_attr_vehicle",
                 "type": "INT(11)",
                 "null": false,
                 "foreignTable": "fleetmgmt_vehicle",
@@ -709,7 +709,7 @@
                 "null": false
             },
             "fleetmgmt_driver_attr_type_required": {
-                "description": "Every item must have this attribute type if set to true.",
+                "description": "Every driver must have this attribute type if set to true.",
                 "name": "fleetmgmt_driver_attr_type_required",
                 "type": "TINYINT(1)",
                 "null": false
@@ -882,8 +882,8 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "fleetmgmt_driver_attr_item": {
-                "name": "fleetmgmt_driver_attr_item",
+            "fleetmgmt_driver_attr_driver": {
+                "name": "fleetmgmt_driver_attr_driver",
                 "type": "INT(11)",
                 "null": false,
                 "foreignTable": "fleetmgmt_driver",

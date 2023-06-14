@@ -38,7 +38,7 @@ final class VehicleAttributeMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'fleetmgmt_vehicle_attr_id'    => ['name' => 'fleetmgmt_vehicle_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'fleetmgmt_vehicle_attr_item'  => ['name' => 'fleetmgmt_vehicle_attr_item',  'type' => 'int', 'internal' => 'ref'],
+        'fleetmgmt_vehicle_attr_vehicle'  => ['name' => 'fleetmgmt_vehicle_attr_vehicle',  'type' => 'int', 'internal' => 'ref'],
         'fleetmgmt_vehicle_attr_type'  => ['name' => 'fleetmgmt_vehicle_attr_type',  'type' => 'int', 'internal' => 'type'],
         'fleetmgmt_vehicle_attr_value' => ['name' => 'fleetmgmt_vehicle_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];

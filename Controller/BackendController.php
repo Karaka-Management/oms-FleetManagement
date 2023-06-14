@@ -107,6 +107,35 @@ final class BackendController extends Controller
      * @param ResponseAbstract $response Response
      * @param mixed            $data     Generic data
      *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $list = DriverMapper::getAll()
+            ->with('account')
+            ->sort('id', 'DESC')
+            ->execute();
+
+        $view->data['drivers'] = $list;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
      * @return RenderableInterface
      *
      * @since 1.0.0
@@ -251,6 +280,75 @@ final class BackendController extends Controller
 
         $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverProfile(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-profile');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        // @todo: This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
+        $driver = DriverMapper::get()
+            ->with('attributes')
+            ->with('attributes/type')
+            ->with('attributes/value')
+            ->with('attributes/type/l11n')
+            ->with('files')
+            ->with('files/types')
+            ->where('id', (int) $request->getData('id'))
+            ->where('attributes/type/l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $view->data['driver'] = $driver;
+
+        $query   = new Builder($this->app->dbPool->get());
+        $results = $query->selectAs(DriverMapper::HAS_MANY['files']['external'], 'file')
+            ->from(DriverMapper::TABLE)
+            ->leftJoin(DriverMapper::HAS_MANY['files']['table'])
+                ->on(DriverMapper::HAS_MANY['files']['table'] . '.' . DriverMapper::HAS_MANY['files']['self'], '=', DriverMapper::TABLE . '.' . DriverMapper::PRIMARYFIELD)
+            ->leftJoin(MediaMapper::TABLE)
+                ->on(DriverMapper::HAS_MANY['files']['table'] . '.' . DriverMapper::HAS_MANY['files']['external'], '=', MediaMapper::TABLE . '.' . MediaMapper::PRIMARYFIELD)
+             ->leftJoin(MediaMapper::HAS_MANY['types']['table'])
+                ->on(MediaMapper::TABLE . '.' . MediaMapper::PRIMARYFIELD, '=', MediaMapper::HAS_MANY['types']['table'] . '.' . MediaMapper::HAS_MANY['types']['self'])
+            ->leftJoin(MediaTypeMapper::TABLE)
+                ->on(MediaMapper::HAS_MANY['types']['table'] . '.' . MediaMapper::HAS_MANY['types']['external'], '=', MediaTypeMapper::TABLE . '.' . MediaTypeMapper::PRIMARYFIELD)
+            ->where(DriverMapper::HAS_MANY['files']['self'], '=', $driver->id)
+            ->where(MediaTypeMapper::TABLE . '.' . MediaTypeMapper::getColumnByMember('name'), '=', 'driver_profile_image');
+
+        $driverImage = MediaMapper::get()
+            ->with('types')
+            ->where('id', $results)
+            ->limit(1)
+            ->execute();
+
+        $view->data['driverImage'] = $driverImage;
+
+        /** @var \Model\Setting $settings */
+        $settings = $this->app->appSettings->get(null, [
+            SettingsEnum::DEFAULT_LOCALIZATION,
+        ]);
+
+        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['defaultlocalization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+
+        $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['driver-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
 
         return $view;
     }

@@ -32,9 +32,17 @@ abstract class PermissionCategory extends Enum
 
     public const VEHICLE_TYPE = 3;
 
-    public const INSPECTION_TYPE = 4;
+    public const VEHICLE_INSPECTION_TYPE = 4;
 
-    public const INSPECTION = 5;
+    public const VEHICLE_INSPECTION = 5;
 
-    public const ATTRIBUTE_TYPE = 6;
+    public const VEHICLE_ATTRIBUTE_TYPE = 6;
+
+    public const DRIVER = 7;
+
+    public const DRIVER_INSPECTION_TYPE = 8;
+
+    public const DRIVER_INSPECTION = 9;
+
+    public const DRIVER_ATTRIBUTE_TYPE = 10;
 }

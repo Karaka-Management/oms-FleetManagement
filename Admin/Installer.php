@@ -87,6 +87,16 @@ final class Installer extends InstallerAbstract
         /** @var array $types */
         $types           = \json_decode($fileContent, true);
         $inspectionTypes = self::createInspectionTypes($app, $types);
+
+        /* Inspection types */
+        $fileContent = \file_get_contents(__DIR__ . '/Install/driverinspectiontype.json');
+        if ($fileContent === false) {
+            return;
+        }
+
+        /** @var array $types */
+        $types           = \json_decode($fileContent, true);
+        $inspectionTypes = self::createDriverInspectionTypes($app, $types);
     }
 
     /**
@@ -266,6 +276,67 @@ final class Installer extends InstallerAbstract
                 $request->setData('type', $inspectionTypes[$type['name']]['id']);
 
                 $module->apiInspectionTypeL11nCreate($request, $response);
+            }
+        }
+
+        return $inspectionTypes;
+    }
+
+    /**
+     * Install inspection type
+     *
+     * @param ApplicationAbstract $app   Application
+     * @param array               $types Attribute definition
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    private static function createDriverInspectionTypes(ApplicationAbstract $app, array $types) : array
+    {
+        /** @var array<string, array> $inspectionTypes */
+        $inspectionTypes = [];
+
+        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
+        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriver');
+
+        /** @var array $type */
+        foreach ($types as $type) {
+            $response = new HttpResponse();
+            $request  = new HttpRequest(new HttpUri(''));
+
+            $request->header->account = 1;
+            $request->setData('name', $type['name'] ?? '');
+            $request->setData('title', \reset($type['l11n']));
+            $request->setData('language', \array_keys($type['l11n'])[0] ?? 'en');
+
+            $module->apiDriverInspectionTypeCreate($request, $response);
+
+            $responseData = $response->get('');
+            if (!\is_array($responseData)) {
+                continue;
+            }
+
+            $inspectionTypes[$type['name']] = !\is_array($responseData['response'])
+                ? $responseData['response']->toArray()
+                : $responseData['response'];
+
+            $isFirst = true;
+            foreach ($type['l11n'] as $language => $l11n) {
+                if ($isFirst) {
+                    $isFirst = false;
+                    continue;
+                }
+
+                $response = new HttpResponse();
+                $request  = new HttpRequest(new HttpUri(''));
+
+                $request->header->account = 1;
+                $request->setData('title', $l11n);
+                $request->setData('language', $language);
+                $request->setData('type', $inspectionTypes[$type['name']]['id']);
+
+                $module->apiDriverInspectionTypeL11nCreate($request, $response);
             }
         }
 

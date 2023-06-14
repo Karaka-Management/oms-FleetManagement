@@ -58,7 +58,7 @@ return [
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::DRIVER,
             ],
         ],
         [
@@ -67,7 +67,49 @@ return [
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::DRIVER,
+            ],
+        ],
+    ],
+
+    '^.*/fleet/vehicle/note.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteCreate',
+            'verb'       => RouteVerb::PUT,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::READ,
                 'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteEdit',
+            'verb'       => RouteVerb::SET,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+
+    '^.*/fleet/driver/note.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteCreate',
+            'verb'       => RouteVerb::PUT,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::DRIVER,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteEdit',
+            'verb'       => RouteVerb::SET,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::DRIVER,
             ],
         ],
     ],

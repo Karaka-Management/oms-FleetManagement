@@ -60,7 +60,7 @@ final class DriverMapper extends DataMapperFactory
         'attributes' => [
             'mapper'   => DriverAttributeMapper::class,
             'table'    => 'fleetmgmt_driver_attr',
-            'self'     => 'fleetmgmt_driver_attr_item',
+            'self'     => 'fleetmgmt_driver_attr_driver',
             'external' => null,
         ],
         'notes' => [
