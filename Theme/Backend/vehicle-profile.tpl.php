@@ -128,7 +128,7 @@ echo $this->data['nav']->render();
                     </section>
                 </div>
 
-                <div class="md-hidden col-md-6">
+                <div class="col-xs-12 col-md-6">
                     <section class="portlet">
                         <div class="portlet-body">
                             <img width="100%" src="<?= $vehicleImage->id === 0

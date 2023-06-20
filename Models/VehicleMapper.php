@@ -65,7 +65,7 @@ final class VehicleMapper extends DataMapperFactory
         'attributes' => [
             'mapper'   => VehicleAttributeMapper::class,
             'table'    => 'fleetmgmt_vehicle_attr',
-            'self'     => 'fleetmgmt_vehicle_attr_item',
+            'self'     => 'fleetmgmt_vehicle_attr_vehicle',
             'external' => null,
         ],
         'notes' => [
