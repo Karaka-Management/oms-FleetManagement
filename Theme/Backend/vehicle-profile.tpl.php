@@ -66,7 +66,7 @@ echo $this->data['nav']->render();
                             </div>
 
                             <div class="form-group">
-                                <label for="iVehicleVin"><?= $this->getHtml('Vin'); ?></label>
+                                <label for="iVehicleVin"><?= $this->getHtml('VIN'); ?></label>
                                 <input type="text" id="iVehicleVin" name="vin" value="<?= $this->printHtml($vehicle->getAttribute('vin')->value->getValue()); ?>">
                             </div>
 
