@@ -297,7 +297,7 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $inspectionTypes */
         $inspectionTypes = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
+        /** @var \Modules\FleetManagement\Controller\ApiDriverController $module */
         $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriver');
 
         /** @var array $type */

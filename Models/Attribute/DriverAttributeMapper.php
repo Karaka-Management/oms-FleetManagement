@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\FleetManagement\Models\Attribute
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\FleetManagement\Models\Attribute;
 
 use Modules\Attribute\Models\Attribute;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 /**
  * Fleet mapper class.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\FleetManagement\Models\Attribute
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -28,7 +28,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @template T of Attribute
  * @extends DataMapperFactory<T>
  */
-final class VehicleAttributeMapper extends DataMapperFactory
+final class DriverAttributeMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -37,10 +37,10 @@ final class VehicleAttributeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_vehicle_attr_id'    => ['name' => 'fleetmgmt_vehicle_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'fleetmgmt_vehicle_attr_vehicle'  => ['name' => 'fleetmgmt_vehicle_attr_vehicle',  'type' => 'int', 'internal' => 'ref'],
-        'fleetmgmt_vehicle_attr_type'  => ['name' => 'fleetmgmt_vehicle_attr_type',  'type' => 'int', 'internal' => 'type'],
-        'fleetmgmt_vehicle_attr_value' => ['name' => 'fleetmgmt_vehicle_attr_value', 'type' => 'int', 'internal' => 'value'],
+        'fleetmgmt_driver_attr_id'    => ['name' => 'fleetmgmt_driver_attr_id',    'type' => 'int', 'internal' => 'id'],
+        'fleetmgmt_driver_attr_driver'  => ['name' => 'fleetmgmt_driver_attr_driver',  'type' => 'int', 'internal' => 'ref'],
+        'fleetmgmt_driver_attr_type'  => ['name' => 'fleetmgmt_driver_attr_type',  'type' => 'int', 'internal' => 'type'],
+        'fleetmgmt_driver_attr_value' => ['name' => 'fleetmgmt_driver_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];
 
     /**
@@ -51,12 +51,12 @@ final class VehicleAttributeMapper extends DataMapperFactory
      */
     public const OWNS_ONE = [
         'type' => [
-            'mapper'   => VehicleAttributeTypeMapper::class,
-            'external' => 'fleetmgmt_vehicle_attr_type',
+            'mapper'   => DriverAttributeTypeMapper::class,
+            'external' => 'fleetmgmt_driver_attr_type',
         ],
         'value' => [
-            'mapper'   => VehicleAttributeValueMapper::class,
-            'external' => 'fleetmgmt_vehicle_attr_value',
+            'mapper'   => DriverAttributeValueMapper::class,
+            'external' => 'fleetmgmt_driver_attr_value',
         ],
     ];
 
@@ -74,7 +74,7 @@ final class VehicleAttributeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_vehicle_attr';
+    public const TABLE = 'fleetmgmt_driver_attr';
 
     /**
      * Primary field name.
@@ -82,5 +82,5 @@ final class VehicleAttributeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_vehicle_attr_id';
+    public const PRIMARYFIELD = 'fleetmgmt_driver_attr_id';
 }

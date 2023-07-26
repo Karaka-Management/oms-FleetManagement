@@ -38,7 +38,6 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * FleetManagement class.
@@ -66,8 +65,8 @@ final class ApiVehicleController extends Controller
     public function apiVehicleTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -75,15 +74,7 @@ final class ApiVehicleController extends Controller
         /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createVehicleTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, VehicleTypeMapper::class, 'vehicle_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $vehicle
-        );
+        $this->createStandardCreateResponse($request, $response, $vehicle);
     }
 
     /**
@@ -141,15 +132,15 @@ final class ApiVehicleController extends Controller
     public function apiVehicleTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleTypeL11nCreate($request))) {
-            $response->data['vehicle_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                   = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $typeL11n = $this->createVehicleTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $typeL11n, VehicleTypeL11nMapper::class, 'vehicle_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+        $this->createStandardCreateResponse($request, $response, $typeL11n);
     }
 
     /**
@@ -210,8 +201,8 @@ final class ApiVehicleController extends Controller
     public function apiFuelTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -219,15 +210,7 @@ final class ApiVehicleController extends Controller
         /** @var BaseStringL11nType $vehicle */
         $vehicle = $this->createFuelTypeFromRequest($request);
         $this->createModel($request->header->account, $vehicle, FuelTypeMapper::class, 'fuel_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $vehicle
-        );
+        $this->createStandardCreateResponse($request, $response, $vehicle);
     }
 
     /**
@@ -285,15 +268,15 @@ final class ApiVehicleController extends Controller
     public function apiFuelTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateFuelTypeL11nCreate($request))) {
-            $response->data['fuel_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $typeL11n = $this->createFuelTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $typeL11n, FuelTypeL11nMapper::class, 'fuel_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+        $this->createStandardCreateResponse($request, $response, $typeL11n);
     }
 
     /**
@@ -354,8 +337,8 @@ final class ApiVehicleController extends Controller
     public function apiVehicleCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateVehicleCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -370,14 +353,7 @@ final class ApiVehicleController extends Controller
             $this->createVehicleMedia($vehicle, $request);
         }
 
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $vehicle
-        );
+        $this->createStandardCreateResponse($request, $response, $vehicle);
     }
 
     /**
@@ -552,8 +528,8 @@ final class ApiVehicleController extends Controller
     public function apiMediaAddToVehicle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateMediaAddToVehicle($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidAddResponse($request, $response, $val);
 
             return;
         }
@@ -698,8 +674,8 @@ final class ApiVehicleController extends Controller
     public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateInspectionTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -707,15 +683,7 @@ final class ApiVehicleController extends Controller
         /** @var BaseStringL11nType $inspection */
         $inspection = $this->createInspectionTypeFromRequest($request);
         $this->createModel($request->header->account, $inspection, InspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $inspection
-        );
+        $this->createStandardCreateResponse($request, $response, $inspection);
     }
 
     /**
@@ -773,15 +741,15 @@ final class ApiVehicleController extends Controller
     public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
-            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                      = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $typeL11n = $this->createInspectionTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $typeL11n, InspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+        $this->createStandardCreateResponse($request, $response, $typeL11n);
     }
 
     /**
@@ -842,8 +810,8 @@ final class ApiVehicleController extends Controller
     public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
-            $response->data['vehicle_note_create'] = new FormValidation($val);
-            $response->header->status              = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }

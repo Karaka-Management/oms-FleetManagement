@@ -17,20 +17,15 @@ namespace Modules\FleetManagement\Controller;
 use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Models\AttributeType;
 use Modules\Attribute\Models\AttributeValue;
-use Modules\Attribute\Models\NullAttributeType;
-use Modules\Attribute\Models\NullAttributeValue;
-use Modules\FleetManagement\Models\Driver\DriverAttributeMapper;
-use Modules\FleetManagement\Models\Driver\DriverAttributeTypeL11nMapper;
-use Modules\FleetManagement\Models\Driver\DriverAttributeTypeMapper;
-use Modules\FleetManagement\Models\Driver\DriverAttributeValueL11nMapper;
-use Modules\FleetManagement\Models\Driver\DriverAttributeValueMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeL11nMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeValueL11nMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeValueMapper;
 use phpOMS\Localization\BaseStringL11n;
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * FleetManagement class.
@@ -42,8 +37,10 @@ use phpOMS\Model\Message\FormValidation;
  */
 final class ApiDriverAttributeController extends Controller
 {
+    use \Modules\Attribute\Controller\ApiAttributeTraitController;
+
     /**
-     * Api method to create driver attribute
+     * Api method to create item attribute
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -57,158 +54,16 @@ final class ApiDriverAttributeController extends Controller
      */
     public function apiDriverAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeCreate($request))) {
-            $response->data['attribute_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
-        $attribute = $this->createDriverAttributeFromRequest($request);
+        $attribute = $this->createAttributeFromRequest($request);
         $this->createModel($request->header->account, $attribute, DriverAttributeMapper::class, 'attribute', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully created', $attribute);
-    }
-
-    /**
-     * Method to create driver attribute from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Attribute
-     *
-     * @since 1.0.0
-     */
-    private function createDriverAttributeFromRequest(RequestAbstract $request) : Attribute
-    {
-        $attribute       = new Attribute();
-        $attribute->ref  = (int) $request->getData('driver');
-        $attribute->type = new NullAttributeType((int) $request->getData('type'));
-
-        if ($request->hasData('value')) {
-            $attribute->value = new NullAttributeValue((int) $request->getData('value'));
-        } else {
-            $newRequest = clone $request;
-            $newRequest->setData('value', $request->getData('custom'), true);
-
-            $value = $this->createAttributeValueFromRequest($newRequest);
-
-            $attribute->value = $value;
-        }
-
-        return $attribute;
-    }
-
-    /**
-     * Validate driver attribute create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['type'] = !$request->hasData('type'))
-            || ($val['value'] = (!$request->hasData('value') && !$request->hasData('custom')))
-            || ($val['driver'] = !$request->hasData('driver'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create driver attribute
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiDriverAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateDriverAttributeUpdate($request))) {
-            $response->data['attribute_update'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
-
-            return;
-        }
-
-        $old = DriverAttributeMapper::get()
-            ->with('type')
-            ->with('type/defaults')
-            ->with('value')
-            ->where('id', (int) $request->getData('id'))
-            ->execute();
-
-        $new = $this->updateDriverAttributeFromRequest($request, $old->deepClone());
-        $this->updateModel($request->header->account, $old, $new, DriverAttributeMapper::class, 'attribute', $request->getOrigin());
-
-        if ($new->value->getValue() !== $old->value->getValue()) {
-            $this->updateModel($request->header->account, $old->value, $new->value, DriverAttributeValueMapper::class, 'attribute_value', $request->getOrigin());
-        }
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully updated', $new);
-    }
-
-    /**
-     * Method to create driver attribute from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Attribute
-     *
-     * @since 1.0.0
-     */
-    private function updateDriverAttributeFromRequest(RequestAbstract $request, Attribute $attribute) : Attribute
-    {
-        if ($attribute->type->custom) {
-            if ($request->hasData('value')) {
-                // @question: we are overwriting the old value, could there be a use case where we want to create a new value and keep the old one?
-                $attribute->value->setValue($request->getData('value'), $attribute->type->datatype);
-            }
-        } else {
-            if ($request->hasData('value')) {
-                // @todo: fix by only accepting the value id to be used
-                // this is a workaround for now because the front end doesn't allow to dynamically show default values.
-                $value = $attribute->type->getDefaultByValue($request->getData('value'));
-
-                if ($value->id !== 0) {
-                    $attribute->value = $attribute->type->getDefaultByValue($request->getData('value'));
-                }
-            }
-        }
-
-        return $attribute;
-    }
-
-    /**
-     * Validate driver attribute create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeUpdate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['id'] = !$request->hasData('id'))
-        ) {
-            return $val;
-        }
-
-        return [];
+        $this->createStandardCreateResponse($request, $response, $attribute);
     }
 
     /**
@@ -226,58 +81,16 @@ final class ApiDriverAttributeController extends Controller
      */
     public function apiDriverAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeTypeL11nCreate($request))) {
-            $response->data['attr_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeTypeL11nCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
-        $attrL11n = $this->createDriverAttributeTypeL11nFromRequest($request);
+        $attrL11n = $this->createAttributeTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $attrL11n, DriverAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
-    }
-
-    /**
-     * Method to create driver attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createDriverAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('type') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
-
-        return $attrL11n;
-    }
-
-    /**
-     * Validate driver attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeTypeL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
-        ) {
-            return $val;
-        }
-
-        return [];
+        $this->createStandardCreateResponse($request, $response, $attrL11n);
     }
 
     /**
@@ -295,60 +108,16 @@ final class ApiDriverAttributeController extends Controller
      */
     public function apiDriverAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeTypeCreate($request))) {
-            $response->data['attr_type_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeTypeCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attrType = $this->createAttributeTypeFromRequest($request);
         $this->createModel($request->header->account, $attrType, DriverAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute type', 'Attribute type successfully created', $attrType);
-    }
-
-    /**
-     * Method to create driver attribute from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return AttributeType
-     *
-     * @since 1.0.0
-     */
-    private function createAttributeTypeFromRequest(RequestAbstract $request) : AttributeType
-    {
-        $attrType                    = new AttributeType($request->getDataString('name') ?? '');
-        $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
-        $attrType->custom            = $request->getDataBool('custom') ?? false;
-        $attrType->isRequired        = (bool) ($request->getData('is_required') ?? false);
-        $attrType->validationPattern = $request->getDataString('validation_pattern') ?? '';
-        $attrType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
-        $attrType->setFields($request->getDataInt('fields') ?? 0);
-
-        return $attrType;
-    }
-
-    /**
-     * Validate driver attribute create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeTypeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['name'] = !$request->hasData('name'))
-        ) {
-            return $val;
-        }
-
-        return [];
+        $this->createStandardCreateResponse($request, $response, $attrType);
     }
 
     /**
@@ -366,14 +135,19 @@ final class ApiDriverAttributeController extends Controller
      */
     public function apiDriverAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeValueCreate($request))) {
-            $response->data['attr_value_create'] = new FormValidation($val);
-            $response->header->status            = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeValueCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
-        $attrValue = $this->createAttributeValueFromRequest($request);
+        /** @var \Modules\Attribute\Models\AttributeType $type */
+        $type = DriverAttributeTypeMapper::get()
+            ->where('id', $request->getDataInt('type') ?? 0)
+            ->execute();
+
+        $attrValue = $this->createAttributeValueFromRequest($request, $type);
         $this->createModel($request->header->account, $attrValue, DriverAttributeValueMapper::class, 'attr_value', $request->getOrigin());
 
         if ($attrValue->isDefault) {
@@ -385,55 +159,7 @@ final class ApiDriverAttributeController extends Controller
             );
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute value', 'Attribute value successfully created', $attrValue);
-    }
-
-    /**
-     * Method to create driver attribute value from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return AttributeValue
-     *
-     * @since 1.0.0
-     */
-    private function createAttributeValueFromRequest(RequestAbstract $request) : AttributeValue
-    {
-        /** @var AttributeType $type */
-        $type = DriverAttributeTypeMapper::get()
-            ->where('id', $request->getDataInt('type') ?? 0)
-            ->execute();
-
-        $attrValue            = new AttributeValue();
-        $attrValue->isDefault = $request->getDataBool('default') ?? false;
-        $attrValue->setValue($request->getData('value'), $type->datatype);
-
-        if ($request->hasData('title')) {
-            $attrValue->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
-        }
-
-        return $attrValue;
-    }
-
-    /**
-     * Validate driver attribute value create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeValueCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['type'] = !$request->hasData('type'))
-            || ($val['value'] = !$request->hasData('value'))
-        ) {
-            return $val;
-        }
-
-        return [];
+        $this->createStandardCreateResponse($request, $response, $attrValue);
     }
 
     /**
@@ -451,62 +177,20 @@ final class ApiDriverAttributeController extends Controller
      */
     public function apiDriverAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeValueL11nCreate($request))) {
-            $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status                 = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeValueL11nCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $attrL11n = $this->createAttributeValueL11nFromRequest($request);
         $this->createModel($request->header->account, $attrL11n, DriverAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+        $this->createStandardCreateResponse($request, $response, $attrL11n);
     }
 
     /**
-     * Method to create driver attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createAttributeValueL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('value') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
-
-        return $attrL11n;
-    }
-
-    /**
-     * Validate driver attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateDriverAttributeValueL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['value'] = !$request->hasData('value'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to handle api driver attributes
+     * Api method to update DriverAttribute
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -518,17 +202,322 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttribute(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverAttributeValueL11nCreate($request))) {
-            $response->data['attr_value_l11n_create'] = new FormValidation($val);
-            $response->header->status                 = RequestStatusCode::R_400;
+        if (!empty($val = $this->validateAttributeUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
             return;
         }
 
-        $attrL11n = $this->createAttributeValueL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, DriverAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
+        /** @var Attribute $old */
+        $old = DriverAttributeMapper::get()
+            ->with('type')
+            ->with('type/defaults')
+            ->with('value')
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
+
+        $new = $this->updateAttributeFromRequest($request, clone $old);
+
+        if ($new->id === 0) {
+            // Set response header to invalid request because of invalid data
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $new);
+
+            return;
+        }
+
+        $this->updateModel($request->header->account, $old, $new, DriverAttributeMapper::class, 'driver_attribute', $request->getOrigin());
+
+        if ($new->value->getValue() !== $old->value->getValue()) {
+            $this->updateModel($request->header->account, $old->value, $new->value, DriverAttributeValueMapper::class, 'attribute_value', $request->getOrigin());
+        }
+
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Api method to delete DriverAttribute
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
+            return;
+        }
+
+        $driverAttribute = DriverAttributeMapper::get()
+            ->with('type')
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
+
+        if ($driverAttribute->type->isRequired) {
+            $this->createInvalidDeleteResponse($request, $response, []);
+
+            return;
+        }
+
+        $this->deleteModel($request->header->account, $driverAttribute, DriverAttributeMapper::class, 'driver_attribute', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $driverAttribute);
+    }
+
+    /**
+     * Api method to update DriverAttributeTypeL11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeTypeL11nUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeTypeL11nUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var BaseStringL11n $old */
+        $old = DriverAttributeTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updateAttributeTypeL11nFromRequest($request, clone $old);
+
+        $this->updateModel($request->header->account, $old, $new, DriverAttributeTypeL11nMapper::class, 'driver_attribute_type_l11n', $request->getOrigin());
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Api method to delete DriverAttributeTypeL11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeTypeL11nDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeTypeL11nDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\DriverAttributeTypeL11n $driverAttributeTypeL11n */
+        $driverAttributeTypeL11n = DriverAttributeTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $this->deleteModel($request->header->account, $driverAttributeTypeL11n, DriverAttributeTypeL11nMapper::class, 'driver_attribute_type_l11n', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $driverAttributeTypeL11n);
+    }
+
+    /**
+     * Api method to update DriverAttributeType
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeTypeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeTypeUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var AttributeType $old */
+        $old = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updateAttributeTypeFromRequest($request, clone $old);
+
+        $this->updateModel($request->header->account, $old, $new, DriverAttributeTypeMapper::class, 'driver_attribute_type', $request->getOrigin());
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Api method to delete DriverAttributeType
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeTypeDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeTypeDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\DriverAttributeType $driverAttributeType */
+        $driverAttributeType = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $this->deleteModel($request->header->account, $driverAttributeType, DriverAttributeTypeMapper::class, 'driver_attribute_type', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $driverAttributeType);
+    }
+
+    /**
+     * Api method to update DriverAttributeValue
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeValueUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeValueUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var AttributeValue $old */
+        $old = DriverAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
+
+        /** @var \Modules\Attribute\Models\Attribute $type */
+        $attr = DriverAttributeMapper::get()
+            ->with('type')
+            ->where('id', $request->getDataInt('attribute') ?? 0)
+            ->execute();
+
+        $new = $this->updateAttributeValueFromRequest($request, clone $old, $attr);
+
+        $this->updateModel($request->header->account, $old, $new, DriverAttributeValueMapper::class, 'driver_attribute_value', $request->getOrigin());
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Api method to delete DriverAttributeValue
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeValueDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        return;
+
+        // @todo: I don't think values can be deleted? Only Attributes
+        // However, It should be possible to remove UNUSED default values
+        // either here or other function?
+        if (!empty($val = $this->validateAttributeValueDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\DriverAttributeValue $driverAttributeValue */
+        $driverAttributeValue = DriverAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $this->deleteModel($request->header->account, $driverAttributeValue, DriverAttributeValueMapper::class, 'driver_attribute_value', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $driverAttributeValue);
+    }
+
+    /**
+     * Api method to update DriverAttributeValueL11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeValueL11nUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeValueL11nUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var BaseStringL11n $old */
+        $old = DriverAttributeValueL11nMapper::get()->where('id', (int) $request->getData('id'));
+        $new = $this->updateAttributeValueL11nFromRequest($request, clone $old);
+
+        $this->updateModel($request->header->account, $old, $new, DriverAttributeValueL11nMapper::class, 'driver_attribute_value_l11n', $request->getOrigin());
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Api method to delete DriverAttributeValueL11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiDriverAttributeValueL11nDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateAttributeValueL11nDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\DriverAttributeValueL11n $driverAttributeValueL11n */
+        $driverAttributeValueL11n = DriverAttributeValueL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $this->deleteModel($request->header->account, $driverAttributeValueL11n, DriverAttributeValueL11nMapper::class, 'driver_attribute_value_l11n', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $driverAttributeValueL11n);
     }
 }

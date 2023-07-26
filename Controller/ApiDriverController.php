@@ -33,7 +33,6 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * FleetManagement class.
@@ -61,8 +60,8 @@ final class ApiDriverController extends Controller
     public function apiDriverCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDriverCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -77,14 +76,7 @@ final class ApiDriverController extends Controller
             $this->createDriverMedia($driver, $request);
         }
 
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $driver
-        );
+        $this->createStandardCreateResponse($request, $response, $driver);
     }
 
     /**
@@ -254,8 +246,8 @@ final class ApiDriverController extends Controller
     public function apiMediaAddToDriver(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateMediaAddToDriver($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidAddResponse($request, $response, $val);
 
             return;
         }
@@ -400,24 +392,16 @@ final class ApiDriverController extends Controller
     public function apiDriverInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDriverInspectionTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
-        /** @var BaseStringL11nType $driver */
-        $driver = $this->createDriverInspectionTypeFromRequest($request);
-        $this->createModel($request->header->account, $driver, DriverInspectionTypeMapper::class, 'driver_inspection_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $driver
-        );
+        /** @var BaseStringL11nType $inspection */
+        $inspection = $this->createDriverInspectionTypeFromRequest($request);
+        $this->createModel($request->header->account, $inspection, DriverInspectionTypeMapper::class, 'driver_inspection_type', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $inspection);
     }
 
     /**
@@ -475,15 +459,15 @@ final class ApiDriverController extends Controller
     public function apiDriverInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateDriverInspectionTypeL11nCreate($request))) {
-            $response->data['driver_inspection_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                      = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $typeL11n = $this->createDriverInspectionTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $typeL11n, DriverInspectionTypeL11nMapper::class, 'driver_inspection_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+        $this->createStandardCreateResponse($request, $response, $typeL11n);
     }
 
     /**
@@ -544,8 +528,8 @@ final class ApiDriverController extends Controller
     public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
-            $response->data['driver_note_create'] = new FormValidation($val);
-            $response->header->status             = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
