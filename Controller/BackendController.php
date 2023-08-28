@@ -16,8 +16,10 @@ namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\LocalizationMapper;
 use Modules\Admin\Models\SettingsEnum;
-use Modules\FleetManagement\Models\VehicleAttributeTypeL11nMapper;
-use Modules\FleetManagement\Models\VehicleAttributeTypeMapper;
+use Modules\FleetManagement\Models\InspectionMapper;
+use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeL11nMapper;
+use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
+use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\MediaMapper;
@@ -136,6 +138,34 @@ final class BackendController extends Controller
      * @param ResponseAbstract $response Response
      * @param mixed            $data     Generic data
      *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementInspectionList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $list = InspectionMapper::getAll()
+            ->sort('id', 'DESC')
+            ->execute();
+
+        $view->data['inspectionss'] = $list;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
      * @return RenderableInterface
      *
      * @since 1.0.0
@@ -235,6 +265,15 @@ final class BackendController extends Controller
             ->execute();
 
         $view->data['vehicle'] = $vehicle;
+
+        $inspections = InspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('reference', $vehicle->id)
+            ->where('type/l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $view->data['inspections'] = $inspections;
 
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(VehicleMapper::HAS_MANY['files']['external'], 'file')

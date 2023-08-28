@@ -225,11 +225,17 @@
             },
             "fleetmgmt_vehicle_inspection_interval": {
                 "name": "fleetmgmt_vehicle_inspection_interval",
-                "type": "TINYINT(3)",
+                "type": "INT",
                 "null": false
             },
             "fleetmgmt_vehicle_inspection_next": {
                 "name": "fleetmgmt_vehicle_inspection_next",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_vehicle_inspection_date": {
+                "name": "fleetmgmt_vehicle_inspection_date",
                 "type": "DATETIME",
                 "null": true,
                 "default": null
@@ -240,6 +246,13 @@
                 "null": false,
                 "foreignTable": "fleetmgmt_inspection_type",
                 "foreignKey": "fleetmgmt_inspection_type_id"
+            },
+            "fleetmgmt_vehicle_inspection_vehicle": {
+                "name": "fleetmgmt_vehicle_inspection_vehicle",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_vehicle",
+                "foreignKey": "fleetmgmt_vehicle_id"
             }
         }
     },
@@ -338,11 +351,17 @@
             },
             "fleetmgmt_driver_inspection_interval": {
                 "name": "fleetmgmt_driver_inspection_interval",
-                "type": "TINYINT(3)",
+                "type": "INT",
                 "null": false
             },
             "fleetmgmt_driver_inspection_next": {
                 "name": "fleetmgmt_driver_inspection_next",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_driver_inspection_date": {
+                "name": "fleetmgmt_driver_inspection_date",
                 "type": "DATETIME",
                 "null": true,
                 "default": null
@@ -353,6 +372,13 @@
                 "null": false,
                 "foreignTable": "fleetmgmt_driver_inspection_type",
                 "foreignKey": "fleetmgmt_driver_inspection_type_id"
+            },
+            "fleetmgmt_driver_inspection_driver": {
+                "name": "fleetmgmt_driver_inspection_driver",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_driver",
+                "foreignKey": "fleetmgmt_driver_id"
             }
         }
     },
@@ -955,6 +981,65 @@
                 "null": false,
                 "foreignTable": "editor_doc",
                 "foreignKey": "editor_doc_id"
+            }
+        }
+    },
+    "fleetmgmt_milage": {
+        "name": "fleetmgmt_milage",
+        "fields": {
+            "fleetmgmt_milage_id": {
+                "name": "fleetmgmt_milage_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "fleetmgmt_milage_status": {
+                "name": "fleetmgmt_milage_status",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "fleetmgmt_milage_description": {
+                "name": "fleetmgmt_milage_description",
+                "type": "TEXT",
+                "null": false
+            },
+            "fleetmgmt_milage_start": {
+                "name": "fleetmgmt_milage_start",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_milage_end": {
+                "name": "fleetmgmt_milage_end",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "fleetmgmt_milage_milage": {
+                "name": "fleetmgmt_milage_milage",
+                "type": "INT",
+                "null": false
+            },
+            "fleetmgmt_milage_fuel": {
+                "name": "fleetmgmt_milage_fuel",
+                "type": "INT",
+                "null": false
+            },
+            "fleetmgmt_milage_driver": {
+                "name": "fleetmgmt_milage_driver",
+                "type": "INT",
+                "null": true,
+                "default": null,
+                "foreignTable": "fleetmgmt_driver",
+                "foreignKey": "fleetmgmt_driver_id"
+            },
+            "fleetmgmt_milage_vehicle": {
+                "name": "fleetmgmt_milage_vehicle",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "fleetmgmt_vehicle",
+                "foreignKey": "fleetmgmt_vehicle_id"
             }
         }
     }

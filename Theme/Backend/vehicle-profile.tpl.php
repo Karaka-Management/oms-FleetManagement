@@ -179,10 +179,12 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
+                            <?php foreach ($this->data['inspections'] as $inspection) : ?>
                                 <tr>
+                                    <td><?= $inspection->next?->format('Y-m-d H:i') ?>
+                                    <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
-                                    <td>
-                                    <td>
+                            <?php endforeach; ?>
                         </table>
                     </section>
                 </div>

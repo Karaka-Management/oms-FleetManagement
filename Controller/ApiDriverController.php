@@ -18,8 +18,11 @@ use Modules\Admin\Models\NullAccount;
 use Modules\FleetManagement\Models\Driver\DriverInspectionTypeL11nMapper;
 use Modules\FleetManagement\Models\Driver\DriverInspectionTypeMapper;
 use Modules\FleetManagement\Models\Driver\Driver;
+use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\Driver\DriverStatus;
+use Modules\FleetManagement\Models\Inspection;
+use Modules\FleetManagement\Models\InspectionStatus;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
@@ -29,6 +32,7 @@ use Modules\Media\Models\ReferenceMapper;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -44,6 +48,76 @@ use phpOMS\Message\ResponseAbstract;
  */
 final class ApiDriverController extends Controller
 {
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\DriverInspection $inspection */
+        $inspection = $this->createInspectionFromRequest($request);
+        $this->createModel($request->header->account, $inspection, DriverInspectionMapper::class, 'inspection', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $inspection);
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Inspection Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createInspectionFromRequest(RequestAbstract $request) : Inspection
+    {
+        $inspection        = new Inspection();
+        $inspection->reference = (int) $request->getData('ref');
+        $inspection->description = $request->getDataString('description') ?? '';
+        $inspection->status = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->next = $request->getDataDateTime('next') ?? null;
+        $inspection->date = $request->getDataDateTime('date') ?? null;
+        $inspection->interval = $request->getDataInt('interval') ?? 0;
+        $inspection->type = new NullBaseStringL11nType((int) $request->getData('type'));
+
+        return $inspection;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['ref'] = !$request->hasData('ref'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
     /**
      * Api method to create a driver
      *
@@ -92,7 +166,7 @@ final class ApiDriverController extends Controller
     {
         $driver          = new Driver();
         $driver->account = new NullAccount($request->getDataInt('account') ?? 1);
-        $driver->status  = (int) ($request->getDataInt('status') ?? DriverStatus::INACTIVE);
+        $driver->status  = $request->getDataInt('status') ?? DriverStatus::INACTIVE;
 
         return $driver;
     }
@@ -267,7 +341,7 @@ final class ApiDriverController extends Controller
                 virtualPath: $path,
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
-                readContent: (bool) ($request->getData('parse_content') ?? false)
+                readContent: $request->getDataBool('parse_content') ?? false
             );
 
             $collection = null;

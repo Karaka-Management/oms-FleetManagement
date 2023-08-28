@@ -18,6 +18,7 @@ use Modules\Admin\Models\AccountMapper;
 use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use Modules\Editor\Models\EditorDocMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeMapper;
 
 /**
  * Mapper class.

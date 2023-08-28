@@ -25,7 +25,7 @@ use phpOMS\Localization\BaseStringL11n;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of BaseStringL11n
+ * @template T of Inspection
  * @extends DataMapperFactory<T>
  */
 final class InspectionMapper extends DataMapperFactory
@@ -38,10 +38,12 @@ final class InspectionMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'fleetmgmt_vehicle_inspection_id'          => ['name' => 'fleetmgmt_vehicle_inspection_id',    'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_vehicle_inspection_vehicle' => ['name' => 'fleetmgmt_vehicle_inspection_vehicle', 'type' => 'int', 'internal' => 'reference'],
         'fleetmgmt_vehicle_inspection_description' => ['name' => 'fleetmgmt_vehicle_inspection_description', 'type' => 'string', 'internal' => 'description'],
         'fleetmgmt_vehicle_inspection_status'      => ['name' => 'fleetmgmt_vehicle_inspection_status',  'type' => 'int',    'internal' => 'status'],
         'fleetmgmt_vehicle_inspection_interval'    => ['name' => 'fleetmgmt_vehicle_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
         'fleetmgmt_vehicle_inspection_next'        => ['name' => 'fleetmgmt_vehicle_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
+        'fleetmgmt_vehicle_inspection_date'        => ['name' => 'fleetmgmt_vehicle_inspection_date',  'type' => 'DateTime', 'internal' => 'date'],
         'fleetmgmt_vehicle_inspection_type'        => ['name' => 'fleetmgmt_vehicle_inspection_type',  'type' => 'int', 'internal' => 'type'],
     ];
 

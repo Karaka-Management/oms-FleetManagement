@@ -134,7 +134,18 @@ return [
 
     '^.*/fleet/inspection/list.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::VEHICLE,
+            ],
+        ],
+    ],
+    '^.*/fleet/inspection/type/list.*$' => [
+        [
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
@@ -145,7 +156,7 @@ return [
     ],
     '^.*/fleet/inspection/create.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,

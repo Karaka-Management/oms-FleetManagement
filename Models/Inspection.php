@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Models;
 
+use Modules\Admin\Models\Account;
 use phpOMS\Localization\BaseStringL11nType;
 
 /**
@@ -38,13 +39,24 @@ class Inspection implements \JsonSerializable
     // Alternatively define default interval from inspection type?
     public ?\DateTime $next = null;
 
+    public ?\DateTime $date = null;
+
     /**
-     * Inspectio interval in months
+     * Inspection duration in hours
+     */
+    public int $duration = 0;
+
+    /**
+     * Inspection interval in months
      *
      * @var int
      * @since 1.0.0
      */
     public int $interval = 0;
+
+    public int $reference = 0;
+
+    public ?Account $responsible = null;
 
     /**
      * Constructor

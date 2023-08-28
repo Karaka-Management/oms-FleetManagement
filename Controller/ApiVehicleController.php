@@ -15,10 +15,16 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\FleetManagement\Models\Driver\NullDriver;
+use Modules\FleetManagement\Models\InspectionStatus;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
+use Modules\FleetManagement\Models\Inspection;
+use Modules\FleetManagement\Models\InspectionMapper;
 use Modules\FleetManagement\Models\InspectionTypeL11nMapper;
 use Modules\FleetManagement\Models\InspectionTypeMapper;
+use Modules\FleetManagement\Models\Milage;
+use Modules\FleetManagement\Models\MilageMapper;
 use Modules\FleetManagement\Models\Vehicle;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
@@ -49,6 +55,149 @@ use phpOMS\Message\ResponseAbstract;
  */
 final class ApiVehicleController extends Controller
 {
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiMilageCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateMilageCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\Milage $milage */
+        $milage = $this->createMilageFromRequest($request);
+        $this->createModel($request->header->account, $milage, MilageMapper::class, 'milage', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $milage);
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Milage Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createMilageFromRequest(RequestAbstract $request) : Milage
+    {
+        $milage        = new Milage();
+        $milage->vehicle = (int) $request->getData('vehicle');
+        $milage->driver = $request->hasData('driver') ? new NullDriver((int) $request->getData('driver')) : null;
+        $milage->milage = $request->getDataInt('milage') ?? 0;
+        $milage->status = $request->getDataInt('status') ?? 0;
+        $milage->fuelUsage = $request->getDataInt('fuel') ?? 0;
+        $milage->description = $request->getDataString('description') ?? '';
+        $milage->from = $request->getDataString('from') ?? '';
+        $milage->to = $request->getDataString('to') ?? '';
+        $milage->start = $request->getDataDateTime('start');
+        $milage->end = $request->getDataDateTime('end');
+
+        return $milage;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateMilageCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['vehicle'] = !$request->hasData('vehicle'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateInspectionCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\Inspection $inspection */
+        $inspection = $this->createInspectionFromRequest($request);
+        $this->createModel($request->header->account, $inspection, InspectionMapper::class, 'inspection', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $inspection);
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Inspection Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createInspectionFromRequest(RequestAbstract $request) : Inspection
+    {
+        $inspection        = new Inspection();
+        $inspection->reference = (int) $request->getData('ref');
+        $inspection->description = $request->getDataString('description') ?? '';
+        $inspection->status = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->next = $request->getDataDateTime('next') ?? null;
+        $inspection->date = $request->getDataDateTime('date') ?? null;
+        $inspection->interval = $request->getDataInt('interval') ?? 0;
+        $inspection->type = new NullBaseStringL11nType((int) $request->getData('type'));
+
+        return $inspection;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['ref'] = !$request->hasData('ref'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
     /**
      * Api method to create a vehicle
      *
@@ -372,7 +521,7 @@ final class ApiVehicleController extends Controller
         $vehicle->info     = $request->getDataString('info') ?? '';
         $vehicle->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
         $vehicle->fuelType = new NullBaseStringL11nType((int) ($request->getDataInt('fuel') ?? 0));
-        $vehicle->status   = (int) ($request->getDataInt('status') ?? VehicleStatus::INACTIVE);
+        $vehicle->status   = $request->getDataInt('status') ?? VehicleStatus::INACTIVE;
         $vehicle->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $vehicle;
@@ -549,7 +698,7 @@ final class ApiVehicleController extends Controller
                 virtualPath: $path,
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
-                readContent: (bool) ($request->getData('parse_content') ?? false)
+                readContent: $request->getDataBool('parse_content') ?? false
             );
 
             $collection = null;
@@ -853,7 +1002,7 @@ final class ApiVehicleController extends Controller
     }
 
     /**
-     * Api method to update note
+     * Api method to update Note
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -865,17 +1014,28 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
+        // @todo: check permissions
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
+    }
 
-        if ($response->header->status !== RequestStatusCode::R_200) {
-            return;
-        }
-
-        $responseData = $response->get($request->uri->__toString());
-        if (!\is_array($responseData)) {
-            return;
-        }
+    /**
+     * Api method to delete Note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        // @todo: check permissions
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);
     }
 }
