@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Models\Driver;
 
 use Modules\Admin\Models\AccountMapper;
-use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use Modules\Editor\Models\EditorDocMapper;
 use Modules\FleetManagement\Models\Attribute\DriverAttributeMapper;
+use Modules\Media\Models\MediaMapper;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -42,7 +42,7 @@ final class DriverMapper extends DataMapperFactory
     public const COLUMNS = [
         'fleetmgmt_driver_id'                      => ['name' => 'fleetmgmt_driver_id',         'type' => 'int',      'internal' => 'id'],
         'fleetmgmt_driver_status'                  => ['name' => 'fleetmgmt_driver_status',      'type' => 'int',   'internal' => 'status'],
-        'fleetmgmt_driver_account'             => ['name' => 'fleetmgmt_driver_account',      'type' => 'int',   'internal' => 'account'],
+        'fleetmgmt_driver_account'                 => ['name' => 'fleetmgmt_driver_account',      'type' => 'int',   'internal' => 'account'],
     ];
 
     /**

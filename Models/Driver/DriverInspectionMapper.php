@@ -38,7 +38,7 @@ final class DriverInspectionMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'fleetmgmt_driver_inspection_id'          => ['name' => 'fleetmgmt_driver_inspection_id',    'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_driver_inspection_driver' => ['name' => 'fleetmgmt_driver_inspection_driver', 'type' => 'int', 'internal' => 'reference'],
+        'fleetmgmt_driver_inspection_driver'      => ['name' => 'fleetmgmt_driver_inspection_driver', 'type' => 'int', 'internal' => 'reference'],
         'fleetmgmt_driver_inspection_description' => ['name' => 'fleetmgmt_driver_inspection_description', 'type' => 'string', 'internal' => 'description'],
         'fleetmgmt_driver_inspection_status'      => ['name' => 'fleetmgmt_driver_inspection_status',  'type' => 'int',    'internal' => 'status'],
         'fleetmgmt_driver_inspection_interval'    => ['name' => 'fleetmgmt_driver_inspection_interval',  'type' => 'int', 'internal' => 'interval'],

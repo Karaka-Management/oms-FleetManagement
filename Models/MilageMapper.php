@@ -37,15 +37,15 @@ final class MilageMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_milage_id'          => ['name' => 'fleetmgmt_milage_id',    'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_milage_description' => ['name' => 'fleetmgmt_milage_description', 'type' => 'string', 'internal' => 'description'],
-        'fleetmgmt_milage_status'      => ['name' => 'fleetmgmt_milage_status',  'type' => 'int',    'internal' => 'status'],
-        'fleetmgmt_milage_driver'    => ['name' => 'fleetmgmt_milage_driver',  'type' => 'int', 'internal' => 'driver'],
-        'fleetmgmt_milage_vehicle'    => ['name' => 'fleetmgmt_milage_vehicle',  'type' => 'int', 'internal' => 'vehicle'],
-        'fleetmgmt_milage_start'        => ['name' => 'fleetmgmt_milage_start',  'type' => 'DateTime', 'internal' => 'start'],
-        'fleetmgmt_milage_end'        => ['name' => 'fleetmgmt_milage_end',  'type' => 'DateTime', 'internal' => 'end'],
+        'fleetmgmt_milage_id'            => ['name' => 'fleetmgmt_milage_id',    'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_milage_description'   => ['name' => 'fleetmgmt_milage_description', 'type' => 'string', 'internal' => 'description'],
+        'fleetmgmt_milage_status'        => ['name' => 'fleetmgmt_milage_status',  'type' => 'int',    'internal' => 'status'],
+        'fleetmgmt_milage_driver'        => ['name' => 'fleetmgmt_milage_driver',  'type' => 'int', 'internal' => 'driver'],
+        'fleetmgmt_milage_vehicle'       => ['name' => 'fleetmgmt_milage_vehicle',  'type' => 'int', 'internal' => 'vehicle'],
+        'fleetmgmt_milage_start'         => ['name' => 'fleetmgmt_milage_start',  'type' => 'DateTime', 'internal' => 'start'],
+        'fleetmgmt_milage_end'           => ['name' => 'fleetmgmt_milage_end',  'type' => 'DateTime', 'internal' => 'end'],
         'fleetmgmt_milage_milage'        => ['name' => 'fleetmgmt_milage_milage',  'type' => 'int', 'internal' => 'milage'],
-        'fleetmgmt_milage_fuel'        => ['name' => 'fleetmgmt_milage_fuel',  'type' => 'int', 'internal' => 'fuelUsage'],
+        'fleetmgmt_milage_fuel'          => ['name' => 'fleetmgmt_milage_fuel',  'type' => 'int', 'internal' => 'fuelUsage'],
     ];
 
     /**

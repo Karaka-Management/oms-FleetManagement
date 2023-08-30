@@ -16,10 +16,10 @@ namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\LocalizationMapper;
 use Modules\Admin\Models\SettingsEnum;
-use Modules\FleetManagement\Models\InspectionMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeL11nMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
+use Modules\FleetManagement\Models\InspectionMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\MediaMapper;
@@ -387,7 +387,7 @@ final class BackendController extends Controller
         $view->data['attributeView']->data['defaultlocalization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
 
         $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
-        $view->data['driver-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['driver-notes']  = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
 
         return $view;
     }

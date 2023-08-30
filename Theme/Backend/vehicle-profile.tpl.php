@@ -166,7 +166,7 @@ echo $this->data['nav']->render();
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?vehicle=' . $vehicle->id) ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?vehicle=' . $vehicle->id); ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -181,7 +181,7 @@ echo $this->data['nav']->render();
                             <tbody>
                             <?php foreach ($this->data['inspections'] as $inspection) : ?>
                                 <tr>
-                                    <td><?= $inspection->next?->format('Y-m-d H:i') ?>
+                                    <td><?= $inspection->next?->format('Y-m-d H:i'); ?>
                                     <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
                             <?php endforeach; ?>
@@ -324,7 +324,7 @@ echo $this->data['nav']->render();
                                     </tr>
                                 </template>
                                 <?php $c = 0;
-                                $milage = [];
+                                $milage  = [];
                                 foreach ($milage as $key => $value) : ++$c; ?>
                                     <tr data-id="<?= $value->id; ?>">
                                         <td>

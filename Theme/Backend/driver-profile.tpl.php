@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-use Modules\FleetManagement\Models\NullDriver;
 use Modules\FleetManagement\Models\DriverStatus;
+use Modules\FleetManagement\Models\NullDriver;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
 $countryCodes  = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
 $countries     = \phpOMS\Localization\ISO3166NameEnum::getConstants();
-$driverStatus = DriverStatus::getConstants();
+$driverStatus  = DriverStatus::getConstants();
 
 /**
  * @var \Modules\FleetManagement\Models\Driver $driver
@@ -121,7 +121,7 @@ echo $this->data['nav']->render();
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?driver=' . $driver->id) ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?driver=' . $driver->id); ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -277,7 +277,7 @@ echo $this->data['nav']->render();
                                     </tr>
                                 </template>
                                 <?php $c = 0;
-                                $milage = [];
+                                $milage  = [];
                                 foreach ($milage as $key => $value) : ++$c; ?>
                                     <tr data-id="<?= $value->id; ?>">
                                         <td>

@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\FleetManagement\Models\Driver\DriverInspectionTypeL11nMapper;
-use Modules\FleetManagement\Models\Driver\DriverInspectionTypeMapper;
 use Modules\FleetManagement\Models\Driver\Driver;
 use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
+use Modules\FleetManagement\Models\Driver\DriverInspectionTypeL11nMapper;
+use Modules\FleetManagement\Models\Driver\DriverInspectionTypeMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\Driver\DriverStatus;
 use Modules\FleetManagement\Models\Inspection;
@@ -87,14 +87,14 @@ final class ApiDriverController extends Controller
      */
     public function createInspectionFromRequest(RequestAbstract $request) : Inspection
     {
-        $inspection        = new Inspection();
-        $inspection->reference = (int) $request->getData('ref');
+        $inspection              = new Inspection();
+        $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
-        $inspection->next = $request->getDataDateTime('next') ?? null;
-        $inspection->date = $request->getDataDateTime('date') ?? null;
-        $inspection->interval = $request->getDataInt('interval') ?? 0;
-        $inspection->type = new NullBaseStringL11nType((int) $request->getData('type'));
+        $inspection->status      = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->next        = $request->getDataDateTime('next') ?? null;
+        $inspection->date        = $request->getDataDateTime('date') ?? null;
+        $inspection->interval    = $request->getDataInt('interval') ?? 0;
+        $inspection->type        = new NullBaseStringL11nType((int) $request->getData('type'));
 
         return $inspection;
     }

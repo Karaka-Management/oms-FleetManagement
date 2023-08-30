@@ -29,12 +29,15 @@ class Milage implements \JsonSerializable
     public int $id = 0;
 
     public int $vehicle = 0;
+
     public ?Driver $driver = null;
 
     public ?\DateTime $start = null;
+
     public ?\DateTime $end = null;
 
     public string $from = '';
+
     public string $to = '';
 
     /**

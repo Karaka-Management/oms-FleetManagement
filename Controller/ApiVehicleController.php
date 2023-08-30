@@ -16,11 +16,11 @@ namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\FleetManagement\Models\Driver\NullDriver;
-use Modules\FleetManagement\Models\InspectionStatus;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
 use Modules\FleetManagement\Models\Inspection;
 use Modules\FleetManagement\Models\InspectionMapper;
+use Modules\FleetManagement\Models\InspectionStatus;
 use Modules\FleetManagement\Models\InspectionTypeL11nMapper;
 use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\Milage;
@@ -94,17 +94,17 @@ final class ApiVehicleController extends Controller
      */
     public function createMilageFromRequest(RequestAbstract $request) : Milage
     {
-        $milage        = new Milage();
-        $milage->vehicle = (int) $request->getData('vehicle');
-        $milage->driver = $request->hasData('driver') ? new NullDriver((int) $request->getData('driver')) : null;
-        $milage->milage = $request->getDataInt('milage') ?? 0;
-        $milage->status = $request->getDataInt('status') ?? 0;
-        $milage->fuelUsage = $request->getDataInt('fuel') ?? 0;
+        $milage              = new Milage();
+        $milage->vehicle     = (int) $request->getData('vehicle');
+        $milage->driver      = $request->hasData('driver') ? new NullDriver((int) $request->getData('driver')) : null;
+        $milage->milage      = $request->getDataInt('milage') ?? 0;
+        $milage->status      = $request->getDataInt('status') ?? 0;
+        $milage->fuelUsage   = $request->getDataInt('fuel') ?? 0;
         $milage->description = $request->getDataString('description') ?? '';
-        $milage->from = $request->getDataString('from') ?? '';
-        $milage->to = $request->getDataString('to') ?? '';
-        $milage->start = $request->getDataDateTime('start');
-        $milage->end = $request->getDataDateTime('end');
+        $milage->from        = $request->getDataString('from') ?? '';
+        $milage->to          = $request->getDataString('to') ?? '';
+        $milage->start       = $request->getDataDateTime('start');
+        $milage->end         = $request->getDataDateTime('end');
 
         return $milage;
     }
@@ -167,14 +167,14 @@ final class ApiVehicleController extends Controller
      */
     public function createInspectionFromRequest(RequestAbstract $request) : Inspection
     {
-        $inspection        = new Inspection();
-        $inspection->reference = (int) $request->getData('ref');
+        $inspection              = new Inspection();
+        $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
-        $inspection->next = $request->getDataDateTime('next') ?? null;
-        $inspection->date = $request->getDataDateTime('date') ?? null;
-        $inspection->interval = $request->getDataInt('interval') ?? 0;
-        $inspection->type = new NullBaseStringL11nType((int) $request->getData('type'));
+        $inspection->status      = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->next        = $request->getDataDateTime('next') ?? null;
+        $inspection->date        = $request->getDataDateTime('date') ?? null;
+        $inspection->interval    = $request->getDataInt('interval') ?? 0;
+        $inspection->type        = new NullBaseStringL11nType((int) $request->getData('type'));
 
         return $inspection;
     }
