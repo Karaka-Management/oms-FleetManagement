@@ -327,7 +327,7 @@ final class ApiVehicleAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\VehicleAttributeTypeL11n $vehicleAttributeTypeL11n */
+        /** @var BaseStringL11n $vehicleAttributeTypeL11n */
         $vehicleAttributeTypeL11n = VehicleAttributeTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $vehicleAttributeTypeL11n, VehicleAttributeTypeL11nMapper::class, 'vehicle_attribute_type_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $vehicleAttributeTypeL11n);
@@ -387,7 +387,7 @@ final class ApiVehicleAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\VehicleAttributeType $vehicleAttributeType */
+        /** @var AttributeType $vehicleAttributeType */
         $vehicleAttributeType = VehicleAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $vehicleAttributeType, VehicleAttributeTypeMapper::class, 'vehicle_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $vehicleAttributeType);
@@ -418,7 +418,7 @@ final class ApiVehicleAttributeController extends Controller
         /** @var AttributeValue $old */
         $old = VehicleAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
-        /** @var \Modules\Attribute\Models\Attribute $type */
+        /** @var \Modules\Attribute\Models\Attribute $attr */
         $attr = VehicleAttributeMapper::get()
             ->with('type')
             ->where('id', $request->getDataInt('attribute') ?? 0)
@@ -514,7 +514,7 @@ final class ApiVehicleAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\VehicleAttributeValueL11n $vehicleAttributeValueL11n */
+        /** @var BaseStringL11n $vehicleAttributeValueL11n */
         $vehicleAttributeValueL11n = VehicleAttributeValueL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $vehicleAttributeValueL11n, VehicleAttributeValueL11nMapper::class, 'vehicle_attribute_value_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $vehicleAttributeValueL11n);

@@ -70,7 +70,7 @@ final class ApiDriverController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\DriverInspection $inspection */
+        /** @var Inspection $inspection */
         $inspection = $this->createInspectionFromRequest($request);
         $this->createModel($request->header->account, $inspection, DriverInspectionMapper::class, 'inspection', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $inspection);
@@ -90,7 +90,7 @@ final class ApiDriverController extends Controller
         $inspection              = new Inspection();
         $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status      = (int) $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->status      = $request->getDataInt('status') ?? InspectionStatus::TODO;
         $inspection->next        = $request->getDataDateTime('next') ?? null;
         $inspection->date        = $request->getDataDateTime('date') ?? null;
         $inspection->interval    = $request->getDataInt('interval') ?? 0;

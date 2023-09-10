@@ -327,7 +327,7 @@ final class ApiDriverAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\DriverAttributeTypeL11n $driverAttributeTypeL11n */
+        /** @var BaseStringL11n $driverAttributeTypeL11n */
         $driverAttributeTypeL11n = DriverAttributeTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $driverAttributeTypeL11n, DriverAttributeTypeL11nMapper::class, 'driver_attribute_type_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $driverAttributeTypeL11n);
@@ -387,7 +387,7 @@ final class ApiDriverAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\DriverAttributeType $driverAttributeType */
+        /** @var AttributeType $driverAttributeType */
         $driverAttributeType = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $driverAttributeType, DriverAttributeTypeMapper::class, 'driver_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $driverAttributeType);
@@ -418,7 +418,7 @@ final class ApiDriverAttributeController extends Controller
         /** @var AttributeValue $old */
         $old = DriverAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
-        /** @var \Modules\Attribute\Models\Attribute $type */
+        /** @var \Modules\Attribute\Models\Attribute $attr */
         $attr = DriverAttributeMapper::get()
             ->with('type')
             ->where('id', $request->getDataInt('attribute') ?? 0)
@@ -514,7 +514,7 @@ final class ApiDriverAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\DriverAttributeValueL11n $driverAttributeValueL11n */
+        /** @var BaseStringL11n $driverAttributeValueL11n */
         $driverAttributeValueL11n = DriverAttributeValueL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $driverAttributeValueL11n, DriverAttributeValueL11nMapper::class, 'driver_attribute_value_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $driverAttributeValueL11n);
