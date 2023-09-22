@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Models\Driver;
 
+use Modules\FleetManagement\Models\Inspection;
+
 /**
  * Null model
  *
@@ -22,7 +24,7 @@ namespace Modules\FleetManagement\Models\Driver;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class NullDriverInspection extends DriverInspection
+final class NullDriverInspection extends Inspection
 {
     /**
      * Constructor
