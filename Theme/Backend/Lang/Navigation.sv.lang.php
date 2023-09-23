@@ -13,7 +13,15 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Client'   => 'Klient',
-    'Region'   => 'Område',
-    'SalesRep' => 'Säljare',
+    'Client'                 => 'Klient',
+    'DriverAttributes'       => '',
+    'DriverInspectionTypes'  => '',
+    'Drivers'                => '',
+    'FleetManagement'        => '',
+    'Inspections'            => '',
+    'Region'                 => 'Område',
+    'SalesRep'               => 'Säljare',
+    'VehicleAttributes'      => '',
+    'VehicleInspectionTypes' => '',
+    'Vehicles'               => '',
 ]];
