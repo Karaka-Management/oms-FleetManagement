@@ -43,6 +43,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
      * @var \Modules\FleetManagement\Controller\ApiController
      */
     protected ModuleAbstract $module;
+
     protected ModuleAbstract $attrModule;
 
     /**
@@ -69,7 +70,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
         TestUtils::setMember($account, 'id', 1);
 
-        $permission = new AccountPermission();
+        $permission       = new AccountPermission();
         $permission->unit = 1;
         $permission->app  = 2;
         $permission->setPermission(
