@@ -16,6 +16,7 @@ namespace Modules\FleetManagement\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
+use Modules\FleetManagement\tests\Controller\Api\ApiControllerAttributeTrait;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;
@@ -42,6 +43,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
      * @var \Modules\FleetManagement\Controller\ApiController
      */
     protected ModuleAbstract $module;
+    protected ModuleAbstract $attrModule;
 
     /**
      * {@inheritdoc}
@@ -87,4 +89,6 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         TestUtils::setMember($this->module, 'app', $this->app);
     }
+
+    use ApiControllerAttributeTrait;
 }
