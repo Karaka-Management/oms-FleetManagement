@@ -134,9 +134,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $fuelTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $fuelTypes[$type['name']] = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $isFirst = true;
             foreach ($type['l11n'] as $language => $l11n) {
@@ -195,9 +195,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $vehicleTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $vehicleTypes[$type['name']] = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $isFirst = true;
             foreach ($type['l11n'] as $language => $l11n) {
@@ -256,9 +256,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $inspectionTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $inspectionTypes[$type['name']] = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $isFirst = true;
             foreach ($type['l11n'] as $language => $l11n) {
@@ -317,9 +317,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $inspectionTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $inspectionTypes[$type['name']] = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $isFirst = true;
             foreach ($type['l11n'] as $language => $l11n) {
@@ -382,9 +382,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $itemAttrType[$attribute['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $itemAttrType[$attribute['name']] = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $isFirst = true;
             foreach ($attribute['l11n'] as $language => $l11n) {
@@ -453,9 +453,9 @@ final class Installer extends InstallerAbstract
                     continue;
                 }
 
-                $attrValue = !\is_array($responseData['response'])
-                    ? $responseData['response']->toArray()
-                    : $responseData['response'];
+                $attrValue = \is_array($responseData['response'])
+                    ? $responseData['response']
+                    : $responseData['response']->toArray();
 
                 $itemAttrValue[$attribute['name']][] = $attrValue;
 
