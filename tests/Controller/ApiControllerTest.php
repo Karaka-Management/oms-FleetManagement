@@ -86,7 +86,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->app->accountManager->add($account);
         $this->app->router = new WebRouter();
 
-        $this->module = $this->app->moduleManager->get('FleetManagement', 'Api');
+        $this->module     = $this->app->moduleManager->get('FleetManagement', 'Api');
         $this->attrModule = $this->app->moduleManager->get('FleetManagement', 'ApiVehicleAttribute');
 
         TestUtils::setMember($this->module, 'app', $this->app);
