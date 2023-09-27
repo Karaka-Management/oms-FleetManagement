@@ -83,6 +83,35 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
+    public function viewFleetManagementDriverAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
+
+        /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
+        $attributes = VehicleAttributeTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $view->data['attributes'] = $attributes;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
     public function viewFleetManagementVehicleList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
@@ -166,12 +195,75 @@ final class BackendController extends Controller
      * @param ResponseAbstract $response Response
      * @param mixed            $data     Generic data
      *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementInspectionTypeList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $list = InspectionMapper::getAll()
+            ->sort('id', 'DESC')
+            ->execute();
+
+        $view->data['inspectionss'] = $list;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
     public function viewFleetManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response);
+
+        /** @var \Modules\Attribute\Models\AttributeType $attribute */
+        $attribute = VehicleAttributeTypeMapper::get()
+            ->with('l11n')
+            ->where('id', (int) $request->getData('id'))
+            ->where('l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $l11ns = VehicleAttributeTypeL11nMapper::getAll()
+            ->where('ref', $attribute->id)
+            ->execute();
+
+        $view->data['attribute'] = $attribute;
+        $view->data['l11ns']     = $l11ns;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverAttributeType(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type');
@@ -223,6 +315,61 @@ final class BackendController extends Controller
 
         $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        /** @var \Model\Setting $settings */
+        $settings = $this->app->appSettings->get(null, [
+            SettingsEnum::DEFAULT_LOCALIZATION,
+        ]);
+
+        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['defaultlocalization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+
+        $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementInspectionProfile(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-profile');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         return $view;
     }

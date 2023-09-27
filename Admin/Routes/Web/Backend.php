@@ -167,7 +167,7 @@ return [
     ],
     '^.*/fleet/inspection/profile.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
