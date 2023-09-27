@@ -44,7 +44,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -52,7 +52,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -71,7 +71,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -79,7 +79,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -98,7 +98,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -106,7 +106,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -125,7 +125,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -133,7 +133,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeValueCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -167,7 +167,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -175,7 +175,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeValueL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -194,7 +194,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -202,7 +202,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -245,7 +245,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -253,7 +253,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeDelete($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -282,7 +282,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -290,7 +290,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeL11nUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeL11nUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeL11nUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -312,7 +312,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -320,7 +320,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeL11nDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeL11nDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeL11nDelete($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -340,7 +340,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -348,7 +348,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -370,7 +370,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -380,7 +380,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeTypeDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeTypeDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeTypeDelete($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -400,7 +400,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -408,7 +408,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeValueUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -437,7 +437,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -445,7 +445,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         // @todo: I don't think values can be deleted? Only Attributes
         // However, It should be possible to remove UNUSED default values
@@ -468,7 +468,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -476,7 +476,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueL11nUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueL11nUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeValueL11nUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -498,7 +498,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -506,7 +506,7 @@ final class ApiDriverAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverAttributeValueL11nDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverAttributeValueL11nDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAttributeValueL11nDelete($request))) {
             $response->header->status = RequestStatusCode::R_400;

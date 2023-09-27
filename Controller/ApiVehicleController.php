@@ -60,7 +60,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -68,7 +68,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiMilageCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiMilageCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateMilageCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -133,7 +133,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -141,7 +141,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateInspectionCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -203,7 +203,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -211,7 +211,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiVehicleTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateVehicleTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -270,7 +270,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -278,7 +278,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiVehicleTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateVehicleTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -339,7 +339,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -347,7 +347,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiFuelTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiFuelTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateFuelTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -406,7 +406,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -414,7 +414,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiFuelTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiFuelTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateFuelTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -475,7 +475,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -483,7 +483,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiVehicleCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateVehicleCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -666,7 +666,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -674,7 +674,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiMediaAddToVehicle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiMediaAddToVehicle(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateMediaAddToVehicle($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -812,7 +812,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -820,7 +820,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateInspectionTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -879,7 +879,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -887,7 +887,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -948,7 +948,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -956,7 +956,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -1006,7 +1006,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -1014,7 +1014,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         // @todo: check permissions
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
@@ -1025,7 +1025,7 @@ final class ApiVehicleController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -1033,7 +1033,7 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         // @todo: check permissions
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);

@@ -53,7 +53,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -61,7 +61,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateInspectionCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -123,7 +123,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -131,7 +131,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateDriverCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -309,7 +309,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -317,7 +317,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiMediaAddToDriver(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiMediaAddToDriver(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateMediaAddToDriver($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -455,7 +455,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -463,7 +463,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateDriverInspectionTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -522,7 +522,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -530,7 +530,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiDriverInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateDriverInspectionTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -591,7 +591,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -599,7 +599,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -649,7 +649,7 @@ final class ApiDriverController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -657,7 +657,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
 
