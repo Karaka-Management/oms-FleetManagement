@@ -74,7 +74,7 @@ return [
 
     '^.*/fleet/vehicle/note.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteCreate',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
@@ -83,7 +83,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteEdit',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteEdit',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
@@ -95,7 +95,7 @@ return [
 
     '^.*/fleet/driver/note.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteCreate',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
@@ -104,7 +104,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteEdit',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteEdit',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,

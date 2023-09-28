@@ -68,6 +68,23 @@ final class ApiVehicleController extends Controller
      *
      * @since 1.0.0
      */
+    public function apiVehicleFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+    }
+
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
     public function apiMilageCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateMilageCreate($request))) {

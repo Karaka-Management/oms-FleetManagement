@@ -21,6 +21,8 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Uri\HttpUri;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 trait ApiControllerAttributeTrait
 {
     /**
