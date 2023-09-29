@@ -657,7 +657,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
 

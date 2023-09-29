@@ -16,6 +16,7 @@ namespace Modules\FleetManagement\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
+use Modules\FleetManagement\tests\Controller\Api\ApiControllerVehicleTrait;
 use Modules\FleetManagement\tests\Controller\Api\ApiControllerAttributeTrait;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
@@ -86,12 +87,13 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->app->accountManager->add($account);
         $this->app->router = new WebRouter();
 
-        $this->module     = $this->app->moduleManager->get('FleetManagement', 'Api');
+        $this->module     = $this->app->moduleManager->get('FleetManagement', 'ApiVehicle');
         $this->attrModule = $this->app->moduleManager->get('FleetManagement', 'ApiVehicleAttribute');
 
         TestUtils::setMember($this->module, 'app', $this->app);
         TestUtils::setMember($this->attrModule, 'app', $this->app);
     }
 
+    use ApiControllerVehicleTrait;
     use ApiControllerAttributeTrait;
 }

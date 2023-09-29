@@ -83,7 +83,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteEdit',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
@@ -104,7 +104,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteEdit',
+            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
