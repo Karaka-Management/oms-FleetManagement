@@ -1,0 +1,93 @@
+[
+    {
+        "name": "car",
+        "l11n": {
+            "en": "Car",
+            "de": "Auto"
+        }
+    },
+    {
+        "name": "truck",
+        "l11n": {
+            "en": "Truck",
+            "de": "LKW"
+        }
+    },
+    {
+        "name": "motorcycle",
+        "l11n": {
+            "en": "Motorcycle",
+            "de": "Motorrad"
+        }
+    },
+    {
+        "name": "bicycle",
+        "l11n": {
+            "en": "Bicycle",
+            "de": "Fahrrad"
+        }
+    },
+    {
+        "name": "bus",
+        "l11n": {
+            "en": "Bus",
+            "de": "Bus"
+        }
+    },
+    {
+        "name": "boat",
+        "l11n": {
+            "en": "Boat",
+            "de": "Boot"
+        }
+    },
+    {
+        "name": "airplane",
+        "l11n": {
+            "en": "Airplane",
+            "de": "Flugzeug"
+        }
+    },
+    {
+        "name": "helicopter",
+        "l11n": {
+            "en": "Helicopter",
+            "de": "Hubschrauber"
+        }
+    },
+    {
+        "name": "train",
+        "l11n": {
+            "en": "Train",
+            "de": "Zug"
+        }
+    },
+    {
+        "name": "scooter",
+        "l11n": {
+            "en": "Scooter",
+            "de": "Roller"
+        }
+    },
+    {
+        "name": "moped",
+        "l11n": {
+            "en": "Moped",
+            "de": "Moped"
+        }
+    },
+    {
+        "name": "tractor",
+        "l11n": {
+            "en": "Tractor",
+            "de": "Traktor"
+        }
+    },
+    {
+        "name": "forklift",
+        "l11n": {
+            "en": "Forklift",
+            "de": "Gabelstapler"
+        }
+    }
+]

@@ -1,0 +1,135 @@
+[
+    {
+		"name": "gasoline",
+		"l11n": {
+			"en": "Gasoline",
+			"de": "Benzin"
+		}
+	},
+    {
+		"name": "diesel",
+		"l11n": {
+			"en": "Diesel",
+			"de": "Diesel"
+		}
+	},
+    {
+		"name": "electirc",
+		"l11n": {
+			"en": "Electric",
+			"de": "Elektrisch"
+		}
+	},
+    {
+		"name": "hydrogen",
+		"l11n": {
+			"en": "Hydrogen",
+			"de": "Wasserstoff"
+		}
+	},
+    {
+		"name": "ethanol",
+		"l11n": {
+			"en": "Ethanol",
+			"de": "Ethanol"
+		}
+	},
+    {
+		"name": "kerosene",
+		"l11n": {
+			"en": "Kerosene",
+			"de": "Kerosin"
+		}
+	},
+    {
+		"name": "lpg",
+		"l11n": {
+			"en": "LPG",
+			"de": "Autogas"
+		}
+	},
+    {
+		"name": "methanol",
+		"l11n": {
+			"en": "Methanol",
+			"de": "Methanol"
+		}
+	},
+    {
+		"name": "methane",
+		"l11n": {
+			"en": "Methane",
+			"de": "Methan"
+		}
+	},
+    {
+		"name": "nitromethane",
+		"l11n": {
+			"en": "Nitromethane",
+			"de": "Nitromethan"
+		}
+	},
+    {
+		"name": "coal",
+		"l11n": {
+			"en": "Coal",
+			"de": "Kohle"
+		}
+	},
+    {
+		"name": "wood",
+		"l11n": {
+			"en": "Wood",
+			"de": "Holz"
+		}
+	},
+    {
+		"name": "petroleum",
+		"l11n": {
+			"en": "Petroleum",
+			"de": "Petroleum"
+		}
+	},
+    {
+		"name": "coaltar",
+		"l11n": {
+			"en": "Coaltar",
+			"de": "Steinkohlenteer"
+		}
+	},
+    {
+		"name": "coke",
+		"l11n": {
+			"en": "Coke",
+			"de": "Koks"
+		}
+	},
+    {
+		"name": "charcoale",
+		"l11n": {
+			"en": "Charcoale",
+			"de": "Holzkohle"
+		}
+	},
+    {
+		"name": "naturalgas",
+		"l11n": {
+			"en": "Naturalgas",
+			"de": "Erdgas"
+		}
+	},
+    {
+		"name": "biogas",
+		"l11n": {
+			"en": "Biogas",
+			"de": "Biogas"
+		}
+	},
+    {
+		"name": "biodiesel",
+		"l11n": {
+			"en": "Biodiesel",
+			"de": "Biodiesel"
+		}
+	}
+]

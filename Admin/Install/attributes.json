@@ -1,0 +1,285 @@
+[
+    {
+        "name": "license_plate",
+        "l11n": {
+            "en": "License plate",
+            "de": "Kennzeichen"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "insurance_provider",
+        "l11n": {
+            "en": "Insurance provider",
+            "de": "Versicherung"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "insurance_number",
+        "l11n": {
+            "en": "Insurance number",
+            "de": "Versicherungsnummer"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "leasing_provider",
+        "l11n": {
+            "en": "Leasing provider",
+            "de": "Leasingsnummer"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "leasing_number",
+        "l11n": {
+            "en": "Leasing number",
+            "de": "Leasingsnummer"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "leasing_end",
+        "l11n": {
+            "en": "Leasing end",
+            "de": "Leasingende"
+        },
+        "value_type": 4,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "leasing_milage",
+        "l11n": {
+            "en": "Leasing milage",
+            "de": "Laufleistung"
+        },
+        "value_type": 1,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "insurance_milage",
+        "l11n": {
+            "en": "Insurance milage",
+            "de": "Versicherungslaufleistung"
+        },
+        "value_type": 1,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "engine_size",
+        "l11n": {
+            "en": "Engine size",
+            "de": "Hubraum"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "vin",
+        "l11n": {
+            "en": "VIN",
+            "de": "Fahrgestellnummer"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "make",
+        "l11n": {
+            "en": "Make",
+            "de": "Marke"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "model",
+        "l11n": {
+            "en": "Model",
+            "de": "Modell"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "color",
+        "l11n": {
+            "en": "Color",
+            "de": "Farbe"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "build",
+        "l11n": {
+            "en": "Build year",
+            "de": "Baujahr"
+        },
+        "value_type": 4,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "ownership_start",
+        "l11n": {
+            "en": "Ownership start",
+            "de": "Besitzbeginn"
+        },
+        "value_type": 4,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "ownership_end",
+        "l11n": {
+            "en": "Ownership end",
+            "de": "Besitzende"
+        },
+        "value_type": 4,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "fuel_type",
+        "l11n": {
+            "en": "Fuel type",
+            "de": "Kraftstoffart"
+        },
+        "value_type": 1,
+        "is_custom_allowed": false,
+        "validation_pattern": "",
+        "is_required": true,
+        "default_value": "",
+        "values": [
+            {
+                "value": 1,
+                "l11n": {
+                    "en": "None",
+                    "de": "Kein"
+                }
+            },
+            {
+                "value": 2,
+                "l11n": {
+                    "en": "Gas",
+                    "de": "Benzin"
+                }
+            },
+            {
+                "value": 3,
+                "l11n": {
+                    "en": "Diesel",
+                    "de": "Diesel"
+                }
+            },
+            {
+                "value": 4,
+                "l11n": {
+                    "en": "Electric",
+                    "de": "Elektro"
+                }
+            },
+            {
+                "value": 5,
+                "l11n": {
+                    "en": "Hydrogen",
+                    "de": "Wasserstoff"
+                }
+            }
+        ]
+    },
+    {
+        "name": "purchase_price",
+        "l11n": {
+            "en": "Purchase price",
+            "de": "Kaufpreis"
+        },
+        "value_type": 1,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    },
+    {
+        "name": "leasing_residual_value",
+        "l11n": {
+            "en": "Leasing residual value",
+            "de": "Leasing Restwert"
+        },
+        "value_type": 1,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    }
+]

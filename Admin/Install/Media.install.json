@@ -1,0 +1,30 @@
+[
+    {
+        "type": "type",
+        "name": "vehicle_profile_image",
+        "l11n": [
+            {
+                "title": "Profile image",
+                "lang": "en"
+            },
+            {
+                "title": "Profilbild",
+                "lang": "de"
+            }
+        ]
+    },
+    {
+        "type": "collection",
+        "create_directory": true,
+        "name": "FleetManagement",
+        "virtualPath": "/Modules",
+        "user": 1
+    },
+    {
+        "type": "collection",
+        "create_directory": true,
+        "name": "Vehicle",
+        "virtualPath": "/Modules/FleetManagement",
+        "user": 1
+    }
+]
