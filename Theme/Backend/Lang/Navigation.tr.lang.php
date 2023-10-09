@@ -13,14 +13,11 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Client'                 => 'Müşteri',
     'DriverAttributes'       => '',
     'DriverInspectionTypes'  => '',
     'Drivers'                => '',
     'FleetManagement'        => '',
     'Inspections'            => '',
-    'Region'                 => 'Bölge',
-    'SalesRep'               => 'Satıcı',
     'VehicleAttributes'      => '',
     'VehicleInspectionTypes' => '',
     'Vehicles'               => '',

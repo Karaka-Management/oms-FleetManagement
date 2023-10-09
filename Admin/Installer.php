@@ -129,7 +129,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiFuelTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
             if (!\is_array($responseData)) {
                 continue;
             }
@@ -190,7 +190,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiVehicleTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
             if (!\is_array($responseData)) {
                 continue;
             }
@@ -251,7 +251,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiInspectionTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
             if (!\is_array($responseData)) {
                 continue;
             }
@@ -312,7 +312,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiDriverInspectionTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
             if (!\is_array($responseData)) {
                 continue;
             }
@@ -377,7 +377,7 @@ final class Installer extends InstallerAbstract
 
             $module->apiVehicleAttributeTypeCreate($request, $response);
 
-            $responseData = $response->get('');
+            $responseData = $response->getData('');
             if (!\is_array($responseData)) {
                 continue;
             }
@@ -448,7 +448,7 @@ final class Installer extends InstallerAbstract
 
                 $module->apiVehicleAttributeValueCreate($request, $response);
 
-                $responseData = $response->get('');
+                $responseData = $response->getData('');
                 if (!\is_array($responseData)) {
                     continue;
                 }

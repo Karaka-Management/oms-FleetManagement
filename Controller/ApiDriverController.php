@@ -615,7 +615,7 @@ final class ApiDriverController extends Controller
             return;
         }
 
-        $responseData = $response->get($request->uri->__toString());
+        $responseData = $response->getDataArray($request->uri->__toString());
         if (!\is_array($responseData)) {
             return;
         }
@@ -665,7 +665,7 @@ final class ApiDriverController extends Controller
             return;
         }
 
-        $responseData = $response->get($request->uri->__toString());
+        $responseData = $response->getDataArray($request->uri->__toString());
         if (!\is_array($responseData)) {
             return;
         }
