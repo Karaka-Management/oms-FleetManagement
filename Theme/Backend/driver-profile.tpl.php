@@ -12,8 +12,8 @@
  */
 declare(strict_types=1);
 
-use Modules\FleetManagement\Models\DriverStatus;
-use Modules\FleetManagement\Models\NullDriver;
+use Modules\FleetManagement\Models\Driver\DriverStatus;
+use Modules\FleetManagement\Models\Driver\NullDriver;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
@@ -102,7 +102,8 @@ echo $this->data['nav']->render();
                     $driver->attributes,
                     $this->data['attributeTypes'] ?? [],
                     [],
-                    '{/api}fleet/driver/attribute'
+                    '{/api}fleet/driver/attribute',
+                    $driver->id
                     );
                 ?>
             </div>

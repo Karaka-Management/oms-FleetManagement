@@ -13,12 +13,12 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'DriverAttributes'       => '',
-    'DriverInspectionTypes'  => '',
-    'Drivers'                => '',
-    'FleetManagement'        => '',
-    'Inspections'            => '',
-    'VehicleAttributes'      => '',
-    'VehicleInspectionTypes' => '',
-    'Vehicles'               => '',
+    'DriverAttributes'       => 'Fahrerattribute',
+    'DriverInspectionTypes'  => 'Fahrerinspektionstypen',
+    'Drivers'                => 'Fahrer',
+    'FleetManagement'        => 'Fuhrparkmanagement',
+    'Inspections'            => 'Inspektionen',
+    'VehicleAttributes'      => 'Fahrzeugattribute',
+    'VehicleInspectionTypes' => 'Fahrzeuginspektionstypen',
+    'Vehicles'               => 'Fahrzeuge',
 ]];

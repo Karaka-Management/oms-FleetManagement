@@ -61,7 +61,7 @@ final class ApiVehicleAttributeController extends Controller
             return;
         }
 
-        $type      = VehicleAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $type      = VehicleAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
         $attribute = $this->createAttributeFromRequest($request, $type);
         $this->createModel($request->header->account, $attribute, VehicleAttributeMapper::class, 'attribute', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $attribute);
@@ -359,7 +359,7 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         /** @var AttributeType $old */
-        $old = VehicleAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = VehicleAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAttributeTypeFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, VehicleAttributeTypeMapper::class, 'vehicle_attribute_type', $request->getOrigin());
@@ -391,7 +391,7 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         /** @var AttributeType $vehicleAttributeType */
-        $vehicleAttributeType = VehicleAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $vehicleAttributeType = VehicleAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $vehicleAttributeType, VehicleAttributeTypeMapper::class, 'vehicle_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $vehicleAttributeType);
     }

@@ -61,7 +61,7 @@ final class ApiDriverAttributeController extends Controller
             return;
         }
 
-        $type      = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $type      = DriverAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
         $attribute = $this->createAttributeFromRequest($request, $type);
         $this->createModel($request->header->account, $attribute, DriverAttributeMapper::class, 'attribute', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $attribute);
@@ -359,7 +359,7 @@ final class ApiDriverAttributeController extends Controller
         }
 
         /** @var AttributeType $old */
-        $old = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = DriverAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAttributeTypeFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, DriverAttributeTypeMapper::class, 'driver_attribute_type', $request->getOrigin());
@@ -391,7 +391,7 @@ final class ApiDriverAttributeController extends Controller
         }
 
         /** @var AttributeType $driverAttributeType */
-        $driverAttributeType = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $driverAttributeType = DriverAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $driverAttributeType, DriverAttributeTypeMapper::class, 'driver_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $driverAttributeType);
     }
