@@ -23,7 +23,7 @@ final class NullInspectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\FleetManagement\Models\NullInspection
-     * @group framework
+     * @group module
      */
     public function testNull() : void
     {
@@ -32,7 +32,7 @@ final class NullInspectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\FleetManagement\Models\NullInspection
-     * @group framework
+     * @group module
      */
     public function testId() : void
     {

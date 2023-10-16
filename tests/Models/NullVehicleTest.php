@@ -23,7 +23,7 @@ final class NullVehicleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\FleetManagement\Models\NullVehicle
-     * @group framework
+     * @group module
      */
     public function testNull() : void
     {
@@ -32,7 +32,7 @@ final class NullVehicleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\FleetManagement\Models\NullVehicle
-     * @group framework
+     * @group module
      */
     public function testId() : void
     {
