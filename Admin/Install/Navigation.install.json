@@ -7,7 +7,7 @@
         "name": "FleetManagement",
         "uri": null,
         "target": "self",
-        "icon": "fa fa-car",
+        "icon": "directions_car",
         "order": 80,
         "from": "FleetManagement",
         "permission": { "permission": 2, "category": null, "element": null },
