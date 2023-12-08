@@ -23,12 +23,14 @@ use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\Driver\DriverStatus;
 use Modules\FleetManagement\Models\Inspection;
 use Modules\FleetManagement\Models\InspectionStatus;
+use Modules\FleetManagement\Models\PermissionCategory;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
+use phpOMS\Account\PermissionType;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
@@ -645,7 +647,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Api method to update note
+     * Api method to update Note
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -659,15 +661,44 @@ final class ApiDriverController extends Controller
      */
     public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::DRIVER_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
+            return;
+        }
+
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
+    }
 
-        if ($response->header->status !== RequestStatusCode::R_200) {
+    /**
+     * Api method to delete Note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::DELETE, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::DRIVER_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
             return;
         }
 
-        $responseData = $response->getDataArray($request->uri->__toString());
-        if (!\is_array($responseData)) {
-            return;
-        }
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDelete($request, $response, $data);
     }
 }

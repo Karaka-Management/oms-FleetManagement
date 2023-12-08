@@ -25,6 +25,7 @@ use Modules\FleetManagement\Models\InspectionTypeL11nMapper;
 use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\Milage;
 use Modules\FleetManagement\Models\MilageMapper;
+use Modules\FleetManagement\Models\PermissionCategory;
 use Modules\FleetManagement\Models\Vehicle;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
@@ -36,6 +37,7 @@ use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
+use phpOMS\Account\PermissionType;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
@@ -1033,8 +1035,17 @@ final class ApiVehicleController extends Controller
      */
     public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: check permissions
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::VEHICLE_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
+            return;
+        }
+
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
     }
 
     /**
@@ -1052,7 +1063,16 @@ final class ApiVehicleController extends Controller
      */
     public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: check permissions
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::DELETE, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::VEHICLE_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
+            return;
+        }
+
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDelete($request, $response, $data);
     }
 }

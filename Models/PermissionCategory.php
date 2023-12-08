@@ -45,4 +45,8 @@ abstract class PermissionCategory extends Enum
     public const DRIVER_INSPECTION = 9;
 
     public const DRIVER_ATTRIBUTE_TYPE = 10;
+
+    public const VEHICLE_NOTE = 11;
+
+    public const DRIVER_NOTE = 12;
 }
