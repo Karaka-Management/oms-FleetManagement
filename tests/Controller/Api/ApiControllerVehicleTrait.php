@@ -18,9 +18,7 @@ use Modules\FleetManagement\Models\FuelTypeMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Uri\HttpUri;
-use phpOMS\Utils\TestUtils;
 use phpOMS\Utils\RnG\Text;
 
 trait ApiControllerVehicleTrait

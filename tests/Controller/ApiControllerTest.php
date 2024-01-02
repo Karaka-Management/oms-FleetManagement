@@ -16,8 +16,8 @@ namespace Modules\FleetManagement\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
-use Modules\FleetManagement\tests\Controller\Api\ApiControllerVehicleTrait;
 use Modules\FleetManagement\tests\Controller\Api\ApiControllerAttributeTrait;
+use Modules\FleetManagement\tests\Controller\Api\ApiControllerVehicleTrait;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;

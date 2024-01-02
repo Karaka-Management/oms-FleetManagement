@@ -37,13 +37,13 @@ final class VehicleAttributeTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_attr_type_id'         => ['name' => 'fleetmgmt_attr_type_id',       'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_attr_type_name'       => ['name' => 'fleetmgmt_attr_type_name',     'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
-        'fleetmgmt_attr_type_datatype'   => ['name' => 'fleetmgmt_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
-        'fleetmgmt_attr_type_fields'     => ['name' => 'fleetmgmt_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
-        'fleetmgmt_attr_type_custom'     => ['name' => 'fleetmgmt_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
-        'fleetmgmt_attr_type_pattern'    => ['name' => 'fleetmgmt_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
-        'fleetmgmt_attr_type_required'   => ['name' => 'fleetmgmt_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
+        'fleetmgmt_vehicle_attr_type_id'         => ['name' => 'fleetmgmt_vehicle_attr_type_id',       'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_vehicle_attr_type_name'       => ['name' => 'fleetmgmt_vehicle_attr_type_name',     'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
+        'fleetmgmt_vehicle_attr_type_datatype'   => ['name' => 'fleetmgmt_vehicle_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
+        'fleetmgmt_vehicle_attr_type_fields'     => ['name' => 'fleetmgmt_vehicle_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
+        'fleetmgmt_vehicle_attr_type_custom'     => ['name' => 'fleetmgmt_vehicle_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
+        'fleetmgmt_vehicle_attr_type_pattern'    => ['name' => 'fleetmgmt_vehicle_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
+        'fleetmgmt_vehicle_attr_type_required'   => ['name' => 'fleetmgmt_vehicle_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
     ];
 
     /**
@@ -55,8 +55,8 @@ final class VehicleAttributeTypeMapper extends DataMapperFactory
     public const HAS_MANY = [
         'l11n' => [
             'mapper'   => VehicleAttributeTypeL11nMapper::class,
-            'table'    => 'fleetmgmt_attr_type_l11n',
-            'self'     => 'fleetmgmt_attr_type_l11n_type',
+            'table'    => 'fleetmgmt_vehicle_attr_type_l11n',
+            'self'     => 'fleetmgmt_vehicle_attr_type_l11n_type',
             'column'   => 'content',
             'external' => null,
         ],
@@ -82,7 +82,7 @@ final class VehicleAttributeTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_attr_type';
+    public const TABLE = 'fleetmgmt_vehicle_attr_type';
 
     /**
      * Primary field name.
@@ -90,5 +90,5 @@ final class VehicleAttributeTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_attr_type_id';
+    public const PRIMARYFIELD = 'fleetmgmt_vehicle_attr_type_id';
 }

@@ -64,18 +64,6 @@ echo $this->data['nav']->render(); ?>
                         <label>
                             <i class="filter g-icon">filter_alt</i>
                         </label>
-                    <td><?= $this->getHtml('Type'); ?>
-                        <label for="iSalesClientList-sort-7">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-7">
-                            <i class="sort-asc g-icon">expand_less</i>
-                        </label>
-                        <label for="iSalesClientList-sort-8">
-                            <input type="radio" name="iSalesClientList-sort" id="iSalesClientList-sort-8">
-                            <i class="sort-desc g-icon">expand_more</i>
-                        </label>
-                        <label>
-                            <i class="filter g-icon">filter_alt</i>
-                        </label>
                 <tbody>
                 <?php
                     $count = 0;
@@ -86,9 +74,10 @@ echo $this->data['nav']->render(); ?>
                 <tr data-href="<?= $url; ?>">
                     <td>
                     <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml((string) $value->id); ?></a>
-                    <td data-label="<?= $this->getHtml('Status'); ?>"><a href="<?= $url; ?>"><?= $this->getHtml(':status' . $value->status); ?></a>
-                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
-                    <td data-label="<?= $this->getHtml('Type'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($value->type->getL11n()); ?></a>
+                    <td data-label="<?= $this->getHtml('Status'); ?>"><a href="<?= $url; ?>"><?= $this->getHtml(':status-d' . $value->status); ?></a>
+                    <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml(
+                        $this->renderUserName('%3$s %2$s %1$s', [$value->account->name1, $value->account->name2, $value->account->name3, $value->account->login])
+                    ); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                     <tr><td colspan="8" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

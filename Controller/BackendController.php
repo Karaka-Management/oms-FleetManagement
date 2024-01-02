@@ -16,8 +16,10 @@ namespace Modules\FleetManagement\Controller;
 
 use Modules\Admin\Models\LocalizationMapper;
 use Modules\Admin\Models\SettingsEnum;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeL11nMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
+use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\InspectionMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
@@ -43,7 +45,7 @@ use phpOMS\Views\View;
 final class BackendController extends Controller
 {
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -72,7 +74,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -90,7 +92,7 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
 
         /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
-        $attributes = VehicleAttributeTypeMapper::getAll()
+        $attributes = DriverAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->execute();
@@ -101,7 +103,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -132,7 +134,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -161,7 +163,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -183,13 +185,13 @@ final class BackendController extends Controller
             ->sort('id', 'DESC')
             ->execute();
 
-        $view->data['inspectionss'] = $list;
+        $view->data['inspections'] = $list;
 
         return $view;
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -211,13 +213,13 @@ final class BackendController extends Controller
             ->sort('id', 'DESC')
             ->execute();
 
-        $view->data['inspectionss'] = $list;
+        $view->data['inspections'] = $list;
 
         return $view;
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -239,13 +241,13 @@ final class BackendController extends Controller
             ->sort('id', 'DESC')
             ->execute();
 
-        $view->data['inspectionss'] = $list;
+        $view->data['inspections'] = $list;
 
         return $view;
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -280,7 +282,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -315,7 +317,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -348,7 +350,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -381,7 +383,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -403,7 +405,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -421,7 +423,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        // @todo This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
+        // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $vehicle = VehicleMapper::get()
             ->with('attributes')
             ->with('attributes/type')
@@ -499,7 +501,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -517,7 +519,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-profile');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        // @todo This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
+        // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $driver = DriverMapper::get()
             ->with('attributes')
             ->with('attributes/type')
@@ -530,6 +532,15 @@ final class BackendController extends Controller
             ->execute();
 
         $view->data['driver'] = $driver;
+
+        $inspections = DriverInspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('reference', $driver->id)
+            ->where('type/l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $view->data['inspections'] = $inspections;
 
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(DriverMapper::HAS_MANY['files']['external'], 'file')

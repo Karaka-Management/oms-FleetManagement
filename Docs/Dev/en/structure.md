@@ -2,4 +2,4 @@
 
 ## ER
 
-![ER](Modules/ClientManagement/Docs/Dev/img/er.png)
+![ER](Modules/FleetManagement/Docs/Dev/img/er.png)

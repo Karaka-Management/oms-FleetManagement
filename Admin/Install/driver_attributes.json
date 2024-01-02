@@ -1,0 +1,15 @@
+[
+    {
+        "name": "license_classes",
+        "l11n": {
+            "en": "License classes",
+            "de": "Führerscheinklassen"
+        },
+        "value_type": 2,
+        "is_custom_allowed": true,
+        "validation_pattern": "",
+        "is_required": false,
+        "default_value": "",
+        "values": []
+    }
+]

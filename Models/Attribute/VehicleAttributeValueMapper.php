@@ -37,15 +37,15 @@ final class VehicleAttributeValueMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_attr_value_id'                => ['name' => 'fleetmgmt_attr_value_id',       'type' => 'int',      'internal' => 'id'],
-        'fleetmgmt_attr_value_default'           => ['name' => 'fleetmgmt_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
-        'fleetmgmt_attr_value_valueStr'          => ['name' => 'fleetmgmt_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
-        'fleetmgmt_attr_value_valueInt'          => ['name' => 'fleetmgmt_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
-        'fleetmgmt_attr_value_valueDec'          => ['name' => 'fleetmgmt_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
-        'fleetmgmt_attr_value_valueDat'          => ['name' => 'fleetmgmt_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
-        'fleetmgmt_attr_value_unit'              => ['name' => 'fleetmgmt_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
-        'fleetmgmt_attr_value_deptype'           => ['name' => 'fleetmgmt_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
-        'fleetmgmt_attr_value_depvalue'          => ['name' => 'fleetmgmt_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
+        'fleetmgmt_vehicle_attr_value_id'                => ['name' => 'fleetmgmt_vehicle_attr_value_id',       'type' => 'int',      'internal' => 'id'],
+        'fleetmgmt_vehicle_attr_value_default'           => ['name' => 'fleetmgmt_vehicle_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
+        'fleetmgmt_vehicle_attr_value_valueStr'          => ['name' => 'fleetmgmt_vehicle_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
+        'fleetmgmt_vehicle_attr_value_valueInt'          => ['name' => 'fleetmgmt_vehicle_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
+        'fleetmgmt_vehicle_attr_value_valueDec'          => ['name' => 'fleetmgmt_vehicle_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
+        'fleetmgmt_vehicle_attr_value_valueDat'          => ['name' => 'fleetmgmt_vehicle_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
+        'fleetmgmt_vehicle_attr_value_unit'              => ['name' => 'fleetmgmt_vehicle_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
+        'fleetmgmt_vehicle_attr_value_deptype'           => ['name' => 'fleetmgmt_vehicle_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
+        'fleetmgmt_vehicle_attr_value_depvalue'          => ['name' => 'fleetmgmt_vehicle_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
     ];
 
     /**
@@ -57,8 +57,8 @@ final class VehicleAttributeValueMapper extends DataMapperFactory
     public const HAS_MANY = [
         'l11n' => [
             'mapper'   => VehicleAttributeValueL11nMapper::class,
-            'table'    => 'fleetmgmt_attr_value_l11n',
-            'self'     => 'fleetmgmt_attr_value_l11n_value',
+            'table'    => 'fleetmgmt_vehicle_attr_value_l11n',
+            'self'     => 'fleetmgmt_vehicle_attr_value_l11n_value',
             'external' => null,
         ],
     ];
@@ -77,7 +77,7 @@ final class VehicleAttributeValueMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_attr_value';
+    public const TABLE = 'fleetmgmt_vehicle_attr_value';
 
     /**
      * Primary field name.
@@ -85,5 +85,5 @@ final class VehicleAttributeValueMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_attr_value_id';
+    public const PRIMARYFIELD = 'fleetmgmt_vehicle_attr_value_id';
 }
