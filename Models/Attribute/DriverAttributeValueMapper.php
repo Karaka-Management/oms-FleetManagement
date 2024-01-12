@@ -59,6 +59,7 @@ final class DriverAttributeValueMapper extends DataMapperFactory
             'mapper'   => DriverAttributeValueL11nMapper::class,
             'table'    => 'fleetmgmt_driver_attr_value_l11n',
             'self'     => 'fleetmgmt_driver_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];

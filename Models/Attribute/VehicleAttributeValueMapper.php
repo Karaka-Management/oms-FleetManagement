@@ -59,6 +59,7 @@ final class VehicleAttributeValueMapper extends DataMapperFactory
             'mapper'   => VehicleAttributeValueL11nMapper::class,
             'table'    => 'fleetmgmt_vehicle_attr_value_l11n',
             'self'     => 'fleetmgmt_vehicle_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];
