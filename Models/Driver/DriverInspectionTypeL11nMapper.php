@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11n;
 
 /**
- *  mapper class.
+ * Driver inspection type l11n mapper class.
  *
  * @package Modules\FleetManagement\Models\Driver
  * @license OMS License 2.0

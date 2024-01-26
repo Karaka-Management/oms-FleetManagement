@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Controller;
 
-use Modules\Admin\Models\LocalizationMapper;
-use Modules\Admin\Models\SettingsEnum;
 use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeL11nMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
@@ -332,14 +330,11 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
-
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
         $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
@@ -363,17 +358,14 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
-
-        $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
-        $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['media-upload'] = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
+        $view->data['driver-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
 
         return $view;
     }
@@ -390,11 +382,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewFleetManagementInspectionProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewFleetManagementInspectionView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-profile');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         return $view;
@@ -412,11 +404,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewFleetManagementVehicleProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewFleetManagementVehicleView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-profile');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
@@ -425,6 +417,7 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
+            //->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->with('type')
@@ -435,6 +428,7 @@ final class BackendController extends Controller
             ->where('type/l11n/language', $response->header->l11n->language)
             ->where('fuelType/l11n/language', $response->header->l11n->language)
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
+            //->where('attributes/value/l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->data['vehicle'] = $vehicle;
@@ -482,11 +476,8 @@ final class BackendController extends Controller
 
         $view->data['units'] = $units;
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
-
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
         $view->data['media-upload']  = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['vehicle-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
@@ -506,11 +497,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewFleetManagementDriverProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewFleetManagementDriverView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-profile');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
@@ -519,10 +510,12 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
+            //->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->where('id', (int) $request->getData('id'))
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
+            //->where('attributes/value/l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->data['driver'] = $driver;
@@ -558,11 +551,8 @@ final class BackendController extends Controller
 
         $view->data['driverImage'] = $driverImage;
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
-
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
         $view->data['media-upload'] = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['driver-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);

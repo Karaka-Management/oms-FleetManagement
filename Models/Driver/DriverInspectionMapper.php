@@ -18,7 +18,7 @@ use Modules\FleetManagement\Models\Inspection;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- *  mapper class.
+ * Driver inspection mapper class.
  *
  * @package Modules\FleetManagement\Models\Driver
  * @license OMS License 2.0

@@ -178,17 +178,24 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) :
+                            <?php
+                            $count = 0;
+                            foreach ($this->data['inspections'] as $inspection) :
                                 // @todo handle old inspections in the past? maybe use a status?!
                                 if ($inspection->next === null) {
                                     continue;
                                 }
+
+                                ++$count;
                             ?>
                                 <tr>
                                     <td><?= $inspection->next->format('Y-m-d H:i'); ?>
                                     <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
                             <?php endforeach; ?>
+                            <?php if ($count === 0) : ?>
+                            <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
+                            <?php endif; ?>
                         </table>
                     </section>
                 </div>
@@ -203,12 +210,19 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) : ?>
+                            <?php
+                            $count = 0;
+                            foreach ($this->data['inspections'] as $inspection) :
+                                ++$count;
+                            ?>
                                 <tr>
                                     <td><?= $inspection->date->format('Y-m-d H:i'); ?>
                                     <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
                             <?php endforeach; ?>
+                            <?php if ($count === 0) : ?>
+                            <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
+                            <?php endif; ?>
                         </table>
                     </section>
                 </div>

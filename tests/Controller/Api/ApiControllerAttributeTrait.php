@@ -19,7 +19,6 @@ use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Uri\HttpUri;
 
 include_once __DIR__ . '/../../Autoloader.php';
 
@@ -32,7 +31,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeTypeCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('name', 'test_attribute');
@@ -50,7 +49,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeTypeL11nCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('title', 'DE:2');
@@ -68,7 +67,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeValueIntCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('default', '1');
@@ -88,7 +87,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeValueStrCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('type', '1');
@@ -107,7 +106,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeValueFloatCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('type', '1');
@@ -126,7 +125,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeValueDatCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('type', '1');
@@ -145,7 +144,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('ref', '1');
@@ -163,7 +162,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeValueCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');
@@ -179,7 +178,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeTypeCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');
@@ -195,7 +194,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeTypeL11nCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');
@@ -211,7 +210,7 @@ trait ApiControllerAttributeTrait
     public function testApiVehicleAttributeCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');

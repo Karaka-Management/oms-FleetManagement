@@ -189,7 +189,7 @@ final class ApiVehicleController extends Controller
         $inspection              = new Inspection();
         $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status      = $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->status      = InspectionStatus::tryFromValue($request->getDataInt('status')) ?? InspectionStatus::TODO;
         $inspection->next        = $request->getDataDateTime('next') ?? null;
         $inspection->date        = $request->getDataDateTime('date') ?? null;
         $inspection->interval    = $request->getDataInt('interval') ?? 0;
@@ -258,7 +258,10 @@ final class ApiVehicleController extends Controller
     {
         $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $type->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
 
         return $type;
     }
@@ -322,12 +325,10 @@ final class ApiVehicleController extends Controller
      */
     private function createVehicleTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
+        $typeL11n           = new BaseStringL11n();
+        $typeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $typeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $typeL11n->content  = $request->getDataString('title') ?? '';
 
         return $typeL11n;
     }
@@ -394,7 +395,10 @@ final class ApiVehicleController extends Controller
     {
         $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $type->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
 
         return $type;
     }
@@ -458,12 +462,10 @@ final class ApiVehicleController extends Controller
      */
     private function createFuelTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
+        $typeL11n           = new BaseStringL11n();
+        $typeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $typeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $typeL11n->content  = $request->getDataString('title') ?? '';
 
         return $typeL11n;
     }
@@ -540,7 +542,7 @@ final class ApiVehicleController extends Controller
         $vehicle->info     = $request->getDataString('info') ?? '';
         $vehicle->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
         $vehicle->fuelType = new NullBaseStringL11nType((int) ($request->getDataInt('fuel') ?? 0));
-        $vehicle->status   = $request->getDataInt('status') ?? VehicleStatus::INACTIVE;
+        $vehicle->status   = VehicleStatus::tryFromValue($request->getDataInt('status')) ?? VehicleStatus::INACTIVE;
         $vehicle->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $vehicle;
@@ -867,7 +869,10 @@ final class ApiVehicleController extends Controller
     {
         $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $type->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
 
         return $type;
     }
@@ -931,12 +936,10 @@ final class ApiVehicleController extends Controller
      */
     private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
+        $typeL11n           = new BaseStringL11n();
+        $typeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $typeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $typeL11n->content  = $request->getDataString('title') ?? '';
 
         return $typeL11n;
     }

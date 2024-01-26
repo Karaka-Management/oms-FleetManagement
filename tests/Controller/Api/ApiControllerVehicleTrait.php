@@ -18,7 +18,6 @@ use Modules\FleetManagement\Models\FuelTypeMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\RnG\Text;
 
 trait ApiControllerVehicleTrait
@@ -34,7 +33,7 @@ trait ApiControllerVehicleTrait
         $fuelTypeCount    = FuelTypeMapper::count()->execute();
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $LOREM       = \array_slice(Text::LOREM_IPSUM, 0, 25);
         $LOREM_COUNT = \count($LOREM) - 1;

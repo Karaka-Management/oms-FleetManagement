@@ -92,7 +92,7 @@ final class ApiDriverController extends Controller
         $inspection              = new Inspection();
         $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status      = $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->status      = InspectionStatus::tryFromValue($request->getDataInt('status')) ?? InspectionStatus::TODO;
         $inspection->next        = $request->getDataDateTime('next') ?? null;
         $inspection->date        = $request->getDataDateTime('date') ?? null;
         $inspection->interval    = $request->getDataInt('interval') ?? 0;
@@ -168,7 +168,7 @@ final class ApiDriverController extends Controller
     {
         $driver          = new Driver();
         $driver->account = new NullAccount($request->getDataInt('account') ?? 1);
-        $driver->status  = $request->getDataInt('status') ?? DriverStatus::INACTIVE;
+        $driver->status  = DriverStatus::tryFromValue($request->getDataInt('status')) ?? DriverStatus::INACTIVE;
 
         return $driver;
     }
@@ -493,7 +493,10 @@ final class ApiDriverController extends Controller
     {
         $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $type->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
 
         return $type;
     }
@@ -557,12 +560,10 @@ final class ApiDriverController extends Controller
      */
     private function createDriverInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
+        $typeL11n           = new BaseStringL11n();
+        $typeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $typeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $typeL11n->content  = $request->getDataString('title') ?? '';
 
         return $typeL11n;
     }

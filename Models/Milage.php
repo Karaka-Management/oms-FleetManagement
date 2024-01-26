@@ -64,7 +64,7 @@ class Milage implements \JsonSerializable
     public function toArray() : array
     {
         return [
-            'id'    => $this->id,
+            'id' => $this->id,
         ];
     }
 

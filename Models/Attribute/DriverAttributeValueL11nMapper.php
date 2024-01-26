@@ -37,10 +37,10 @@ final class DriverAttributeValueL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_driver_attr_value_l11n_id'     => ['name' => 'fleetmgmt_driver_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_driver_attr_value_l11n_title'  => ['name' => 'fleetmgmt_driver_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'fleetmgmt_driver_attr_value_l11n_value'  => ['name' => 'fleetmgmt_driver_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
-        'fleetmgmt_driver_attr_value_l11n_lang'   => ['name' => 'fleetmgmt_driver_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'fleetmgmt_driver_attr_value_l11n_id'    => ['name' => 'fleetmgmt_driver_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'fleetmgmt_driver_attr_value_l11n_title' => ['name' => 'fleetmgmt_driver_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'fleetmgmt_driver_attr_value_l11n_value' => ['name' => 'fleetmgmt_driver_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
+        'fleetmgmt_driver_attr_value_l11n_lang'  => ['name' => 'fleetmgmt_driver_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/fleet/vehicle/find.*$' => [
+    '^.*/fleet/vehicle/find(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiVehicleFind',
             'verb'       => RouteVerb::GET,
@@ -30,7 +30,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/vehicle/attribute.*$' => [
+    '^.*/fleet/vehicle/attribute(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiVehicleAttributeCreate',
             'verb'       => RouteVerb::PUT,
@@ -51,7 +51,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/driver/attribute.*$' => [
+    '^.*/fleet/driver/attribute(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiDriverAttributeCreate',
             'verb'       => RouteVerb::PUT,
@@ -72,7 +72,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/vehicle/note.*$' => [
+    '^.*/fleet/vehicle/note(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
@@ -93,7 +93,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/driver/note.*$' => [
+    '^.*/fleet/driver/note(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,

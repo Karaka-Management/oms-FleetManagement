@@ -17,7 +17,7 @@ namespace Modules\FleetManagement\Models;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- *  mapper class.
+ * Inspection mapper class.
  *
  * @package Modules\FleetManagement\Models
  * @license OMS License 2.0

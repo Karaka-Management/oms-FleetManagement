@@ -40,9 +40,9 @@ final class DriverMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_driver_id'                      => ['name' => 'fleetmgmt_driver_id',         'type' => 'int',      'internal' => 'id'],
-        'fleetmgmt_driver_status'                  => ['name' => 'fleetmgmt_driver_status',      'type' => 'int',   'internal' => 'status'],
-        'fleetmgmt_driver_account'                 => ['name' => 'fleetmgmt_driver_account',      'type' => 'int',   'internal' => 'account'],
+        'fleetmgmt_driver_id'      => ['name' => 'fleetmgmt_driver_id',         'type' => 'int',      'internal' => 'id'],
+        'fleetmgmt_driver_status'  => ['name' => 'fleetmgmt_driver_status',      'type' => 'int',   'internal' => 'status'],
+        'fleetmgmt_driver_account' => ['name' => 'fleetmgmt_driver_account',      'type' => 'int',   'internal' => 'account'],
     ];
 
     /**
@@ -52,7 +52,7 @@ final class DriverMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const HAS_MANY = [
-        'files'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'fleetmgmt_driver_media',
             'external' => 'fleetmgmt_driver_media_media',

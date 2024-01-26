@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/fleet/vehicle/attribute/type/list.*$' => [
+    '^.*/fleet/vehicle/attribute/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/vehicle/attribute/type\?.*$' => [
+    '^.*/fleet/vehicle/attribute/type(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeType',
             'verb'       => RouteVerb::GET,
@@ -41,7 +41,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/vehicle/list.*$' => [
+    '^.*/fleet/vehicle/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
             'verb'       => RouteVerb::GET,
@@ -52,7 +52,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/vehicle/create.*$' => [
+    '^.*/fleet/vehicle/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
             'verb'       => RouteVerb::GET,
@@ -63,9 +63,9 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/vehicle/profile.*$' => [
+    '^.*/fleet/vehicle/view(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleView',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
@@ -75,7 +75,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/driver/attribute/type/list.*$' => [
+    '^.*/fleet/driver/attribute/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeTypeList',
             'verb'       => RouteVerb::GET,
@@ -86,7 +86,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/driver/attribute/type\?.*$' => [
+    '^.*/fleet/driver/attribute/type(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeType',
             'verb'       => RouteVerb::GET,
@@ -98,7 +98,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/driver/list.*$' => [
+    '^.*/fleet/driver/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverList',
             'verb'       => RouteVerb::GET,
@@ -109,7 +109,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/driver/create.*$' => [
+    '^.*/fleet/driver/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverCreate',
             'verb'       => RouteVerb::GET,
@@ -120,9 +120,9 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/driver/profile.*$' => [
+    '^.*/fleet/driver/view(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverProfile',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverView',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
@@ -132,7 +132,7 @@ return [
         ],
     ],
 
-    '^.*/fleet/inspection/list.*$' => [
+    '^.*/fleet/inspection/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionList',
             'verb'       => RouteVerb::GET,
@@ -143,7 +143,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/inspection/type/list.*$' => [
+    '^.*/fleet/inspection/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
@@ -154,7 +154,7 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/inspection/create.*$' => [
+    '^.*/fleet/inspection/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionCreate',
             'verb'       => RouteVerb::GET,
@@ -165,9 +165,9 @@ return [
             ],
         ],
     ],
-    '^.*/fleet/inspection/profile.*$' => [
+    '^.*/fleet/inspection/view(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionProfile',
+            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionView',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
