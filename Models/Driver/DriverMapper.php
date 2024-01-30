@@ -56,7 +56,7 @@ final class DriverMapper extends DataMapperFactory
             'mapper'   => MediaMapper::class,
             'table'    => 'fleetmgmt_driver_media',
             'external' => 'fleetmgmt_driver_media_media',
-            'self'     => 'fleetmgmt_driver_media_vehicle',
+            'self'     => 'fleetmgmt_driver_media_driver',
         ],
         'attributes' => [
             'mapper'   => DriverAttributeMapper::class,

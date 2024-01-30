@@ -456,25 +456,25 @@ final class BackendController extends Controller
             ->where(VehicleMapper::HAS_MANY['files']['self'], '=', $vehicle->id)
             ->where(MediaTypeMapper::TABLE . '.' . MediaTypeMapper::getColumnByMember('name'), '=', 'vehicle_profile_image');
 
-        $vehicleImage = MediaMapper::get()
+            $view->data['vehicleImage'] = MediaMapper::get()
             ->with('types')
             ->where('id', $results)
             ->limit(1)
             ->execute();
 
-        $view->data['vehicleImage'] = $vehicleImage;
-
-        $vehicleTypes = VehicleTypeMapper::getAll()
+        $view->data['types'] = VehicleTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['types'] = $vehicleTypes;
-
-        $units = UnitMapper::getAll()
+        $view->data['units'] = UnitMapper::getAll()
             ->execute();
 
-        $view->data['units'] = $units;
+        /** @var \Modules\Attribute\Models\AttributeType[] */
+        $view->data['attributeTypes'] = VehicleAttributeTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
+            ->execute();
 
         $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
         $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
@@ -520,14 +520,12 @@ final class BackendController extends Controller
 
         $view->data['driver'] = $driver;
 
-        $inspections = DriverInspectionMapper::getAll()
+        $view->data['inspections'] = DriverInspectionMapper::getAll()
             ->with('type')
             ->with('type/l11n')
             ->where('reference', $driver->id)
             ->where('type/l11n/language', $response->header->l11n->language)
             ->execute();
-
-        $view->data['inspections'] = $inspections;
 
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(DriverMapper::HAS_MANY['files']['external'], 'file')
@@ -543,13 +541,17 @@ final class BackendController extends Controller
             ->where(DriverMapper::HAS_MANY['files']['self'], '=', $driver->id)
             ->where(MediaTypeMapper::TABLE . '.' . MediaTypeMapper::getColumnByMember('name'), '=', 'driver_profile_image');
 
-        $driverImage = MediaMapper::get()
+            $view->data['driverImage'] = MediaMapper::get()
             ->with('types')
             ->where('id', $results)
             ->limit(1)
             ->execute();
 
-        $view->data['driverImage'] = $driverImage;
+        /** @var \Modules\Attribute\Models\AttributeType[] */
+        $view->data['attributeTypes'] = DriverAttributeTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
+            ->execute();
 
         $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
         $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
