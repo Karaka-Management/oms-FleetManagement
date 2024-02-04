@@ -442,6 +442,8 @@ final class BackendController extends Controller
 
         $view->data['inspections'] = $inspections;
 
+        // @feature Create a new read mapper function that returns relation models instead of its own model
+        //      https://github.com/Karaka-Management/phpOMS/issues/320
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(VehicleMapper::HAS_MANY['files']['external'], 'file')
             ->from(VehicleMapper::TABLE)
@@ -527,6 +529,8 @@ final class BackendController extends Controller
             ->where('type/l11n/language', $response->header->l11n->language)
             ->execute();
 
+        // @feature Create a new read mapper function that returns relation models instead of its own model
+        //      https://github.com/Karaka-Management/phpOMS/issues/320
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(DriverMapper::HAS_MANY['files']['external'], 'file')
             ->from(DriverMapper::TABLE)
