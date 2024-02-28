@@ -301,8 +301,8 @@ echo $this->data['nav']->render();
                             </div>
                             <div class="portlet-foot">
                                 <input id="bAttributeAdd" formmethod="put" type="submit" class="add-form" value="<?= $this->getHtml('Add', '0', '0'); ?>">
-                                <input id="bAttributeSave" formmethod="post" type="submit" class="save-form hidden button save" value="<?= $this->getHtml('Update', '0', '0'); ?>">
-                                <input type="submit" class="cancel-form hidden button close" value="<?= $this->getHtml('Cancel', '0', '0'); ?>">
+                                <input id="bAttributeSave" formmethod="post" type="submit" class="save-form vh button save" value="<?= $this->getHtml('Update', '0', '0'); ?>">
+                                <input type="submit" class="cancel-form vh button close" value="<?= $this->getHtml('Cancel', '0', '0'); ?>">
                             </div>
                         </form>
                     </section>
@@ -330,7 +330,7 @@ echo $this->data['nav']->render();
                                     <tr data-id="" draggable="false">
                                         <td>
                                             <i class="g-icon btn update-form">settings</i>
-                                            <input id="milageTable-remove-0" type="checkbox" class="hidden">
+                                            <input id="milageTable-remove-0" type="checkbox" class="vh">
                                             <label for="milageTable-remove-0" class="checked-visibility-alt"><i class="g-icon btn form-action">close</i></label>
                                             <span class="checked-visibility">
                                                 <label for="milageTable-remove-0" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>
@@ -350,7 +350,7 @@ echo $this->data['nav']->render();
                                         <td>
                                             <i class="g-icon btn update-form">settings</i>
                                             <?php if (!$value->type->isRequired) : ?>
-                                            <input id="milageTable-remove-<?= $value->id; ?>" type="checkbox" class="hidden">
+                                            <input id="milageTable-remove-<?= $value->id; ?>" type="checkbox" class="vh">
                                             <label for="milageTable-remove-<?= $value->id; ?>" class="checked-visibility-alt"><i class="g-icon btn form-action">close</i></label>
                                             <span class="checked-visibility">
                                                 <label for="milageTable-remove-<?= $value->id; ?>" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>

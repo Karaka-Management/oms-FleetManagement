@@ -20,6 +20,7 @@ use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
 use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\InspectionMapper;
+use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
 use Modules\Media\Models\MediaMapper;
@@ -177,7 +178,7 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003501001, $request, $response);
 
         $list = InspectionMapper::getAll()
             ->sort('id', 'DESC')
@@ -204,10 +205,10 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-type-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        $list = InspectionMapper::getAll()
+        $list = InspectionTypeMapper::getAll()
             ->sort('id', 'DESC')
             ->execute();
 

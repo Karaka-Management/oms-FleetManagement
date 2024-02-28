@@ -125,7 +125,7 @@ final class Installer extends InstallerAbstract
         $fuelTypes = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiVehicle');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -186,7 +186,7 @@ final class Installer extends InstallerAbstract
         $vehicleTypes = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiVehicle');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -247,7 +247,7 @@ final class Installer extends InstallerAbstract
         $inspectionTypes = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiVehicle');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -308,7 +308,7 @@ final class Installer extends InstallerAbstract
         $inspectionTypes = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiDriverController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriver');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiDriver');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -369,7 +369,7 @@ final class Installer extends InstallerAbstract
         $itemAttrType = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiVehicleAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -437,7 +437,7 @@ final class Installer extends InstallerAbstract
         $itemAttrValue = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiVehicleAttribute');
 
         foreach ($attributes as $attribute) {
             $itemAttrValue[$attribute['name']] = [];
@@ -510,7 +510,7 @@ final class Installer extends InstallerAbstract
         $itemAttrType = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiDriverAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriverAttribute');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiDriverAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -578,7 +578,7 @@ final class Installer extends InstallerAbstract
         $itemAttrValue = [];
 
         /** @var \Modules\FleetManagement\Controller\ApiDriverAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriverAttribute');
+        $module = $app->moduleManager->get('FleetManagement', 'ApiDriverAttribute');
 
         foreach ($attributes as $attribute) {
             $itemAttrValue[$attribute['name']] = [];
