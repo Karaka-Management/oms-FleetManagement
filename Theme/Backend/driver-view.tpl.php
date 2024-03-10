@@ -133,7 +133,7 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) :
+                            <?php foreach (($this->data['inspections'] ?? []) as $inspection) :
                                 // @todo handle old inspections in the past? maybe use a status?!
                                 if ($inspection->next === null) {
                                     continue;
@@ -158,7 +158,7 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) : ?>
+                            <?php foreach (($this->data['inspections'] ?? []) as $inspection) : ?>
                                 <tr>
                                     <td><?= $inspection->date->format('Y-m-d H:i'); ?>
                                     <td><?= $this->printHtml($inspection->type->getL11n()); ?>

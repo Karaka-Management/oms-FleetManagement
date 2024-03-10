@@ -60,7 +60,7 @@ echo $this->data['nav']->render();
 
                             <div class="form-group">
                                 <label for="iVehicleDriver"><?= $this->getHtml('Driver'); ?></label>
-                                <input type="text" id="iVehicleDriver" name="driver" value="" disabled>
+                                <input type="text" id="iVehicleDriver" name="driver" value="">
                             </div>
 
                             <div class="form-group">
@@ -108,12 +108,12 @@ echo $this->data['nav']->render();
 
                             <div class="form-group">
                                 <label for="iVehiclePrice"><?= $this->getHtml('PurchasePrice'); ?></label>
-                                <input type="number" step="0.01" id="iVehiclePrice" name="purchase_price" value="<?= $this->printHtml($vehicle->getAttribute('purchase_price')->value->getValue()); ?>">
+                                <input type="number" step="any" id="iVehiclePrice" name="purchase_price" value="<?= $this->printHtml($vehicle->getAttribute('purchase_price')->value->getValue()); ?>">
                             </div>
 
                             <div class="form-group">
                                 <label for="iVehiclePrice"><?= $this->getHtml('LeasingFee'); ?></label>
-                                <input type="number" step="0.01" id="iVehiclePrice" name="leasing_fee" value="<?= $this->printHtml($vehicle->getAttribute('leasing_fee')->value->getValue()); ?>">
+                                <input type="number" step="any" id="iVehiclePrice" name="leasing_fee" value="<?= $this->printHtml($vehicle->getAttribute('leasing_fee')->value->getValue()); ?>">
                             </div>
                         </div>
                         <div class="portlet-foot">
@@ -180,7 +180,7 @@ echo $this->data['nav']->render();
                             <tbody>
                             <?php
                             $count = 0;
-                            foreach ($this->data['inspections'] as $inspection) :
+                            foreach (($this->data['inspections'] ?? []) as $inspection) :
                                 // @todo handle old inspections in the past? maybe use a status?!
                                 if ($inspection->next === null) {
                                     continue;
@@ -212,7 +212,7 @@ echo $this->data['nav']->render();
                             <tbody>
                             <?php
                             $count = 0;
-                            foreach ($this->data['inspections'] as $inspection) :
+                            foreach (($this->data['inspections'] ?? []) as $inspection) :
                                 ++$count;
                             ?>
                                 <tr>

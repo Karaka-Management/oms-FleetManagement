@@ -34,6 +34,7 @@ final class NullDriver extends Driver
     public function __construct(int $id = 0)
     {
         $this->id = $id;
+        parent::__construct();
     }
 
     /**

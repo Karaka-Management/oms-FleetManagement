@@ -40,6 +40,7 @@ return ['FleetManagement' => [
     'Responsible'   => 'Verantwortlich',
     'Start'         => 'Start',
     'Status'        => 'Status',
+    'VIN'        => 'VIN',
     'Type'          => 'Typ',
     'Upcoming'      => 'Upcoming',
     'Vehicles'      => 'Fahrzeuge',

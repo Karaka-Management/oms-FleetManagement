@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Models\Driver;
 
 use Modules\Admin\Models\Account;
+use Modules\Admin\Models\NullAccount;
 
 /**
  * Driver class.
@@ -53,6 +54,11 @@ class Driver
     public array $licenses = [];
 
     public array $inspections = [];
+
+    public function __construct()
+    {
+        $this->account = new NullAccount();
+    }
 
     /**
      * {@inheritdoc}
