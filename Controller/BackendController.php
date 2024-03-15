@@ -473,7 +473,6 @@ final class BackendController extends Controller
         $view->data['units'] = UnitMapper::getAll()
             ->execute();
 
-        /** @var \Modules\Attribute\Models\AttributeType[] */
         $view->data['attributeTypes'] = VehicleAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
@@ -552,7 +551,6 @@ final class BackendController extends Controller
             ->limit(1)
             ->execute();
 
-        /** @var \Modules\Attribute\Models\AttributeType[] */
         $view->data['attributeTypes'] = DriverAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)

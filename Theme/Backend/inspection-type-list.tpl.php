@@ -12,6 +12,4 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Uri\UriFactory;
-
-echo $this->data['nav']->render(); ?>
+echo $this->data['nav']->render();
