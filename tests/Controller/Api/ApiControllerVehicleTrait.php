@@ -30,7 +30,7 @@ trait ApiControllerVehicleTrait
     {
         $vehicleType      = VehicleTypeMapper::getAll()->execute();
         $vehicleTypeCount = \count($vehicleType);
-        $fuelTypeCount    = FuelTypeMapper::count()->execute();
+        $fuelTypeCount    = FuelTypeMapper::count()->executeCount();
 
         $response = new HttpResponse();
         $request  = new HttpRequest();
