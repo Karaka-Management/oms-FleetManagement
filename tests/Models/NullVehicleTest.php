@@ -19,31 +19,23 @@ use Modules\FleetManagement\Models\NullVehicle;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\FleetManagement\Models\NullVehicle::class)]
 final class NullVehicleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\FleetManagement\Models\NullVehicle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\FleetManagement\Models\Vehicle', new NullVehicle());
     }
 
-    /**
-     * @covers \Modules\FleetManagement\Models\NullVehicle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullVehicle(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\FleetManagement\Models\NullVehicle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullVehicle(2);

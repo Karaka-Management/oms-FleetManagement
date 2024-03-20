@@ -24,8 +24,8 @@ trait ApiControllerVehicleTrait
 {
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleCreate() : void
     {
         $vehicleType      = VehicleTypeMapper::getAll()->execute();

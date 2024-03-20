@@ -19,31 +19,23 @@ use Modules\FleetManagement\Models\Driver\NullDriverInspection;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\FleetManagement\Models\Driver\NullDriverInspection::class)]
 final class NullDriverInspectionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\FleetManagement\Models\Driver\NullDriverInspection
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\FleetManagement\Models\Driver\DriverInspection', new NullDriverInspection());
     }
 
-    /**
-     * @covers \Modules\FleetManagement\Models\Driver\NullDriverInspection
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullDriverInspection(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\FleetManagement\Models\Driver\NullDriverInspection
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullDriverInspection(2);

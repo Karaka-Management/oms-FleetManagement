@@ -26,8 +26,8 @@ trait ApiControllerAttributeTrait
 {
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeTypeCreate() : void
     {
         $response = new HttpResponse();
@@ -44,8 +44,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeTypeL11nCreate() : void
     {
         $response = new HttpResponse();
@@ -62,8 +62,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeValueIntCreate() : void
     {
         $response = new HttpResponse();
@@ -82,8 +82,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeValueStrCreate() : void
     {
         $response = new HttpResponse();
@@ -101,8 +101,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeValueFloatCreate() : void
     {
         $response = new HttpResponse();
@@ -120,8 +120,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeValueDatCreate() : void
     {
         $response = new HttpResponse();
@@ -139,8 +139,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeCreate() : void
     {
         $response = new HttpResponse();
@@ -157,8 +157,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeValueCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -173,8 +173,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeTypeCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -189,8 +189,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeTypeL11nCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -205,8 +205,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleAttributeCreateInvalidData() : void
     {
         $response = new HttpResponse();
