@@ -22,7 +22,7 @@ use Modules\FleetManagement\Models\NullVehicle;
 final class NullVehicleTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\FleetManagement\Models\NullVehicle
+     * @covers \Modules\FleetManagement\Models\NullVehicle
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullVehicleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\FleetManagement\Models\NullVehicle
+     * @covers \Modules\FleetManagement\Models\NullVehicle
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullVehicleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\FleetManagement\Models\NullVehicle
+     * @covers \Modules\FleetManagement\Models\NullVehicle
      * @group module
      */
     public function testJsonSerialize() : void

@@ -22,7 +22,7 @@ use Modules\FleetManagement\Models\Driver\NullDriver;
 final class NullDriverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\FleetManagement\Models\Driver\NullDriver
+     * @covers \Modules\FleetManagement\Models\Driver\NullDriver
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullDriverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\FleetManagement\Models\Driver\NullDriver
+     * @covers \Modules\FleetManagement\Models\Driver\NullDriver
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullDriverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\FleetManagement\Models\Driver\NullDriver
+     * @covers \Modules\FleetManagement\Models\Driver\NullDriver
      * @group module
      */
     public function testJsonSerialize() : void

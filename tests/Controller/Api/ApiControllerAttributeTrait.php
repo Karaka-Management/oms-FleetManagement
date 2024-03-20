@@ -25,7 +25,7 @@ include_once __DIR__ . '/../../Autoloader.php';
 trait ApiControllerAttributeTrait
 {
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeTypeCreate() : void
@@ -43,7 +43,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeTypeL11nCreate() : void
@@ -61,7 +61,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeValueIntCreate() : void
@@ -81,7 +81,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeValueStrCreate() : void
@@ -100,7 +100,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeValueFloatCreate() : void
@@ -119,7 +119,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeValueDatCreate() : void
@@ -138,7 +138,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeCreate() : void
@@ -156,7 +156,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeValueCreateInvalidData() : void
@@ -172,7 +172,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeTypeCreateInvalidData() : void
@@ -188,7 +188,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeTypeL11nCreateInvalidData() : void
@@ -204,7 +204,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleAttributeController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleAttributeController
      * @group module
      */
     public function testApiVehicleAttributeCreateInvalidData() : void

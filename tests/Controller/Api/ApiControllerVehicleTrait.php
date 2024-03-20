@@ -23,7 +23,7 @@ use phpOMS\Utils\RnG\Text;
 trait ApiControllerVehicleTrait
 {
     /**
-     * @covers Modules\FleetManagement\Controller\ApiVehicleController
+     * @covers \Modules\FleetManagement\Controller\ApiVehicleController
      * @group module
      */
     public function testApiVehicleCreate() : void
