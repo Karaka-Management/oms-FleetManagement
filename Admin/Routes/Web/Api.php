@@ -22,6 +22,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiVehicleFind',
             'verb'       => RouteVerb::GET,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -34,6 +35,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiVehicleAttributeCreate',
             'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -43,6 +45,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiVehicleAttributeUpdate',
             'verb'       => RouteVerb::SET,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -55,6 +58,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiDriverAttributeCreate',
             'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -64,6 +68,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiDriverAttributeUpdate',
             'verb'       => RouteVerb::SET,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -76,6 +81,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -85,6 +91,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -97,6 +104,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -106,6 +114,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\ApiDriverController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
+            'csrf'       => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,

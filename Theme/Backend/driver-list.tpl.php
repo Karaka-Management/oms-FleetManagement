@@ -73,7 +73,7 @@ echo $this->data['nav']->render(); ?>
                 ?>
                 <tr data-href="<?= $url; ?>">
                     <td>
-                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml((string) $value->id); ?></a>
+                    <td data-label="<?= $this->getHtml('ID', '0', '0'); ?>"><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td data-label="<?= $this->getHtml('Status'); ?>"><a href="<?= $url; ?>"><?= $this->getHtml(':status-d' . $value->status); ?></a>
                     <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml(
                         $this->renderUserName('%3$s %2$s %1$s', [$value->account->name1, $value->account->name2, $value->account->name3, $value->account->login])

@@ -145,7 +145,7 @@ echo $this->data['nav']->render();
                     $vehicle->attributes,
                     $this->data['attributeTypes'] ?? [],
                     $this->data['units'] ?? [],
-                    '{/api}fleet/vehicle/attribute',
+                    '{/api}fleet/vehicle/attribute?csrf={$CSRF}',
                     $vehicle->id
                     );
                 ?>

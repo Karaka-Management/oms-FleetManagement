@@ -100,7 +100,7 @@ echo $this->data['nav']->render();
                     $driver->attributes,
                     $this->data['attributeTypes'] ?? [],
                     [],
-                    '{/api}fleet/driver/attribute',
+                    '{/api}fleet/driver/attribute?csrf={$CSRF}',
                     $driver->id
                     );
                 ?>

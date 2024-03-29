@@ -15,10 +15,15 @@ declare(strict_types=1);
 namespace Modules\FleetManagement\Controller;
 
 use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeValueL11nMapper;
+use Modules\FleetManagement\Models\Attribute\DriverAttributeValueMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeL11nMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
+use Modules\FleetManagement\Models\Attribute\VehicleAttributeValueL11nMapper;
+use Modules\FleetManagement\Models\Attribute\VehicleAttributeValueMapper;
 use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
+use Modules\FleetManagement\Models\Inspection;
 use Modules\FleetManagement\Models\InspectionMapper;
 use Modules\FleetManagement\Models\InspectionTypeMapper;
 use Modules\FleetManagement\Models\VehicleMapper;
@@ -57,17 +62,15 @@ final class BackendController extends Controller
      */
     public function viewFleetManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type-list');
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
-        $attributes = VehicleAttributeTypeMapper::getAll()
+        $view->attributes = VehicleAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['attributes'] = $attributes;
+        $view->path = 'fleet/vehicle';
 
         return $view;
     }
@@ -86,17 +89,15 @@ final class BackendController extends Controller
      */
     public function viewFleetManagementDriverAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type-list');
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
-        $attributes = DriverAttributeTypeMapper::getAll()
+        $view->attributes = DriverAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['attributes'] = $attributes;
+        $view->path = 'fleet/driver';
 
         return $view;
     }
@@ -178,13 +179,22 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003501001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003504001, $request, $response);
 
-        $list = InspectionMapper::getAll()
+        $vehicles = InspectionMapper::getAll()
             ->sort('id', 'DESC')
-            ->execute();
+            ->executeGetArray();
 
-        $view->data['inspections'] = $list;
+        $drivers = DriverInspectionMapper::getAll()
+            ->sort('id', 'DESC')
+            ->executeGetArray();
+
+        $inspections = array_merge($vehicles, $drivers);
+        \usort($inspections, function (Inspection $a, Inspection $b) : int {
+            return $a->date?->getTimestamp() <=> $b->date?->getTimestamp();
+        });
+
+        $view->data['inspections'] = $inspections;
 
         return $view;
     }
@@ -259,23 +269,23 @@ final class BackendController extends Controller
      */
     public function viewFleetManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response);
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003505001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType $attribute */
-        $attribute = VehicleAttributeTypeMapper::get()
+        $view->attribute = VehicleAttributeTypeMapper::get()
             ->with('l11n')
+            ->with('defaults')
+            ->with('defaults/l11n')
             ->where('id', (int) $request->getData('id'))
             ->where('l11n/language', $response->header->l11n->language)
+            ->where('defaults/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
-        $l11ns = VehicleAttributeTypeL11nMapper::getAll()
-            ->where('ref', $attribute->id)
+        $view->l11ns = VehicleAttributeTypeL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
             ->execute();
 
-        $view->data['attribute'] = $attribute;
-        $view->data['l11ns']     = $l11ns;
+        $view->path = 'fleet/vehicle';
 
         return $view;
     }
@@ -294,23 +304,87 @@ final class BackendController extends Controller
      */
     public function viewFleetManagementDriverAttributeType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/attribute-type');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response);
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003506001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType $attribute */
-        $attribute = VehicleAttributeTypeMapper::get()
+        $view->attribute = VehicleAttributeTypeMapper::get()
             ->with('l11n')
+            ->with('defaults')
+            ->with('defaults/l11n')
             ->where('id', (int) $request->getData('id'))
             ->where('l11n/language', $response->header->l11n->language)
+            ->where('defaults/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
-        $l11ns = VehicleAttributeTypeL11nMapper::getAll()
-            ->where('ref', $attribute->id)
+        $view->l11ns = VehicleAttributeTypeL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
             ->execute();
 
-        $view->data['attribute'] = $attribute;
-        $view->data['l11ns']     = $l11ns;
+        $view->path = 'fleet/driver';
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementAttributeValue(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003505001, $request, $response);
+
+        $view->attribute = VehicleAttributeValueMapper::get()
+            ->with('l11n')
+            ->where('id', (int) $request->getData('id'))
+            ->where('l11n/language', [$response->header->l11n->language, null])
+            ->execute();
+
+        $view->l11ns = VehicleAttributeValueL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
+            ->execute();
+
+        // @todo Also find the ItemAttributeType
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverAttributeValue(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003506001, $request, $response);
+
+        $view->attribute = DriverAttributeValueMapper::get()
+            ->with('l11n')
+            ->where('id', (int) $request->getData('id'))
+            ->where('l11n/language', [$response->header->l11n->language, null])
+            ->execute();
+
+        $view->l11ns = DriverAttributeValueL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
+            ->execute();
+
+        // @todo Also find the ItemAttributeType
 
         return $view;
     }
