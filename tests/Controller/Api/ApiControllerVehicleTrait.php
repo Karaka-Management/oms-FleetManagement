@@ -28,7 +28,7 @@ trait ApiControllerVehicleTrait
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiVehicleCreate() : void
     {
-        $vehicleType      = VehicleTypeMapper::getAll()->execute();
+        $vehicleType      = VehicleTypeMapper::getAll()->executeGetArray();
         $vehicleTypeCount = \count($vehicleType);
         $fuelTypeCount    = FuelTypeMapper::count()->executeCount();
 
