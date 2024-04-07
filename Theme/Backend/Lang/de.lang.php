@@ -25,6 +25,7 @@ return ['FleetManagement' => [
     'Date'          => 'Datum',
     'Driver'        => 'Fahrer',
     'Drivers'       => 'Fahrer',
+    'Reference'       => 'Referenz',
     'End'           => 'Ende',
     'From'          => 'Von',
     'Description'   => 'Beschreibung',

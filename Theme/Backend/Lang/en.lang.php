@@ -30,6 +30,7 @@ return ['FleetManagement' => [
     'To'            => 'To',
     'Description'   => 'Description',
     'Files'         => 'Files',
+    'Reference'         => 'Reference',
     'History'       => 'History',
     'Inspections'   => 'Inspections',
     'LeasingFee'    => 'Leasing Fee',

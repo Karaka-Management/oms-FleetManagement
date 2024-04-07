@@ -1001,7 +1001,7 @@ final class ApiVehicleController extends Controller
     }
 
     /**
-     * Validate item note create request
+     * Validate note create request
      *
      * @param RequestAbstract $request Request
      *

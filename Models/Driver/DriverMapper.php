@@ -21,7 +21,7 @@ use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * Driver mapper class.
  *
  * @package Modules\FleetManagement\Models\Driver
  * @license OMS License 2.0

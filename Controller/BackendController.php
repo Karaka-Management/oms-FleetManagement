@@ -63,7 +63,7 @@ final class BackendController extends Controller
     public function viewFleetManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003505001, $request, $response);
 
         $view->attributes = VehicleAttributeTypeMapper::getAll()
             ->with('l11n')
@@ -90,7 +90,7 @@ final class BackendController extends Controller
     public function viewFleetManagementDriverAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003506001, $request, $response);
 
         $view->attributes = DriverAttributeTypeMapper::getAll()
             ->with('l11n')
@@ -182,19 +182,43 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003504001, $request, $response);
 
         $vehicles = InspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('type/l11n/language', $request->header->l11n->language)
             ->sort('id', 'DESC')
+            ->limit(100)
             ->executeGetArray();
 
         $drivers = DriverInspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('type/l11n/language', $request->header->l11n->language)
             ->sort('id', 'DESC')
+            ->limit(100)
             ->executeGetArray();
 
-        $inspections = \array_merge($vehicles, $drivers);
-        \usort($inspections, function (Inspection $a, Inspection $b) : int {
-            return $a->date?->getTimestamp() <=> $b->date?->getTimestamp();
+        $inspections = [];
+        foreach ($vehicles as $inspection) {
+            $inspections[] = ['type' => 'vehicle', 'inspection' => $inspection];
+        }
+
+        foreach ($drivers as $inspection) {
+            $inspections[] = ['type' => 'driver', 'inspection' => $inspection];
+        }
+
+        \usort($inspections, function (array $a, array $b) : int {
+            return $a['inspection']->date?->getTimestamp() <=> $b['inspection']->date?->getTimestamp();
         });
 
         $view->data['inspections'] = $inspections;
+        $view->data['vehicles'] = VehicleMapper::getAll()
+            ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $vehicles))
+            ->executeGetArray();
+
+        $view->data['drivers'] = DriverMapper::getAll()
+            ->with('account')
+            ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $drivers))
+            ->executeGetArray();
 
         return $view;
     }
@@ -492,7 +516,7 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
-            //->with('attributes/value/l11n')
+            ->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->with('type')
@@ -503,7 +527,7 @@ final class BackendController extends Controller
             ->where('type/l11n/language', $response->header->l11n->language)
             ->where('fuelType/l11n/language', $response->header->l11n->language)
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
-            //->where('attributes/value/l11n/language', $response->header->l11n->language)
+            ->where('attributes/value/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
         $view->data['vehicle'] = $vehicle;
@@ -586,12 +610,12 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
-            //->with('attributes/value/l11n')
+            ->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->where('id', (int) $request->getData('id'))
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
-            //->where('attributes/value/l11n/language', $response->header->l11n->language)
+            ->where('attributes/value/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
         $view->data['driver'] = $driver;

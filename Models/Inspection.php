@@ -20,6 +20,14 @@ use phpOMS\Localization\BaseStringL11nType;
 /**
  * Inspection class.
  *
+ * The scheduling works as follows:
+ *      date = when did the inspection take place
+ *      next = when is the next inspection
+ *
+ * When you create an inspection you define the next date
+ * After an inspection is completed and it is recurring it sets date = actual date and next to null
+ * Additionally, a new inspection element is generated with the next field set based on the interval setting
+ *
  * @package Modules\Attribute\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
