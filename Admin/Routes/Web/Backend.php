@@ -22,7 +22,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -34,7 +34,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeType',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -46,7 +46,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeTypeCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -58,7 +58,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeValue',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -70,7 +70,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeValueCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -83,7 +83,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -95,7 +95,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -107,7 +107,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -120,7 +120,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -132,7 +132,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeType',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -144,7 +144,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeTypeCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -156,7 +156,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeValue',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -168,7 +168,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeValueCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -181,7 +181,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -193,7 +193,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -205,7 +205,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -218,7 +218,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -230,7 +230,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -242,7 +242,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -254,7 +254,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementInspectionView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -266,7 +266,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverInspectionTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -278,7 +278,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverInspectionCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -290,7 +290,7 @@ return [
         [
             'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverInspectionView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,

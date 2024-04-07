@@ -211,7 +211,7 @@ final class BackendController extends Controller
         });
 
         $view->data['inspections'] = $inspections;
-        $view->data['vehicles'] = VehicleMapper::getAll()
+        $view->data['vehicles']    = VehicleMapper::getAll()
             ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $vehicles))
             ->executeGetArray();
 

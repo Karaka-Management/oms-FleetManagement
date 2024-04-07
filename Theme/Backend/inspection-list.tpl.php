@@ -41,7 +41,7 @@ echo $this->data['nav']->render();
 
                     $url = UriFactory::build('{/base}/fleet/inspection/' . $i['type'] . '/view?id=' . $inspection->id);
                 ?>
-                    <tr data-href="<?= $url ?>">
+                    <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $inspection->next?->format('Y-m-d H:i'); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $i['type'] === 'vehicle'
@@ -76,7 +76,7 @@ echo $this->data['nav']->render();
 
                     $url = UriFactory::build('{/base}/fleet/inspection/' . $i['type'] . '/view?id=' . $inspection->id);
                 ?>
-                    <tr data-href="<?= $url ?>">
+                    <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $inspection->date?->format('Y-m-d H:i'); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $i['type'] === 'vehicle'
