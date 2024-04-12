@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Controller;
 
-use Modules\Admin\Models\NullAccount;
 use Modules\FleetManagement\Models\Driver\NullDriver;
 use Modules\FleetManagement\Models\FuelTypeL11nMapper;
 use Modules\FleetManagement\Models\FuelTypeMapper;
@@ -31,12 +30,8 @@ use Modules\FleetManagement\Models\VehicleMapper;
 use Modules\FleetManagement\Models\VehicleStatus;
 use Modules\FleetManagement\Models\VehicleTypeL11nMapper;
 use Modules\FleetManagement\Models\VehicleTypeMapper;
-use Modules\Media\Models\CollectionMapper;
-use Modules\Media\Models\MediaMapper;
-use Modules\Media\Models\NullMedia;
+use Modules\Media\Models\NullCollection;
 use Modules\Media\Models\PathSettings;
-use Modules\Media\Models\Reference;
-use Modules\Media\Models\ReferenceMapper;
 use phpOMS\Account\PermissionType;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
@@ -562,99 +557,29 @@ final class ApiVehicleController extends Controller
     {
         $path = $this->createVehicleDir($vehicle);
 
-        $collection = null;
-
-        if (!empty($uploadedFiles = $request->files)) {
-            $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
+        if (!empty($request->files)) {
+            $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
                 names: [],
                 fileNames: [],
-                files: $uploadedFiles,
+                files: $request->files,
                 account: $request->header->account,
                 basePath: __DIR__ . '/../../../Modules/Media/Files' . $path,
                 virtualPath: $path,
-                pathSettings: PathSettings::FILE_PATH
+                pathSettings: PathSettings::FILE_PATH,
+                rel: $vehicle->id,
+                mapper: VehicleMapper::class,
+                field: 'files'
             );
-
-            foreach ($uploaded as $media) {
-                $this->createModelRelation(
-                    $request->header->account,
-                    $vehicle->id,
-                    $media->id,
-                    VehicleMapper::class,
-                    'files',
-                    '',
-                    $request->getOrigin()
-                );
-
-                if ($collection === null) {
-                    /** @var \Modules\Media\Models\Collection $collection */
-                    $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
-
-                    if ($collection->id === 0) {
-                        $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                            $path,
-                            $request->header->account,
-                            __DIR__ . '/../../../Modules/Media/Files' . $path
-                        );
-                    }
-                }
-
-                $this->createModelRelation(
-                    $request->header->account,
-                    $collection->id,
-                    $media->id,
-                    CollectionMapper::class,
-                    'sources',
-                    '',
-                    $request->getOrigin()
-                );
-            }
         }
 
-        $mediaFiles = $request->getDataJson('media');
-        foreach ($mediaFiles as $file) {
-            /** @var \Modules\Media\Models\Media $media */
-            $media = MediaMapper::get()->where('id', (int) $file)->limit(1)->execute();
-
-            $this->createModelRelation(
+        if (!empty($media = $request->getDataJson('media'))) {
+            $this->app->moduleManager->get('Media', 'Api')->addMediaToCollectionAndModel(
                 $request->header->account,
+                $media,
                 $vehicle->id,
-                $media->id,
                 VehicleMapper::class,
                 'files',
-                '',
-                $request->getOrigin()
-            );
-
-            $ref            = new Reference();
-            $ref->name      = $media->name;
-            $ref->source    = new NullMedia($media->id);
-            $ref->createdBy = new NullAccount($request->header->account);
-            $ref->setVirtualPath($path);
-
-            $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
-
-            if ($collection === null) {
-                /** @var \Modules\Media\Models\Collection $collection */
-                $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
-
-                if ($collection->id === 0) {
-                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                        $path,
-                        $request->header->account,
-                        __DIR__ . '/../../../Modules/Media/Files' . $path
-                    );
-                }
-            }
-
-            $this->createModelRelation(
-                $request->header->account,
-                $collection->id,
-                $ref->id,
-                CollectionMapper::class,
-                'sources',
-                '',
-                $request->getOrigin()
+                $path
             );
         }
     }
@@ -706,85 +631,39 @@ final class ApiVehicleController extends Controller
         $vehicle = VehicleMapper::get()->where('id', (int) $request->getData('vehicle'))->execute();
         $path    = $this->createVehicleDir($vehicle);
 
-        $uploaded = [];
-        if (!empty($uploadedFiles = $request->files)) {
+        $uploaded = new NullCollection();
+        if (!empty($request->files)) {
             $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
                 names: [],
                 fileNames: [],
-                files: $uploadedFiles,
+                files: $request->files,
                 account: $request->header->account,
                 basePath: __DIR__ . '/../../../Modules/Media/Files' . $path,
                 virtualPath: $path,
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
-                readContent: $request->getDataBool('parse_content') ?? false
+                readContent: $request->getDataBool('parse_content') ?? false,
+                type: $request->getDataInt('type'),
+                rel: $vehicle->id,
+                mapper: VehicleMapper::class,
+                field: 'files'
             );
-
-            $collection = null;
-            foreach ($uploaded as $media) {
-                $this->createModelRelation(
-                    $request->header->account,
-                    $vehicle->id,
-                    $media->id,
-                    VehicleMapper::class,
-                    'files',
-                    '',
-                    $request->getOrigin()
-                );
-
-                if ($request->hasData('type')) {
-                    $this->createModelRelation(
-                        $request->header->account,
-                        $media->id,
-                        $request->getDataInt('type'),
-                        MediaMapper::class,
-                        'types',
-                        '',
-                        $request->getOrigin()
-                    );
-                }
-
-                if ($collection === null) {
-                    /** @var \Modules\Media\Models\Collection $collection */
-                    $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
-
-                    if ($collection->id === 0) {
-                        $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                            $path,
-                            $request->header->account,
-                            __DIR__ . '/../../../Modules/Media/Files' . $path,
-                        );
-                    }
-                }
-
-                $this->createModelRelation(
-                    $request->header->account,
-                    $collection->id,
-                    $media->id,
-                    CollectionMapper::class,
-                    'sources',
-                    '',
-                    $request->getOrigin()
-                );
-            }
         }
 
-        $mediaFiles = $request->getDataJson('media');
-        foreach ($mediaFiles as $media) {
-            $this->createModelRelation(
+        if (!empty($media = $request->getDataJson('media'))) {
+            $this->app->moduleManager->get('Media', 'Api')->addMediaToCollectionAndModel(
                 $request->header->account,
+                $media,
                 $vehicle->id,
-                (int) $media,
                 VehicleMapper::class,
                 'files',
-                '',
-                $request->getOrigin()
+                $path
             );
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Media', 'Media added to vehicle.', [
-            'upload' => $uploaded,
-            'media'  => $mediaFiles,
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, '', $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulAdd'), [
+            'upload' => $uploaded->sources,
+            'media'  => $media,
         ]);
     }
 
