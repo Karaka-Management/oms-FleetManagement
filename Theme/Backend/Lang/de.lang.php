@@ -33,6 +33,7 @@ return ['FleetManagement' => [
     'Files'         => 'Dateien',
     'History'       => 'Historie',
     'Inspections'   => 'Inspektionen',
+    'InspectionTypes'   => 'Inspektionsarten',
     'LeasingFee'    => 'Leasingkosten',
     'Make'          => 'Marke',
     'Milage'        => 'Tacho',

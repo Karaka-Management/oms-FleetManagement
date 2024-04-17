@@ -35,7 +35,7 @@ echo $this->data['nav']->render();
 <div class="tabview tab-2">
     <div class="box">
         <ul class="tab-links">
-            <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label>
+            <li><label for="c-tab-1"><?= $this->getHtml('Driver'); ?></label>
             <li><label for="c-tab-2"><?= $this->getHtml('Attributes'); ?></label>
             <li><label for="c-tab-3"><?= $this->getHtml('Files'); ?></label>
             <li><label for="c-tab-4"><?= $this->getHtml('Notes'); ?></label>
@@ -50,7 +50,7 @@ echo $this->data['nav']->render();
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
-                        <div class="portlet-head"><?= $this->getHtml('Profile'); ?></div>
+                        <div class="portlet-head"><?= $this->getHtml('Driver'); ?></div>
                         <div class="portlet-body">
                             <div class="form-group">
                                 <label for="iFleetDriverProfileName"><?= $this->getHtml('Name'); ?></label>

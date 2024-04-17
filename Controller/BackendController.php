@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\FleetManagement\Controller;
 
+use Modules\Attribute\Models\NullAttributeType;
+use Modules\Attribute\Models\NullAttributeValue;
 use Modules\FleetManagement\Models\Attribute\DriverAttributeTypeMapper;
 use Modules\FleetManagement\Models\Attribute\DriverAttributeValueL11nMapper;
 use Modules\FleetManagement\Models\Attribute\DriverAttributeValueMapper;
@@ -238,15 +240,14 @@ final class BackendController extends Controller
     public function viewFleetManagementInspectionTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-type-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        $list = InspectionTypeMapper::getAll()
+        $view->data['inspections'] = InspectionTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
             ->executeGetArray();
-
-        $view->data['inspections'] = $list;
 
         return $view;
     }
@@ -263,18 +264,43 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewFleetManagementInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewFleetManagementDriverInspectionTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-
-        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-type-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        $list = InspectionMapper::getAll()
+        $view->data['inspections'] = InspectionTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
             ->executeGetArray();
 
-        $view->data['inspections'] = $list;
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $view->data['inspections'] = InspectionMapper::getAll()
+            ->sort('id', 'DESC')
+            ->executeGetArray();
 
         return $view;
     }
@@ -510,7 +536,6 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/vehicle-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $vehicle = VehicleMapper::get()
             ->with('attributes')
             ->with('attributes/type')
@@ -557,7 +582,7 @@ final class BackendController extends Controller
             ->where(VehicleMapper::HAS_MANY['files']['self'], '=', $vehicle->id)
             ->where(MediaTypeMapper::TABLE . '.' . MediaTypeMapper::getColumnByMember('name'), '=', 'vehicle_profile_image');
 
-            $view->data['vehicleImage'] = MediaMapper::get()
+        $view->data['vehicleImage'] = MediaMapper::get()
             ->with('types')
             ->where('id', $results)
             ->limit(1)
@@ -604,7 +629,6 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/driver-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
 
-        // @todo This language filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $driver = DriverMapper::get()
             ->with('attributes')
             ->with('attributes/type')
@@ -659,6 +683,104 @@ final class BackendController extends Controller
 
         $view->data['media-upload'] = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['driver-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003506001, $request, $response);
+
+        $view->attribute = new NullAttributeType();
+
+        $view->path = 'fleet/driver';
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003505001, $request, $response);
+
+        $view->attribute = new NullAttributeType();
+
+        $view->path = 'fleet/driver';
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003505001, $request, $response);
+
+        $view->type      = VehicleAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $view->attribute = new NullAttributeValue();
+
+        $view->path = 'contract';
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003506001, $request, $response);
+
+        $view->type      = DriverAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $view->attribute = new NullAttributeValue();
+
+        $view->path = 'contract';
 
         return $view;
     }
