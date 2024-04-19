@@ -49,5 +49,6 @@ return ['FleetManagement' => [
     'Type'          => 'Type',
     'Upcoming'      => 'Upcoming',
     'Vehicles'      => 'Vehicles',
+    'Vehicle'      => 'Vehicle',
     'Vin'           => 'Vin',
 ]];

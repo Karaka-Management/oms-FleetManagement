@@ -24,6 +24,7 @@ use Modules\FleetManagement\Models\Attribute\VehicleAttributeTypeMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeValueL11nMapper;
 use Modules\FleetManagement\Models\Attribute\VehicleAttributeValueMapper;
 use Modules\FleetManagement\Models\Driver\DriverInspectionMapper;
+use Modules\FleetManagement\Models\Driver\DriverInspectionTypeMapper;
 use Modules\FleetManagement\Models\Driver\DriverMapper;
 use Modules\FleetManagement\Models\Inspection;
 use Modules\FleetManagement\Models\InspectionMapper;
@@ -243,7 +244,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-type-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        $view->data['inspections'] = InspectionTypeMapper::getAll()
+        $view->data['types'] = InspectionTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
@@ -270,11 +271,33 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-type-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
-        $view->data['inspections'] = InspectionTypeMapper::getAll()
+        $view->data['types'] = DriverInspectionTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
             ->executeGetArray();
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
 
         return $view;
     }
@@ -297,10 +320,6 @@ final class BackendController extends Controller
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
-
-        $view->data['inspections'] = InspectionMapper::getAll()
-            ->sort('id', 'DESC')
-            ->executeGetArray();
 
         return $view;
     }
@@ -513,6 +532,36 @@ final class BackendController extends Controller
 
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $view->data['inspections'] = InspectionMapper::getAll()
+            ->where('id', (int) $request->getData('id'))
+            ->executeGetArray();
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewFleetManagementDriverInspectionView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003502001, $request, $response);
+
+        $view->data['inspections'] = DriverInspectionMapper::getAll()
+            ->where('id', (int) $request->getData('id'))
+            ->executeGetArray();
 
         return $view;
     }
