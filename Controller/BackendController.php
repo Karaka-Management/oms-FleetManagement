@@ -215,12 +215,12 @@ final class BackendController extends Controller
 
         $view->data['inspections'] = $inspections;
         $view->data['vehicles']    = VehicleMapper::getAll()
-            ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $vehicles))
+            ->where('id', \array_map(function (Inspection $inspection) : int { return $inspection->reference; }, $vehicles))
             ->executeGetArray();
 
         $view->data['drivers'] = DriverMapper::getAll()
             ->with('account')
-            ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $drivers))
+            ->where('id', \array_map(function (Inspection $inspection) : int { return $inspection->reference; }, $drivers))
             ->executeGetArray();
 
         return $view;
