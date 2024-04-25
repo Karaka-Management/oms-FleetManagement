@@ -184,6 +184,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/FleetManagement/Theme/Backend/inspection-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003504001, $request, $response);
 
+        /** @var \Modules\FleetManagement\Models\Inspection[] $vehicles */
         $vehicles = InspectionMapper::getAll()
             ->with('type')
             ->with('type/l11n')
@@ -192,6 +193,7 @@ final class BackendController extends Controller
             ->limit(100)
             ->executeGetArray();
 
+        /** @var \Modules\FleetManagement\Models\Inspection[] $drivers */
         $drivers = DriverInspectionMapper::getAll()
             ->with('type')
             ->with('type/l11n')
@@ -200,6 +202,7 @@ final class BackendController extends Controller
             ->limit(100)
             ->executeGetArray();
 
+        /** @var array{type:string, inspection:\Modules\FleetManagement\Models\Inspection} */
         $inspections = [];
         foreach ($vehicles as $inspection) {
             $inspections[] = ['type' => 'vehicle', 'inspection' => $inspection];
