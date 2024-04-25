@@ -202,7 +202,7 @@ final class BackendController extends Controller
             ->limit(100)
             ->executeGetArray();
 
-        /** @var array{type:string, inspection:\Modules\FleetManagement\Models\Inspection} */
+        /** @var array<int, array{type:string, inspection:\Modules\FleetManagement\Models\Inspection}> */
         $inspections = [];
         foreach ($vehicles as $inspection) {
             $inspections[] = ['type' => 'vehicle', 'inspection' => $inspection];
