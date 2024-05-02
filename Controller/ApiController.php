@@ -21,6 +21,9 @@ namespace Modules\FleetManagement\Controller;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @question Consider to make FleetManagement rely on EquipmentManagement (especially the attributes)?
+ *      https://github.com/Karaka-Management/oms-FleetManagement/issues/3
  */
 final class ApiController extends Controller
 {

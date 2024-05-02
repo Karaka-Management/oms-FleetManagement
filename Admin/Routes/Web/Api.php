@@ -65,7 +65,7 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
+                'type'   => PermissionType::CREATE,
                 'state'  => PermissionCategory::DRIVER,
             ],
         ],
@@ -76,7 +76,7 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
+                'type'   => PermissionType::MODIFY,
                 'state'  => PermissionCategory::DRIVER,
             ],
         ],
@@ -90,8 +90,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::VEHICLE_NOTE,
             ],
         ],
         [
@@ -101,8 +101,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::VEHICLE_NOTE,
             ],
         ],
     ],
@@ -115,8 +115,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::DRIVER_NOTE,
             ],
         ],
         [
@@ -126,8 +126,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::DRIVER_NOTE,
             ],
         ],
     ],

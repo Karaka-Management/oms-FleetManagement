@@ -28,12 +28,15 @@ $vehicle      = $this->data['vehicle'] ?? new NullVehicle();
 $vehicleImage = $this->data['vehicleImage'] ?? new NullMedia();
 $vehicleTypes = $this->data['types'] ?? [];
 
+$isNew = $vehicle->id === 0;
+
 /**
  * @var \phpOMS\Views\View $this
  */
 echo $this->data['nav']->render();
 ?>
 <div class="tabview tab-2">
+    <?php if (!$isNew) : ?>
     <div class="box">
         <ul class="tab-links">
             <li><label for="c-tab-1"><?= $this->getHtml('Vehicle'); ?></label>
@@ -45,12 +48,17 @@ echo $this->data['nav']->render();
             <li><label for="c-tab-8"><?= $this->getHtml('Costs'); ?></label>
         </ul>
     </div>
+    <?php endif; ?>
     <div class="tab-content">
-        <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-1' ? ' checked' : ''; ?>>
+        <input type="radio" id="c-tab-1" name="tabular-2"<?= $isNew || $this->request->uri->fragment === 'c-tab-1' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
+                    <form id="iDriverForm"
+                        method="<?= $isNew ? 'PUT' : 'POST'; ?>"
+                        action="<?= UriFactory::build('{/api}fleetmanagement/vehicle?csrf={$CSRF}'); ?>"
+                        <?= $isNew ? 'data-redirect="' . UriFactory::build('{/base}/fleetmanagement/vehicle/view') . '?id={/0/response/id}"' : ''; ?>>
                         <div class="portlet-head"><?= $this->getHtml('Vehicle'); ?></div>
                         <div class="portlet-body">
                             <div class="form-group">
@@ -123,6 +131,7 @@ echo $this->data['nav']->render();
                                 <input id="iSaveSubmit" type="Submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             <?php endif; ?>
                         </div>
+                        </form>
                     </section>
                 </div>
 
@@ -138,6 +147,7 @@ echo $this->data['nav']->render();
             </div>
         </div>
 
+        <?php if (!$isNew) : ?>
         <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
@@ -381,5 +391,6 @@ echo $this->data['nav']->render();
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </div>
