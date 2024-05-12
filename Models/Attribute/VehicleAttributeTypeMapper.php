@@ -42,7 +42,7 @@ final class VehicleAttributeTypeMapper extends DataMapperFactory
         'fleetmgmt_vehicle_attr_type_datatype'   => ['name' => 'fleetmgmt_vehicle_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
         'fleetmgmt_vehicle_attr_type_fields'     => ['name' => 'fleetmgmt_vehicle_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
         'fleetmgmt_vehicle_attr_type_custom'     => ['name' => 'fleetmgmt_vehicle_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
-        'fleetmgmt_vehicle_attr_type_repeatable' => ['name' => 'fleetmgmt_vehicle_attr_type_repeatable',   'type' => 'bool',   'internal' => 'repeatable'],
+        'fleetmgmt_vehicle_attr_type_repeatable' => ['name' => 'fleetmgmt_vehicle_attr_type_repeatable',   'type' => 'bool',   'internal' => 'isRepeatable'],
         'fleetmgmt_vehicle_attr_type_internal'   => ['name' => 'fleetmgmt_vehicle_attr_type_internal',   'type' => 'bool',   'internal' => 'isInternal'],
         'fleetmgmt_vehicle_attr_type_pattern'    => ['name' => 'fleetmgmt_vehicle_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
         'fleetmgmt_vehicle_attr_type_required'   => ['name' => 'fleetmgmt_vehicle_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],

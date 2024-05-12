@@ -66,7 +66,7 @@ final class ApiDriverAttributeController extends Controller
             ->where('id', (int) $request->getData('type'))
             ->execute();
 
-        if (!$type->repeatable) {
+        if (!$type->isRepeatable) {
             $attr = DriverAttributeMapper::count()
                 ->with('type')
                 ->where('type/id', $type->id)

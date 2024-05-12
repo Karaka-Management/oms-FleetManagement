@@ -643,7 +643,7 @@ final class ApiVehicleController extends Controller
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
                 readContent: $request->getDataBool('parse_content') ?? false,
-                type: $request->getDataInt('type'),
+                tag: $request->getDataInt('tag'),
                 rel: $vehicle->id,
                 mapper: VehicleMapper::class,
                 field: 'files'

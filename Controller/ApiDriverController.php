@@ -268,7 +268,7 @@ final class ApiDriverController extends Controller
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
                 readContent: $request->getDataBool('parse_content') ?? false,
-                type: $request->getDataInt('type'),
+                tag: $request->getDataInt('tag'),
                 rel: $driver->id,
                 mapper: DriverMapper::class,
                 field: 'files'
