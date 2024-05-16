@@ -440,6 +440,10 @@ final class Installer extends InstallerAbstract
         $module = $app->moduleManager->get('FleetManagement', 'ApiVehicleAttribute');
 
         foreach ($attributes as $attribute) {
+            if (!isset($attribute['values'])) {
+                continue;
+            }
+
             $itemAttrValue[$attribute['name']] = [];
 
             /** @var array $value */
@@ -581,6 +585,10 @@ final class Installer extends InstallerAbstract
         $module = $app->moduleManager->get('FleetManagement', 'ApiDriverAttribute');
 
         foreach ($attributes as $attribute) {
+            if (!isset($attribute['values'])) {
+                continue;
+            }
+
             $itemAttrValue[$attribute['name']] = [];
 
             /** @var array $value */

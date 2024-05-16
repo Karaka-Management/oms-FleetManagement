@@ -464,13 +464,13 @@
                 "null": false
             },
             "fleetmgmt_vehicle_attr_type_required": {
-                "description": "Every vehicle must have this attribute type if set to true.",
+                "comment": "Every vehicle must have this attribute type if set to true.",
                 "name": "fleetmgmt_vehicle_attr_type_required",
                 "type": "TINYINT(1)",
                 "null": false
             },
             "fleetmgmt_vehicle_attr_type_pattern": {
-                "description": "This is a regex validation pattern.",
+                "comment": "This is a regex validation pattern.",
                 "name": "fleetmgmt_vehicle_attr_type_pattern",
                 "type": "VARCHAR(255)",
                 "null": false
@@ -755,13 +755,13 @@
                 "null": false
             },
             "fleetmgmt_driver_attr_type_required": {
-                "description": "Every driver must have this attribute type if set to true.",
+                "comment": "Every driver must have this attribute type if set to true.",
                 "name": "fleetmgmt_driver_attr_type_required",
                 "type": "TINYINT(1)",
                 "null": false
             },
             "fleetmgmt_driver_attr_type_pattern": {
-                "description": "This is a regex validation pattern.",
+                "comment": "This is a regex validation pattern.",
                 "name": "fleetmgmt_driver_attr_type_pattern",
                 "type": "VARCHAR(255)",
                 "null": false
