@@ -6,7 +6,7 @@
  *
  * @package   Modules\FleetManagement\Models\Driver
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use Modules\FleetManagement\Models\Inspection;
  * Null model
  *
  * @package Modules\FleetManagement\Models\Driver
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */
