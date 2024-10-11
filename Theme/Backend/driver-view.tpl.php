@@ -119,12 +119,12 @@ echo $this->data['nav']->render();
 
         <input type="radio" id="c-tab-3" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-3' ? ' checked' : ''; ?>>
         <div class="tab col-simple">
-            <?= $this->data['media-upload']->render('driver-file', 'files', '', $driver->files); ?>
+            <?= $this->data['media-upload']->render('driver-file', 'files', '', $driver->files, '{/api}fleet/driver/file?csrf={$CSRF}', (string) $driver->id); ?>
         </div>
 
         <input type="radio" id="c-tab-4" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-4' ? ' checked' : ''; ?>>
         <div class="tab">
-            <?= $this->data['driver-notes']->render('driver-notes', '', $driver->notes); ?>
+            <?= $this->data['driver-notes']->render('driver-notes', '', $driver->notes, '{/api}fleet/driver/note?csrf={$CSRF}', (string) $driver->id); ?>
         </div>
 
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>

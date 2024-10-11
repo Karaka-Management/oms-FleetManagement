@@ -164,12 +164,12 @@ echo $this->data['nav']->render();
 
         <input type="radio" id="c-tab-3" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-3' ? ' checked' : ''; ?>>
         <div class="tab col-simple">
-            <?= $this->data['media-upload']->render('vehicle-file', 'files', '', $vehicle->files); ?>
+            <?= $this->data['media-upload']->render('vehicle-file', 'files', '', $vehicle->files, '{/api}fleet/vehicle/file?csrf={$CSRF}', (string) $vehicle->id); ?>
         </div>
 
         <input type="radio" id="c-tab-4" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-4' ? ' checked' : ''; ?>>
         <div class="tab">
-            <?= $this->data['vehicle-notes']->render('vehicle-notes', '', $vehicle->notes); ?>
+            <?= $this->data['vehicle-notes']->render('vehicle-notes', '', $vehicle->notes, '{/api}fleet/vehicle/note?csrf={$CSRF}', (string) $vehicle->id); ?>
         </div>
 
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
