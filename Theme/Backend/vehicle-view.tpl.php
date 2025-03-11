@@ -135,6 +135,7 @@ echo $this->data['nav']->render();
                     </section>
                 </div>
 
+                <?php if (!$isNew) : ?>
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
                         <div class="portlet-body">
@@ -144,6 +145,7 @@ echo $this->data['nav']->render();
                         </div>
                     </section>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 
